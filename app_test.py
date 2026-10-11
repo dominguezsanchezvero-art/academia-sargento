@@ -2,10 +2,58 @@ import os
 import random
 import re
 import time
+import json
+from datetime import datetime
 import streamlit as st
 import streamlit.components.v1 as components
 
 st.set_page_config(page_title="Academia Sargento Madrid", layout="wide")
+
+# ==========================================
+# 🔒 SISTEMA DE CONTRASEÑA
+# ==========================================
+def check_password():
+    def password_entered():
+        if st.session_state["password"] == "sargento2026":
+            st.session_state["password_correct"] = True
+            del st.session_state["password"] 
+        else:
+            st.session_state["password_correct"] = False
+
+    if "password_correct" not in st.session_state:
+        st.markdown("### 🔒 Acceso Privado - Academia Sargento")
+        st.text_input("Por favor, introduce la contraseña:", type="password", on_change=password_entered, key="password")
+        return False
+    elif not st.session_state["password_correct"]:
+        st.markdown("### 🔒 Acceso Privado - Academia Sargento")
+        st.text_input("Por favor, introduce la contraseña:", type="password", on_change=password_entered, key="password")
+        st.error("❌ Contraseña incorrecta.")
+        return False
+    return True
+
+if not check_password():
+    st.stop()
+# ==========================================
+
+# ==========================================
+# 🧠 MEMORIA DEL USUARIO (JSON)
+# ==========================================
+def cargar_memoria():
+    if os.path.exists("usuario.json"):
+        try:
+            with open("usuario.json", "r", encoding="utf-8") as f:
+                return json.load(f)
+        except:
+            return {"historial": [], "fallos": []}
+    return {"historial": [], "fallos": []}
+
+def guardar_memoria(datos):
+    with open("usuario.json", "w", encoding="utf-8") as f:
+        json.dump(datos, f)
+
+if "user_data" not in st.session_state:
+    st.session_state.user_data = cargar_memoria()
+# ==========================================
 
 def safe_md(text):
     if not text: return ""
@@ -130,7 +178,6 @@ def generar_nuevo_examen(preguntas_teo, supuestos_pra, modo, temas_sel, num_preg
         CUPO_TEORICO = {1:1, 2:1, 3:2, 4:4, 5:4, 6:3, 7:3, 8:3, 9:2, 10:1, 11:2, 12:2, 13:3, 14:2, 15:3, 16:2, 17:2, 18:2, 19:6, 20:2}
         CATEGORIAS_PRA = ['Incendios', 'rasante', 'EGA', 'Tráfico', 'Altura+Suicidio', 'RBQ', 'Arbolado']
         
-        # Selección Teórica (50 exactas)
         seleccion_teo = []
         for tema, cant in CUPO_TEORICO.items():
             cands = [p for p in preguntas_teo if p['tema'] == tema]
@@ -150,12 +197,10 @@ def generar_nuevo_examen(preguntas_teo, supuestos_pra, modo, temas_sel, num_preg
                 seleccion_teo.extend(elegidas)
         random.shuffle(seleccion_teo)
         
-        # Selección Práctica (16 exactas manteniendo los supuestos unidos)
         seleccion_pra = []
         for _ in range(300):
             temp_pra = []
             total_qs = 0
-            
             for cat in CATEGORIAS_PRA:
                 cands = [s for s in supuestos_pra if get_supuesto_category(s) == cat]
                 if cands:
@@ -185,10 +230,19 @@ def generar_nuevo_examen(preguntas_teo, supuestos_pra, modo, temas_sel, num_preg
         for s in seleccion_pra: uso_acumulado[s['id']] = uso_acumulado.get(s['id'], 0) + 1
             
         return seleccion_teo, seleccion_pra
+        
+    elif modo == "Repaso de Fallos":
+        fallos_ids = st.session_state.user_data.get('fallos', [])
+        cands = [p for p in todas_planas if p['id'] in fallos_ids]
+        random.shuffle(cands)
+        return cands[:num_preg], []
+        
     else:
         cands = [p for p in todas_planas if p['tema'] in temas_sel]
         random.shuffle(cands)
         return cands[:num_preg], []
+
+st.title("🚒 Academia Sargento Madrid")
 
 try:
     preguntas_teo, supuestos_pra, todas_planas = cargar_datos()
@@ -205,28 +259,46 @@ if "examen" not in st.session_state:
 
 with st.sidebar:
     st.header("⚙️ Configuración")
-    modo = st.radio("Modo de estudio:", ["Simulacro Oficial", "Test por Temas"])
+    modo = st.radio("Modo de estudio:", ["Simulacro Oficial", "Test por Temas", "Repaso de Fallos"])
     
     if modo == "Test por Temas":
         temas_disponibles = sorted(list(set(p['tema'] for p in todas_planas if p['tema'] is not None)))
         temas_sel = st.multiselect("Elige los temas:", temas_disponibles, default=temas_disponibles[:1])
         num_preg = st.number_input("Cantidad de preguntas:", min_value=1, max_value=200, value=20)
+    elif modo == "Repaso de Fallos":
+        num_fallos = len(st.session_state.user_data.get('fallos', []))
+        st.info(f"Tienes **{num_fallos}** preguntas falladas en la recámara.")
+        if num_fallos > 0:
+            num_preg = st.number_input("Cantidad a repasar:", min_value=1, max_value=num_fallos, value=min(20, num_fallos))
+        else:
+            num_preg = 0
+        temas_sel = []
     else:
         temas_sel = []
         num_preg = 0
         
     if st.button("Generar Examen", type="primary"):
-        teo, pra = generar_nuevo_examen(preguntas_teo, supuestos_pra, modo, temas_sel, num_preg, todas_planas, st.session_state.uso_acumulado)
-        if not teo and not pra:
-            st.error("No hay preguntas para los temas seleccionados.")
+        if modo == "Repaso de Fallos" and num_preg == 0:
+            st.error("¡No tienes preguntas falladas! Enhorabuena.")
         else:
-            st.session_state.examen = {'teo': teo, 'pra': pra}
-            st.session_state.corregido = False
-            st.session_state.modo_actual = modo
-            st.session_state.start_time = time.time()
-            for key in list(st.session_state.keys()):
-                if key.startswith("resp_"): del st.session_state[key]
-            st.rerun()
+            teo, pra = generar_nuevo_examen(preguntas_teo, supuestos_pra, modo, temas_sel, num_preg, todas_planas, st.session_state.uso_acumulado)
+            if not teo and not pra:
+                st.error("No hay preguntas para los parámetros seleccionados.")
+            else:
+                st.session_state.examen = {'teo': teo, 'pra': pra}
+                st.session_state.corregido = False
+                st.session_state.modo_actual = modo
+                st.session_state.start_time = time.time()
+                for key in list(st.session_state.keys()):
+                    if key.startswith("resp_"): del st.session_state[key]
+                st.rerun()
+
+    # --- HISTÓRICO DE NOTAS ---
+    st.write("---")
+    if st.session_state.user_data.get('historial'):
+        with st.expander("📈 Tu Histórico de Notas"):
+            for h in reversed(st.session_state.user_data['historial'][-10:]):
+                st.markdown(f"**{h['fecha']}**\n\n{h['modo']} - **Nota: {h['nota']}**")
 
 if st.session_state.examen is None:
     st.info("👈 Selecciona tus preferencias en el menú y haz clic en 'Generar Examen' para empezar.")
@@ -262,6 +334,8 @@ if not st.session_state.corregido:
     with st.form("examen_form"):
         if st.session_state.modo_actual == "Simulacro Oficial":
             st.header("PARTE 1: TEÓRICA (50 PREGUNTAS)")
+        elif st.session_state.modo_actual == "Repaso de Fallos":
+            st.header("REPASO DE FALLOS")
         else:
             st.header("TEST PERSONALIZADO")
             
@@ -286,18 +360,58 @@ if not st.session_state.corregido:
 
         if st.form_submit_button("Corregir Examen", type="primary"):
             st.session_state.tiempo_empleado = time.time() - st.session_state.start_time
+            
+            # --- LOGICA DE CORRECCIÓN Y GUARDADO DE FALLOS ---
+            aciertos_t = 0; errores_t = 0
+            for p in st.session_state.examen['teo']:
+                resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
+                if resp == p['solucion']:
+                    aciertos_t += 1
+                    if p['id'] in st.session_state.user_data['fallos']:
+                        st.session_state.user_data['fallos'].remove(p['id'])
+                elif resp != "-":
+                    errores_t += 1
+                    if p['id'] not in st.session_state.user_data['fallos']:
+                        st.session_state.user_data['fallos'].append(p['id'])
+
+            aciertos_p = 0; errores_p = 0
+            if st.session_state.examen['pra']:
+                for sup in st.session_state.examen['pra']:
+                    for p in sup['preguntas']:
+                        resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
+                        if resp == p['solucion']:
+                            aciertos_p += 1
+                            if p['id'] in st.session_state.user_data['fallos']:
+                                st.session_state.user_data['fallos'].remove(p['id'])
+                        elif resp != "-":
+                            errores_p += 1
+                            if p['id'] not in st.session_state.user_data['fallos']:
+                                st.session_state.user_data['fallos'].append(p['id'])
+
+            total_t = len(st.session_state.examen['teo'])
+            total_p = sum(len(s['preguntas']) for s in st.session_state.examen['pra']) if st.session_state.examen['pra'] else 0
+            
+            nota_t = ((aciertos_t * 1) - (errores_t * 0.20)) / total_t * 10 if total_t > 0 else 0
+            nota_p = ((aciertos_p * 1) - (errores_p * 0.20)) / total_p * 10 if total_p > 0 else 0
+            
+            nota_final = (nota_t + nota_p) / 2 if st.session_state.modo_actual == "Simulacro Oficial" else nota_t
+            
+            st.session_state.user_data['historial'].append({
+                "fecha": datetime.now().strftime("%d/%m %H:%M"),
+                "modo": st.session_state.modo_actual,
+                "nota": round(nota_final, 2)
+            })
+            
+            guardar_memoria(st.session_state.user_data)
+            
             st.session_state.corregido = True
             st.rerun()
-else:
-    aciertos_teo = 0; errores_teo = 0; blancos_teo = 0
-    aciertos_pra = 0; errores_pra = 0; blancos_pra = 0
 
+else:
     st.header("RESULTADOS")
     
-    # --- MOSTRAR RESULTADOS TEÓRICA ---
     for i, p in enumerate(st.session_state.examen['teo'], 1):
         st.markdown(f"**{i}. {p['enunciado']}**")
-        
         if p['opciones'].get('A'): st.markdown(f"A) {p['opciones']['A']}")
         if p['opciones'].get('B'): st.markdown(f"B) {p['opciones']['B']}")
         if p['opciones'].get('C'): st.markdown(f"C) {p['opciones']['C']}")
@@ -306,19 +420,15 @@ else:
         correcta = p['solucion']
         
         if respuesta_dada == "-":
-            blancos_teo += 1
             st.warning(f"No contestada. La correcta era la **{correcta}**.")
         elif respuesta_dada == correcta:
-            aciertos_teo += 1
             st.success(f"¡Correcto! Tu respuesta: **{respuesta_dada}**")
         else:
-            errores_teo += 1
             st.error(f"Incorrecto. Marcaste **{respuesta_dada}** y la correcta es **{correcta}**.")
         
         st.info(f"**Justificación:**\n{p['justificacion']}")
         st.divider()
 
-    # --- MOSTRAR RESULTADOS PRÁCTICA ---
     if st.session_state.examen['pra']:
         st.header("RESULTADOS - PRÁCTICA")
         q_idx = 1
@@ -336,58 +446,32 @@ else:
                 correcta = p['solucion']
                 
                 if respuesta_dada == "-":
-                    blancos_pra += 1
                     st.warning(f"No contestada. La correcta era la **{correcta}**.")
                 elif respuesta_dada == correcta:
-                    aciertos_pra += 1
                     st.success(f"¡Correcto! Tu respuesta: **{respuesta_dada}**")
                 else:
-                    errores_pra += 1
                     st.error(f"Incorrecto. Marcaste **{respuesta_dada}** y la correcta es **{correcta}**.")
                 
                 st.info(f"**Justificación:**\n{p['justificacion']}")
                 q_idx += 1
             st.divider()
 
-    # --- CÁLCULO DE NOTA FINAL SOBRE 10 ---
-    total_teo = len(st.session_state.examen['teo'])
-    nota_bruta_teo = (aciertos_teo * 1) - (errores_teo * 0.20)
-    nota_10_teo = (nota_bruta_teo / total_teo) * 10 if total_teo > 0 else 0
-    
-    total_pra = sum(len(s['preguntas']) for s in st.session_state.examen['pra'])
-    nota_bruta_pra = (aciertos_pra * 1) - (errores_pra * 0.20)
-    nota_10_pra = (nota_bruta_pra / total_pra) * 10 if total_pra > 0 else 0
-
-    st.sidebar.header("📊 Tu Calificación Final")
-    
+    st.sidebar.header("📊 Resumen del Examen")
     m_emp = int(st.session_state.tiempo_empleado // 60)
     s_emp = int(st.session_state.tiempo_empleado % 60)
     st.sidebar.write(f"⏱️ **Tiempo empleado:** {m_emp}m {s_emp}s")
     st.sidebar.write("---")
     
+    # Mostrar la última nota guardada en el historial
+    ultima_nota = st.session_state.user_data['historial'][-1]
+    
     if st.session_state.modo_actual == "Simulacro Oficial":
-        nota_final = (nota_10_teo + nota_10_pra) / 2
-        
-        st.sidebar.subheader(f"🏆 NOTA FINAL: {nota_final:.2f} / 10")
-        
-        if nota_10_teo >= 5.0 and nota_10_pra >= 5.0:
-            st.sidebar.success("✅ ¡APTO!")
-        else:
-            st.sidebar.error("❌ NO APTO (Mínimo 5 en cada parte)")
-            
-        st.sidebar.write("---")
-        st.sidebar.write(f"**📝 TEÓRICA:** {nota_10_teo:.2f} / 10 *(Bruta: {nota_bruta_teo:.2f}/{total_teo})*")
-        st.sidebar.write(f"Aciertos: {aciertos_teo} | Errores: {errores_teo} | Blancos: {blancos_teo}")
-        
-        st.sidebar.write(f"**🛠️ PRÁCTICA:** {nota_10_pra:.2f} / 10 *(Bruta: {nota_bruta_pra:.2f}/{total_pra})*")
-        st.sidebar.write(f"Aciertos: {aciertos_pra} | Errores: {errores_pra} | Blancos: {blancos_pra}")
-        
+        st.sidebar.subheader(f"🏆 NOTA FINAL: {ultima_nota['nota']} / 10")
+        st.sidebar.write("*(Revisa tu histórico para ver el registro completo)*")
     else:
-        st.sidebar.subheader(f"🏆 NOTA FINAL: {nota_10_teo:.2f} / 10")
-        st.sidebar.write(f"*(Bruta: {nota_bruta_teo:.2f} / {total_teo})*")
-        st.sidebar.write(f"Aciertos: {aciertos_teo} | Errores: {errores_teo} | Blancos: {blancos_teo}")
+        st.sidebar.subheader(f"🏆 NOTA FINAL: {ultima_nota['nota']} / 10")
     
     st.sidebar.write("---")
-    if st.sidebar.button("Volver a intentar (mismo examen)"):
+    if st.sidebar.button("Hacer otro examen"):
         st.session_state.corregido = False
         st.rerun()
