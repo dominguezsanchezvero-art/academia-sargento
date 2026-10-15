@@ -6,6 +6,7 @@ import json
 from datetime import datetime
 import streamlit as st
 import streamlit.components.v1 as components
+import pandas as pd
 
 st.set_page_config(page_title="Academia Sargento Madrid", layout="wide", page_icon="🚒")
 
@@ -73,26 +74,111 @@ check_auth()
 usuario_actual = st.session_state["usuario_activo"]
 
 # ==========================================
-# 🧠 2. MEMORIA AISLADA POR USUARIO
+# ☁️ 2. GESTIÓN DE MEMORIA (GOOGLE SHEETS CON FALLBACK LOCAL)
 # ==========================================
-nombre_fichero_seguro = usuario_actual.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
-archivo_memoria = f"usuario_{nombre_fichero_seguro}.json"
+USAR_GSHEETS = False
+conn = None
+try:
+    from streamlit_gsheets import GSheetsConnection
+    conn = st.connection("gsheets", type=GSheetsConnection)
+    USAR_GSHEETS = True
+except Exception:
+    USAR_GSHEETS = False
 
-def cargar_memoria_usuario():
-    if os.path.exists(archivo_memoria):
+def cargar_memoria_usuario(user):
+    nombre_fichero_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
+    fallos_file = f"fallos_{nombre_fichero_seguro}.json"
+    
+    fallos_locales = []
+    if os.path.exists(fallos_file):
         try:
-            with open(archivo_memoria, "r", encoding="utf-8") as f:
-                return json.load(f)
+            with open(fallos_file, "r", encoding="utf-8") as f:
+                fallos_locales = json.load(f)
         except:
-            return {"historial": [], "fallos": [], "estadisticas_temas": {}}
-    return {"historial": [], "fallos": [], "estadisticas_temas": {}}
+            fallos_locales = []
 
-def guardar_memoria_usuario(datos):
-    with open(archivo_memoria, "w", encoding="utf-8") as f:
-        json.dump(datos, f, ensure_ascii=False, indent=2)
+    historial_usuario = []
+    stats_temas = {}
+
+    if USAR_GSHEETS and conn is not None:
+        try:
+            df = conn.read(ttl=5)
+            if df is not None and not df.empty and "Usuario" in df.columns:
+                df_user = df[df["Usuario"] == user]
+                for _, row in df_user.iterrows():
+                    historial_usuario.append({
+                        "fecha": str(row.get("Fecha", "")),
+                        "modo": str(row.get("Modo", "")),
+                        "detalles": str(row.get("Detalles", "")),
+                        "nota": float(row.get("Nota_Final", 0.0)),
+                        "nota_t": float(row.get("Nota_Teorica", 0.0)),
+                        "nota_p": float(row.get("Nota_Practica", 0.0))
+                    })
+                if "Stats_JSON" in df_user.columns:
+                    for s_raw in df_user["Stats_JSON"].dropna():
+                        try:
+                            s_dict = json.loads(s_raw)
+                            for t_k, t_v in s_dict.items():
+                                if t_k not in stats_temas:
+                                    stats_temas[t_k] = {"aciertos": 0, "errores": 0}
+                                stats_temas[t_k]["aciertos"] += t_v.get("aciertos", 0)
+                                stats_temas[t_k]["errores"] += t_v.get("errores", 0)
+                        except:
+                            pass
+        except Exception:
+            pass
+
+    local_hist_file = f"historial_{nombre_fichero_seguro}.json"
+    if not historial_usuario and os.path.exists(local_hist_file):
+        try:
+            with open(local_hist_file, "r", encoding="utf-8") as f:
+                data_local = json.load(f)
+                historial_usuario = data_local.get("historial", [])
+                stats_temas = data_local.get("estadisticas_temas", {})
+        except:
+            pass
+
+    return {
+        "historial": historial_usuario,
+        "fallos": fallos_locales,
+        "estadisticas_temas": stats_temas
+    }
+
+def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
+    nombre_fichero_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
+    
+    fallos_file = f"fallos_{nombre_fichero_seguro}.json"
+    with open(fallos_file, "w", encoding="utf-8") as f:
+        json.dump(lista_fallos, f, ensure_ascii=False, indent=2)
+
+    if USAR_GSHEETS and conn is not None:
+        try:
+            df_existente = conn.read(ttl=0)
+            nueva_fila = pd.DataFrame([{
+                "Fecha": reg_hist["fecha"],
+                "Usuario": user,
+                "Modo": reg_hist["modo"],
+                "Detalles": reg_hist.get("detalles", ""),
+                "Nota_Final": reg_hist["nota"],
+                "Nota_Teorica": reg_hist.get("nota_t", 0.0),
+                "Nota_Practica": reg_hist.get("nota_p", 0.0),
+                "Stats_JSON": json.dumps(nuevos_stats_examen)
+            }])
+            if df_existente is not None and not df_existente.empty:
+                df_total = pd.concat([df_existente, nueva_fila], ignore_index=True)
+            else:
+                df_total = nueva_fila
+            conn.update(data=df_total)
+        except Exception:
+            pass
+
+    local_hist_file = f"historial_{nombre_fichero_seguro}.json"
+    data_local = {"historial": st.session_state.user_data["historial"], "estadisticas_temas": st.session_state.user_data["estadisticas_temas"]}
+    with open(local_hist_file, "w", encoding="utf-8") as f:
+        json.dump(data_local, f, ensure_ascii=False, indent=2)
 
 if "user_data" not in st.session_state or st.session_state.get("current_loaded_user") != usuario_actual:
-    st.session_state.user_data = cargar_memoria_usuario()
+    st.session_state.user_data = cargar_memoria_usuario(usuario_actual)
     st.session_state.current_loaded_user = usuario_actual
 
 # ==========================================
@@ -343,6 +429,11 @@ if "examen" not in st.session_state:
 
 with st.sidebar:
     st.markdown(f"### 👤 Conectado: **{usuario_actual}**")
+    if USAR_GSHEETS:
+        st.caption("🟢 Conectado a base de datos en nube (Google Sheets)")
+    else:
+        st.caption("🟡 Almacenamiento local temporal")
+
     if st.button("Cerrar Sesión", type="secondary"):
         st.session_state["autenticado"] = False
         st.session_state["usuario_activo"] = None
@@ -518,26 +609,29 @@ if not st.session_state.corregido:
             if 'estadisticas_temas' not in st.session_state.user_data:
                 st.session_state.user_data['estadisticas_temas'] = {}
 
-            # Corrección teórica y acumulación de estadísticas
             aciertos_t, errores_t = 0, 0
+            stats_este_examen = {}
             for p in st.session_state.examen['teo']:
                 resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
                 t_str = str(p['tema']) if p.get('tema') else "otros"
                 if t_str not in st.session_state.user_data['estadisticas_temas']:
                     st.session_state.user_data['estadisticas_temas'][t_str] = {'aciertos': 0, 'errores': 0}
+                if t_str not in stats_este_examen:
+                    stats_este_examen[t_str] = {'aciertos': 0, 'errores': 0}
 
                 if resp == p['solucion']:
                     aciertos_t += 1
                     st.session_state.user_data['estadisticas_temas'][t_str]['aciertos'] += 1
+                    stats_este_examen[t_str]['aciertos'] += 1
                     if p['id'] in st.session_state.user_data['fallos']:
                         st.session_state.user_data['fallos'].remove(p['id'])
                 elif resp != "-":
                     errores_t += 1
                     st.session_state.user_data['estadisticas_temas'][t_str]['errores'] += 1
+                    stats_este_examen[t_str]['errores'] += 1
                     if p['id'] not in st.session_state.user_data['fallos']:
                         st.session_state.user_data['fallos'].append(p['id'])
 
-            # Corrección práctica
             aciertos_p, errores_p = 0, 0
             for sup in st.session_state.examen['pra']:
                 for p in sup['preguntas']:
@@ -571,15 +665,18 @@ if not st.session_state.corregido:
                 nota_final = round(nota_p, 2)
                 detalles_txt = "Parte Práctica"
 
-            st.session_state.user_data['historial'].append({
+            nuevo_registro = {
                 "fecha": datetime.now().strftime("%d/%m %H:%M"),
                 "modo": st.session_state.modo_actual,
                 "detalles": detalles_txt,
                 "nota": nota_final,
                 "nota_t": round(nota_t, 2),
                 "nota_p": round(nota_p, 2)
-            })
-            guardar_memoria_usuario(st.session_state.user_data)
+            }
+            st.session_state.user_data['historial'].append(nuevo_registro)
+            
+            guardar_resultado_examen(usuario_actual, nuevo_registro, stats_este_examen, st.session_state.user_data['fallos'])
+
             st.session_state.corregido = True
             st.rerun()
 
