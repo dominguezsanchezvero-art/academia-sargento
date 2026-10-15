@@ -192,6 +192,16 @@ def safe_md(text):
     if not text: return ""
     return text.replace("<", "&lt;").replace(">", "&gt;")
 
+def limpiar_just_texto(txt):
+    if not txt:
+        return "Conforme al temario oficial."
+    txt = re.split(r'\*\*?ID:\s*', str(txt))[0]
+    txt = re.split(r'\n\s*\*?\*?[A-C][\.\)]', txt)[0]
+    txt = re.sub(r'^(?:\*\*)?\s*[Jj]ustificaci[oó]n\s*:?\s*(?:\*\*)?\s*', '', txt.strip())
+    lineas = [l.strip() for l in txt.split("\n") if l.strip() and not l.startswith('|')]
+    res = " ".join(lineas).strip()
+    return res if res else "Conforme al temario oficial."
+
 def parsear_archivo(ruta_archivo, origen_nombre):
     if not os.path.exists(ruta_archivo):
         return [], [], []
@@ -199,16 +209,12 @@ def parsear_archivo(ruta_archivo, origen_nombre):
     with open(ruta_archivo, 'r', encoding='utf-8', errors='ignore') as f:
         text = f.read()
 
-    def limpiar_just(txt):
-        if not txt: return ""
-        return re.sub(r'^(?:\*\*|\*)?\s*[Jj]ustificaci[oó]n\s*:?\s*(?:\*\*|\*)?\s*', '', txt.strip()).strip()
-
     soluciones = {}
     pat_tab = re.compile(r'\|\s*([A-Z0-9.-]+)\s*\|\s*\*\*?([A-C])\*\*?\s*\|([^|\n]+)')
     for m in pat_tab.finditer(text):
         soluciones[m.group(1).strip()] = {
             'respuesta': m.group(2).strip().upper(),
-            'justificacion': limpiar_just(m.group(3))
+            'justificacion': limpiar_just_texto(m.group(3))
         }
 
     current_sol_id = None
@@ -219,7 +225,7 @@ def parsear_archivo(ruta_archivo, origen_nombre):
             current_sol_id = match_sol.group(1).strip()
             soluciones[current_sol_id] = {
                 'respuesta': match_sol.group(2).strip().upper(),
-                'justificacion': limpiar_just(match_sol.group(3))
+                'justificacion': limpiar_just_texto(match_sol.group(3))
             }
         elif current_sol_id:
             stop_markers = [
@@ -230,9 +236,9 @@ def parsear_archivo(ruta_archivo, origen_nombre):
             if any(re.match(marker, l) for marker in stop_markers):
                 current_sol_id = None
             elif l and not l.startswith('|'):
-                linea_limpia = limpiar_just(l)
-                if linea_limpia:
-                    if soluciones[current_sol_id]['justificacion']:
+                linea_limpia = limpiar_just_texto(l)
+                if linea_limpia and linea_limpia != "Conforme al temario oficial.":
+                    if soluciones[current_sol_id]['justificacion'] and soluciones[current_sol_id]['justificacion'] != "Conforme al temario oficial.":
                         soluciones[current_sol_id]['justificacion'] += " " + linea_limpia
                     else:
                         soluciones[current_sol_id]['justificacion'] = linea_limpia
@@ -295,7 +301,7 @@ def parsear_archivo(ruta_archivo, origen_nombre):
                     else: enunciado.append(l)
 
             sol_data = soluciones.get(p_id, {'respuesta': 'A', 'justificacion': 'Conforme al temario oficial.'})
-            just_final = limpiar_just(sol_data.get('justificacion', 'Conforme al temario oficial.'))
+            just_final = limpiar_just_texto(sol_data.get('justificacion', 'Conforme al temario oficial.'))
 
             q_obj = {
                 'id': p_id, 'tema': tema,
@@ -323,7 +329,7 @@ def parsear_archivo(ruta_archivo, origen_nombre):
     return preguntas_teo, supuestos_pra, todas_planas
 
 @st.cache_data
-def cargar_todos_los_datos():
+def cargar_todos_los_datos_v3():
     f_claude = "banco_unificado.txt" if os.path.exists("banco_unificado.txt") else ("banco_claude.txt" if os.path.exists("banco_claude.txt") else None)
     f_gemini = "banco_gemini.txt" if os.path.exists("banco_gemini.txt") else None
 
@@ -349,7 +355,7 @@ def get_supuesto_category(sup):
     if 'incendio' in bloques_texto: return 'Incendios' 
     return 'Otros'
 
-datos_cargados = cargar_todos_los_datos()
+datos_cargados = cargar_todos_los_datos_v3()
 banco_claude = datos_cargados["claude"]
 banco_gemini = datos_cargados["gemini"]
 
@@ -758,7 +764,7 @@ else:
                 st.success(f"✅ ¡Correcto! Marcaste **{resp_dada}**.")
             else:
                 st.error(f"❌ Incorrecto. Marcaste **{resp_dada}** y la correcta es **{corr}**.")
-            st.info(f"**Justificación:** {p['justificacion']}")
+            st.info(f"**Justificación:** {limpiar_just_texto(p['justificacion'])}")
             st.divider()
 
     if st.session_state.examen['pra']:
@@ -780,7 +786,7 @@ else:
                     st.success(f"✅ ¡Correcto! Marcaste **{resp_dada}**.")
                 else:
                     st.error(f"❌ Incorrecto. Marcaste **{resp_dada}** y la correcta es **{corr}**.")
-                st.info(f"**Justificación:** {p['justificacion']}")
+                st.info(f"**Justificación:** {limpiar_just_texto(p['justificacion'])}")
                 p_idx += 1
             st.divider()
 
