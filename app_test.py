@@ -102,7 +102,6 @@ def cargar_memoria_usuario(user):
     historial_usuario = []
     stats_temas = {}
 
-    # Leer de Google Sheets mediante la aplicación web
     if GSHEETS_URL and "script.google.com" in GSHEETS_URL:
         try:
             resp = requests.get(GSHEETS_URL, timeout=8)
@@ -132,7 +131,6 @@ def cargar_memoria_usuario(user):
         except Exception:
             pass
 
-    # Backup local si la conexión falla o no hay datos
     local_hist_file = f"historial_{nombre_seguro}.json"
     if not historial_usuario and os.path.exists(local_hist_file):
         try:
@@ -152,11 +150,9 @@ def cargar_memoria_usuario(user):
 def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
     nombre_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
     
-    # 1. Guardar fallos en local
     with open(f"fallos_{nombre_seguro}.json", "w", encoding="utf-8") as f:
         json.dump(lista_fallos, f, ensure_ascii=False, indent=2)
 
-    # 2. Guardar copia local de historial
     data_local = {
         "historial": st.session_state.user_data["historial"], 
         "estadisticas_temas": st.session_state.user_data["estadisticas_temas"]
@@ -164,7 +160,6 @@ def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
     with open(f"historial_{nombre_seguro}.json", "w", encoding="utf-8") as f:
         json.dump(data_local, f, ensure_ascii=False, indent=2)
 
-    # 3. Enviar a Google Sheets
     if GSHEETS_URL and "script.google.com" in GSHEETS_URL:
         payload = {
             "Fecha": reg_hist["fecha"],
@@ -204,10 +199,17 @@ def parsear_archivo(ruta_archivo, origen_nombre):
     with open(ruta_archivo, 'r', encoding='utf-8', errors='ignore') as f:
         text = f.read()
 
+    def limpiar_just(txt):
+        if not txt: return ""
+        return re.sub(r'^(?:\*\*|\*)?\s*[Jj]ustificaci[oó]n\s*:?\s*(?:\*\*|\*)?\s*', '', txt.strip()).strip()
+
     soluciones = {}
     pat_tab = re.compile(r'\|\s*([A-Z0-9.-]+)\s*\|\s*\*\*?([A-C])\*\*?\s*\|([^|\n]+)')
     for m in pat_tab.finditer(text):
-        soluciones[m.group(1).strip()] = {'respuesta': m.group(2).strip().upper(), 'justificacion': m.group(3).strip()}
+        soluciones[m.group(1).strip()] = {
+            'respuesta': m.group(2).strip().upper(),
+            'justificacion': limpiar_just(m.group(3))
+        }
 
     current_sol_id = None
     for l in text.split('\n'):
@@ -215,13 +217,25 @@ def parsear_archivo(ruta_archivo, origen_nombre):
         match_sol = re.match(r'^\*\*\s*([A-Z0-9.-]+)\s*[-–—]\s*([A-C])\s*\.?\*\*(.*)', l)
         if match_sol:
             current_sol_id = match_sol.group(1).strip()
-            soluciones[current_sol_id] = {'respuesta': match_sol.group(2).strip().upper(), 'justificacion': match_sol.group(3).strip()}
+            soluciones[current_sol_id] = {
+                'respuesta': match_sol.group(2).strip().upper(),
+                'justificacion': limpiar_just(match_sol.group(3))
+            }
         elif current_sol_id:
-            stop_markers = [r'^#', r'^\*Páginas:', r'^\*\*Reparto', r'^Reparto', r'^De cálculo']
+            stop_markers = [
+                r'^#', r'^\*Páginas:', r'^\*\*Reparto', r'^Reparto', r'^De cálculo',
+                r'^\*\*?ID:', r'^---', r'^\|', r'^[A-C][\.\)]', r'^\*\*?[A-C][\.\)]',
+                r'^\*\*\s*[A-Z0-9.-]+\s*[-–—]'
+            ]
             if any(re.match(marker, l) for marker in stop_markers):
                 current_sol_id = None
             elif l and not l.startswith('|'):
-                soluciones[current_sol_id]['justificacion'] += "\n" + l
+                linea_limpia = limpiar_just(l)
+                if linea_limpia:
+                    if soluciones[current_sol_id]['justificacion']:
+                        soluciones[current_sol_id]['justificacion'] += " " + linea_limpia
+                    else:
+                        soluciones[current_sol_id]['justificacion'] = linea_limpia
 
     chunks = re.split(r'\n(?=##+\s*[Ss]upuesto|\*\*?ID:\s*)', text)
     preguntas_teo = []
@@ -243,7 +257,7 @@ def parsear_archivo(ruta_archivo, origen_nombre):
             supuestos_pra.append(current_sup)
             
         elif re.match(r'^\*\*?ID:\s*', chunk):
-            header_match = re.search(r'ID:\s*([^\s|*]+)\s*\|\s*Tipo:\s*([^|\n*]+)(?:\|\s*Bloque:\s*([^\n*]+))?', chunk)
+            header_match = re.search(r'ID:\s*([^\\s|*]+)\s*\|\s*Tipo:\s*([^|\n*]+)(?:\|\s*Bloque:\s*([^\\n*]+))?', chunk)
             if not header_match: continue
             
             p_id = header_match.group(1).strip()
@@ -264,10 +278,14 @@ def parsear_archivo(ruta_archivo, origen_nombre):
             current_option = None
 
             for l in lines[1:]:
-                stop_markers = [r'^#', r'^\*Páginas:', r'^\*\*Reparto', r'^Reparto', r'^De cálculo', r'^\*\*\s*[A-Z0-9.-]+\s*[-–—]\s*[A-C]\s*\.?\*\*']
+                stop_markers = [
+                    r'^#', r'^\*Páginas:', r'^\*\*Reparto', r'^Reparto', r'^De cálculo',
+                    r'^\*\*\s*[A-Z0-9.-]+\s*[-–—]\s*[A-C]\s*\.?\*\*',
+                    r'^\*\*?ID:', r'^---'
+                ]
                 if any(re.match(marker, l) for marker in stop_markers): break
 
-                match_opcion = re.match(r'^(\*\*?[A-C]\*\*?[\.\)]|[A-C][\.\)])\s*(.*)', l)
+                match_opcion = re.match(r'^(\*(?:\*)?[A-C](?:\*)?\.?\)?|[A-C][\.\)])\s*(.*)', l)
                 if match_opcion:
                     k = re.search(r'[A-C]', match_opcion.group(1)).group()
                     opciones[k] = match_opcion.group(2).strip()
@@ -276,7 +294,8 @@ def parsear_archivo(ruta_archivo, origen_nombre):
                     if current_option: opciones[current_option] += "\n" + l.strip()
                     else: enunciado.append(l)
 
-            sol_data = soluciones.get(p_id, {'respuesta': 'A', 'justificacion': 'Justificación en el temario oficial.'})
+            sol_data = soluciones.get(p_id, {'respuesta': 'A', 'justificacion': 'Conforme al temario oficial.'})
+            just_final = limpiar_just(sol_data.get('justificacion', 'Conforme al temario oficial.'))
 
             q_obj = {
                 'id': p_id, 'tema': tema,
@@ -284,7 +303,7 @@ def parsear_archivo(ruta_archivo, origen_nombre):
                 'bloque': bloque, 'enunciado': safe_md("\n\n".join(enunciado)),
                 'opciones': {k: safe_md(v) for k,v in opciones.items()}, 
                 'solucion': sol_data['respuesta'],
-                'justificacion': safe_md(sol_data['justificacion']),
+                'justificacion': safe_md(just_final),
                 'origen': origen_nombre
             }
             
@@ -701,11 +720,11 @@ else:
     st.header("📊 Solucionario y Corrección Detallada")
     hist_rec = st.session_state.user_data['historial'][-1]
     
-    # Mensaje de confirmación del guardado en Sheets
+    # Aviso explícito del estado del guardado en Google Sheets
     if st.session_state.get("guardado_nube_status") is True:
-        st.success("☁️ ¡Examen guardado y sincronizado con tu hoja de Google Sheets!")
+        st.success("☁️ ¡Examen guardado correctamente en tu hoja de Google Sheets!")
     elif GSHEETS_URL:
-        st.warning("⚠️ No se pudo enviar a Google Sheets. Se ha guardado en la memoria local.")
+        st.warning("⚠️ No se pudo sincronizar con Google Sheets en este intento. Se ha guardado en la memoria local de la aplicación.")
 
     col1, col2, col3 = st.columns(3)
     with col1:
