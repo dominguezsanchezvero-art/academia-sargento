@@ -566,12 +566,16 @@ if not st.session_state.corregido:
         var x = setInterval(function() {{
             var now = new Date().getTime();
             var distance = countDownDate - now;
-            var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var s = Math.floor((distance % (1000 * 60)) / 1000);
-            document.getElementById("clock").innerHTML = "⏳ Tiempo restante: " + m + "m " + s + "s";
-            if (distance < 0) {{
-                clearInterval(x);
-                document.getElementById("clock").innerHTML = "🚨 ¡TIEMPO AGOTADO!";
+            
+            if (distance >= 0) {{
+                var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var s = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById("clock").innerHTML = "⏳ Tiempo restante: " + m + "m " + s + "s";
+            }} else {{
+                var overtime = Math.abs(distance);
+                var om = Math.floor((overtime % (1000 * 60 * 60)) / (1000 * 60));
+                var os = Math.floor((overtime % (1000 * 60)) / 1000);
+                document.getElementById("clock").innerHTML = "🚨 ¡TIEMPO OFICIAL AGOTADO! (Tiempo extra: +" + om + "m " + os + "s)<br><span style='font-size: 0.75em; color: #ffbcbc; font-weight: normal;'>Puedes seguir respondiendo sin límite hasta que pulses 'Finalizar y Corregir'</span>";
             }}
         }}, 1000);
     </script>
