@@ -7,74 +7,108 @@ from datetime import datetime
 import streamlit as st
 import streamlit.components.v1 as components
 
-st.set_page_config(page_title="Academia Sargento Madrid", layout="wide")
+st.set_page_config(page_title="Academia Sargento Madrid", layout="wide", page_icon="🚒")
 
 # ==========================================
-# 🔒 SISTEMA DE CONTRASEÑA
+# 📖 DICCIONARIO OFICIAL DE TEMAS (NOMBRE COMPLETO)
 # ==========================================
-def check_password():
-    def password_entered():
-        if st.session_state["password"] == "sargento2026":
-            st.session_state["password_correct"] = True
-            del st.session_state["password"] 
-        else:
-            st.session_state["password_correct"] = False
+NOMBRES_TEMAS = {
+    1: "Tema 01 - Prevención de Riesgos Laborales y EPIs",
+    2: "Tema 02 - Igualdad de Género y Colectivo LGTBI",
+    3: "Tema 03 - Hidráulica y Bombas contra Incendios",
+    4: "Tema 04 - Incendios Estructurales (GTV)",
+    5: "Tema 05 - Incendios Bajo Rasante y Edificios de Gran Altura (EGA / CTE)",
+    6: "Tema 06 - Patología de la Edificación",
+    7: "Tema 07 - Rescate en Accidentes de Tráfico",
+    8: "Tema 08 - Riesgo RBQ, MMPP y Funciones en Arbolado",
+    9: "Tema 09 - Maniobras: Hidráulicas, Orientación y MAYDAY",
+    10: "Tema 10 - Maniobras: ERA y Rescate en Altura",
+    11: "Tema 11 - Maniobras: Arbolado, RBQ y Asistencia Sanitaria",
+    12: "Tema 12 - P.O.: Seguridad Operativa, Estructura y Radiocomunicaciones",
+    13: "Tema 13 - P.O.: NRBQ (Equipamiento, Zonificación y Descontaminación)",
+    14: "Tema 14 - P.O.: Suicidio, Accesos Forzados y Colapsadas",
+    15: "Tema 15 - P.O.: EBIIE, Control ERA, Rescate de Bomberos y Espumas",
+    16: "Tema 16 - Planes de Intervención: Mando, Sobre Rasante y Tráfico",
+    17: "Tema 17 - Planes de Intervención: Sustancias Peligrosas y Ascensores",
+    18: "Tema 18 - Procedimientos Conjuntos (CAM, SAMUR y Código PIC)",
+    19: "Tema 19 - Soporte Vital Básico y Procedimientos Sanitarios",
+    20: "Tema 20 - Vehículos del SEI y Dotaciones de Material"
+}
 
-    if "password_correct" not in st.session_state:
-        st.markdown("### 🔒 Acceso Privado - Academia Sargento")
-        st.text_input("Por favor, introduce la contraseña:", type="password", on_change=password_entered, key="password")
-        return False
-    elif not st.session_state["password_correct"]:
-        st.markdown("### 🔒 Acceso Privado - Academia Sargento")
-        st.text_input("Por favor, introduce la contraseña:", type="password", on_change=password_entered, key="password")
-        st.error("❌ Contraseña incorrecta.")
-        return False
-    return True
-
-if not check_password():
-    st.stop()
-# ==========================================
+def formatear_tema(num_tema):
+    return NOMBRES_TEMAS.get(num_tema, f"Tema {num_tema:02d}")
 
 # ==========================================
-# 🧠 MEMORIA DEL USUARIO (JSON)
+# 👥 1. ACCESO Y CONTROL DE USUARIOS
 # ==========================================
-def cargar_memoria():
-    if os.path.exists("usuario.json"):
+USUARIOS_VALIDOS = ["Dani", "Emilio", "Iñaki"]
+PASSWORD_MAESTRA = "sargento2026"
+
+def check_auth():
+    if "autenticado" not in st.session_state:
+        st.session_state["autenticado"] = False
+        st.session_state["usuario_activo"] = None
+
+    if not st.session_state["autenticado"]:
+        st.markdown("<h2 style='text-align: center; color: #ff4b4b;'>🚒 Oposición Sargento Bomberos Madrid</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; font-size: 1.1em;'>Acceso exclusivo a la plataforma de test y simulacros oficiales</p>", unsafe_allow_html=True)
+        st.write("---")
+        
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.info("Introduce tus credenciales para acceder a tu perfil personalizado:")
+            user_sel = st.selectbox("👤 Selecciona tu usuario:", USUARIOS_VALIDOS, key="sel_user")
+            pass_input = st.text_input("🔑 Contraseña:", type="password", key="pwd_input")
+            
+            if st.button("Entrar a la Academia", type="primary", use_container_width=True):
+                if pass_input == PASSWORD_MAESTRA:
+                    st.session_state["autenticado"] = True
+                    st.session_state["usuario_activo"] = user_sel
+                    st.rerun()
+                else:
+                    st.error("❌ Contraseña incorrecta.")
+        st.stop()
+
+check_auth()
+usuario_actual = st.session_state["usuario_activo"]
+
+# ==========================================
+# 🧠 2. MEMORIA AISLADA POR USUARIO
+# ==========================================
+nombre_fichero_seguro = usuario_actual.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
+archivo_memoria = f"usuario_{nombre_fichero_seguro}.json"
+
+def cargar_memoria_usuario():
+    if os.path.exists(archivo_memoria):
         try:
-            with open("usuario.json", "r", encoding="utf-8") as f:
+            with open(archivo_memoria, "r", encoding="utf-8") as f:
                 return json.load(f)
         except:
-            return {"historial": [], "fallos": []}
-    return {"historial": [], "fallos": []}
+            return {"historial": [], "fallos": [], "estadisticas_temas": {}}
+    return {"historial": [], "fallos": [], "estadisticas_temas": {}}
 
-def guardar_memoria(datos):
-    with open("usuario.json", "w", encoding="utf-8") as f:
-        json.dump(datos, f)
+def guardar_memoria_usuario(datos):
+    with open(archivo_memoria, "w", encoding="utf-8") as f:
+        json.dump(datos, f, ensure_ascii=False, indent=2)
 
-if "user_data" not in st.session_state:
-    st.session_state.user_data = cargar_memoria()
+if "user_data" not in st.session_state or st.session_state.get("current_loaded_user") != usuario_actual:
+    st.session_state.user_data = cargar_memoria_usuario()
+    st.session_state.current_loaded_user = usuario_actual
+
 # ==========================================
-
+# 📂 3. CARGA Y PARSEO DE ARCHIVOS (CLAUDE / GEMINI)
+# ==========================================
 def safe_md(text):
     if not text: return ""
     return text.replace("<", "&lt;").replace(">", "&gt;")
 
-def get_supuesto_category(sup):
-    bloques_texto = " ".join(sup['bloques']).lower() + " " + sup['titulo'].lower()
-    if 'rasante' in bloques_texto: return 'rasante'
-    if 'ega' in bloques_texto: return 'EGA'
-    if 'incendio' in bloques_texto: return 'Incendios' 
-    if 'tráfico' in bloques_texto or 'trafico' in bloques_texto or 'vital' in bloques_texto: return 'Tráfico'
-    if 'altura' in bloques_texto or 'suicidio' in bloques_texto: return 'Altura+Suicidio'
-    if 'rbq' in bloques_texto or 'nrbq' in bloques_texto: return 'RBQ'
-    if 'arbolado' in bloques_texto: return 'Arbolado'
-    return 'Otros'
+def parsear_archivo(ruta_archivo, origen_nombre):
+    if not os.path.exists(ruta_archivo):
+        return [], [], []
 
-@st.cache_data
-def cargar_datos():
-    with open("banco_unificado.txt", 'r', encoding='utf-8', errors='ignore') as f:
+    with open(ruta_archivo, 'r', encoding='utf-8', errors='ignore') as f:
         text = f.read()
-    
+
     soluciones = {}
     pat_tab = re.compile(r'\|\s*([A-Z0-9.-]+)\s*\|\s*\*\*?([A-C])\*\*?\s*\|([^|\n]+)')
     for m in pat_tab.finditer(text):
@@ -110,7 +144,7 @@ def cargar_datos():
             lines = chunk.split('\n')
             titulo = lines[0].strip()
             contexto = "\n\n".join([l.strip() for l in lines[1:] if l.strip()])
-            current_sup = {'id': f"SUP_{sup_counter}", 'titulo': safe_md(titulo), 'contexto': safe_md(contexto), 'preguntas': [], 'bloques': set()}
+            current_sup = {'id': f"SUP_{origen_nombre}_{sup_counter}", 'titulo': safe_md(titulo), 'contexto': safe_md(contexto), 'preguntas': [], 'bloques': set(), 'origen': origen_nombre}
             supuestos_pra.append(current_sup)
             
         elif re.match(r'^\*\*?ID:\s*', chunk):
@@ -155,7 +189,8 @@ def cargar_datos():
                 'bloque': bloque, 'enunciado': safe_md("\n\n".join(enunciado)),
                 'opciones': {k: safe_md(v) for k,v in opciones.items()}, 
                 'solucion': sol_data['respuesta'],
-                'justificacion': safe_md(sol_data['justificacion'])
+                'justificacion': safe_md(sol_data['justificacion']),
+                'origen': origen_nombre
             }
             
             todas_planas.append(q_obj)
@@ -166,26 +201,69 @@ def cargar_datos():
             else:
                 if current_sup is None:
                     sup_counter += 1
-                    current_sup = {'id': f"SUP_{sup_counter}", 'titulo': f"SUPUESTO - {q_obj['bloque']}", 'contexto': "", 'preguntas': [], 'bloques': set()}
+                    current_sup = {'id': f"SUP_{origen_nombre}_{sup_counter}", 'titulo': f"SUPUESTO - {q_obj['bloque']}", 'contexto': "", 'preguntas': [], 'bloques': set(), 'origen': origen_nombre}
                     supuestos_pra.append(current_sup)
                 current_sup['preguntas'].append(q_obj)
                 current_sup['bloques'].add(bloque)
 
     return preguntas_teo, supuestos_pra, todas_planas
 
-def generar_nuevo_examen(preguntas_teo, supuestos_pra, modo, temas_sel, num_preg, todas_planas, uso_acumulado):
+@st.cache_data
+def cargar_todos_los_datos():
+    f_claude = "banco_unificado.txt" if os.path.exists("banco_unificado.txt") else ("banco_claude.txt" if os.path.exists("banco_claude.txt") else None)
+    f_gemini = "banco_gemini.txt" if os.path.exists("banco_gemini.txt") else None
+
+    teo_c, pra_c, tod_c = parsear_archivo(f_claude, "Claude") if f_claude else ([], [], [])
+    teo_g, pra_g, tod_g = parsear_archivo(f_gemini, "Gemini") if f_gemini else ([], [], [])
+
+    return {
+        "claude": {"teo": teo_c, "pra": pra_c, "todas": tod_c},
+        "gemini": {"teo": teo_g, "pra": pra_g, "todas": tod_g},
+        "tiene_claude": len(teo_c) > 0,
+        "tiene_gemini": len(teo_g) > 0
+    }
+
+def get_supuesto_category(sup):
+    bloques_texto = " ".join(sup['bloques']).lower() + " " + sup['titulo'].lower()
+    if 'rasante' in bloques_texto: return 'rasante'
+    if 'ega' in bloques_texto: return 'EGA'
+    if 'tráfico' in bloques_texto or 'trafico' in bloques_texto: return 'Tráfico'
+    if 'altura' in bloques_texto or 'suicidio' in bloques_texto: return 'Altura+Suicidio'
+    if 'rbq' in bloques_texto or 'nrbq' in bloques_texto: return 'RBQ'
+    if 'arbolado' in bloques_texto: return 'Arbolado'
+    if 'sanitari' in bloques_texto or 'vital' in bloques_texto or 'svb' in bloques_texto: return 'Sanitario'
+    if 'incendio' in bloques_texto: return 'Incendios' 
+    return 'Otros'
+
+datos_cargados = cargar_todos_los_datos()
+banco_claude = datos_cargados["claude"]
+banco_gemini = datos_cargados["gemini"]
+
+# ==========================================
+# 🎯 4. LÓGICA DE EXAMEN Y SIMULACRO REGLADO
+# ==========================================
+CUPO_TEORICO = {1:1, 2:1, 3:2, 4:4, 5:4, 6:3, 7:3, 8:3, 9:2, 10:1, 11:2, 12:2, 13:3, 14:2, 15:3, 16:2, 17:2, 18:2, 19:6, 20:2}
+CATEGORIAS_PRA = ['Incendios', 'rasante', 'EGA', 'Tráfico', 'Altura+Suicidio', 'RBQ', 'Arbolado']
+
+def generar_examen(modo, origen_teo, temas_sel, bloque_pra_sel, num_preg, uso_acumulado):
+    if origen_teo == "Claude":
+        banco_t = banco_claude["teo"]
+    elif origen_teo == "Gemini":
+        banco_t = banco_gemini["teo"]
+    else:
+        banco_t = banco_claude["teo"] + banco_gemini["teo"]
+
+    banco_p = banco_claude["pra"]
+    todas_p = banco_claude["todas"] + banco_gemini["todas"]
+
     if modo == "Simulacro Oficial":
-        CUPO_TEORICO = {1:1, 2:1, 3:2, 4:4, 5:4, 6:3, 7:3, 8:3, 9:2, 10:1, 11:2, 12:2, 13:3, 14:2, 15:3, 16:2, 17:2, 18:2, 19:6, 20:2}
-        CATEGORIAS_PRA = ['Incendios', 'rasante', 'EGA', 'Tráfico', 'Altura+Suicidio', 'RBQ', 'Arbolado']
-        
         seleccion_teo = []
         for tema, cant in CUPO_TEORICO.items():
-            cands = [p for p in preguntas_teo if p['tema'] == tema]
+            cands = [p for p in banco_t if p['tema'] == tema]
             if cands:
                 min_uso = min(uso_acumulado.get(p['id'], 0) for p in cands)
                 mejores = [p for p in cands if uso_acumulado.get(p['id'], 0) == min_uso]
                 random.shuffle(mejores)
-                
                 if len(mejores) >= cant:
                     elegidas = mejores[:cant]
                 else:
@@ -196,13 +274,13 @@ def generar_nuevo_examen(preguntas_teo, supuestos_pra, modo, temas_sel, num_preg
                     elegidas.extend(resto[:faltan])
                 seleccion_teo.extend(elegidas)
         random.shuffle(seleccion_teo)
-        
+
         seleccion_pra = []
         for _ in range(300):
             temp_pra = []
             total_qs = 0
             for cat in CATEGORIAS_PRA:
-                cands = [s for s in supuestos_pra if get_supuesto_category(s) == cat]
+                cands = [s for s in banco_p if get_supuesto_category(s) == cat]
                 if cands:
                     min_uso = min(uso_acumulado.get(s['id'], 0) for s in cands)
                     mejores = [s for s in cands if uso_acumulado.get(s['id'], 0) == min_uso]
@@ -214,7 +292,7 @@ def generar_nuevo_examen(preguntas_teo, supuestos_pra, modo, temas_sel, num_preg
                 seleccion_pra = temp_pra
                 break
             elif total_qs < 16:
-                disp = [s for s in supuestos_pra if s not in temp_pra]
+                disp = [s for s in banco_p if s not in temp_pra]
                 random.shuffle(disp)
                 for s in disp:
                     if total_qs + len(s['preguntas']) <= 16:
@@ -223,94 +301,164 @@ def generar_nuevo_examen(preguntas_teo, supuestos_pra, modo, temas_sel, num_preg
                 if total_qs == 16:
                     seleccion_pra = temp_pra
                     break
-                    
-        if not seleccion_pra: seleccion_pra = temp_pra 
-        
+        if not seleccion_pra: seleccion_pra = temp_pra
+
         for p in seleccion_teo: uso_acumulado[p['id']] = uso_acumulado.get(p['id'], 0) + 1
         for s in seleccion_pra: uso_acumulado[s['id']] = uso_acumulado.get(s['id'], 0) + 1
-            
+
         return seleccion_teo, seleccion_pra
-        
+
+    elif modo == "Test Teórico por Temas":
+        cands = [p for p in banco_t if p['tema'] in temas_sel]
+        random.shuffle(cands)
+        return cands[:num_preg], []
+
+    elif modo == "Test Práctico por Bloques":
+        supuestos_filtrados = []
+        for s in banco_p:
+            if bloque_pra_sel == "Todos" or get_supuesto_category(s).lower() == bloque_pra_sel.lower():
+                supuestos_filtrados.append(s)
+        random.shuffle(supuestos_filtrados)
+        return [], supuestos_filtrados[:num_preg]
+
     elif modo == "Repaso de Fallos":
         fallos_ids = st.session_state.user_data.get('fallos', [])
-        cands = [p for p in todas_planas if p['id'] in fallos_ids]
-        random.shuffle(cands)
-        return cands[:num_preg], []
-        
-    else:
-        cands = [p for p in todas_planas if p['tema'] in temas_sel]
+        cands = [p for p in todas_p if p['id'] in fallos_ids]
         random.shuffle(cands)
         return cands[:num_preg], []
 
-st.title("🚒 Academia Sargento Madrid")
+    return [], []
 
-try:
-    preguntas_teo, supuestos_pra, todas_planas = cargar_datos()
-except Exception as e:
-    st.error("No se encuentra el archivo 'banco_unificado.txt'.")
-    st.stop()
-
+# ==========================================
+# 🖥️ 5. INTERFAZ Y NAVEGACIÓN
+# ==========================================
 if "uso_acumulado" not in st.session_state:
     st.session_state.uso_acumulado = {}
 if "examen" not in st.session_state:
     st.session_state.examen = None
     st.session_state.corregido = False
     st.session_state.modo_actual = None
+    st.session_state.origen_actual = None
+    st.session_state.temas_activos = []
 
 with st.sidebar:
-    st.header("⚙️ Configuración")
-    modo = st.radio("Modo de estudio:", ["Simulacro Oficial", "Test por Temas", "Repaso de Fallos"])
-    
-    if modo == "Test por Temas":
-        temas_disponibles = sorted(list(set(p['tema'] for p in todas_planas if p['tema'] is not None)))
-        temas_sel = st.multiselect("Elige los temas:", temas_disponibles, default=temas_disponibles[:1])
-        num_preg = st.number_input("Cantidad de preguntas:", min_value=1, max_value=200, value=20)
+    st.markdown(f"### 👤 Conectado: **{usuario_actual}**")
+    if st.button("Cerrar Sesión", type="secondary"):
+        st.session_state["autenticado"] = False
+        st.session_state["usuario_activo"] = None
+        st.rerun()
+    st.write("---")
+
+    st.header("⚙️ Configuración del Test")
+    modo = st.radio("Modo de estudio:", [
+        "Simulacro Oficial", 
+        "Test Teórico por Temas", 
+        "Test Práctico por Bloques", 
+        "Repaso de Fallos"
+    ])
+
+    origen_teo = "Claude"
+    temas_sel = []
+    bloque_pra_sel = "Todos"
+    num_preg = 20
+
+    if modo == "Simulacro Oficial":
+        opciones_banco = ["Simulacro Oficial (Teórico Claude + Práctica)"]
+        if datos_cargados["tiene_gemini"]:
+            opciones_banco.append("Simulacro Oficial (Teórico Gemini + Práctica)")
+        tipo_sim_sel = st.selectbox("Selecciona origen teórico del simulacro:", opciones_banco)
+        origen_teo = "Gemini" if "Gemini" in tipo_sim_sel else "Claude"
+        st.info("📋 **Estructura oficial:** 50 teóricas con distribución reglada + 16 prácticas en 105 minutos.")
+
+    elif modo == "Test Teórico por Temas":
+        opciones_fuente = ["Claude"]
+        if datos_cargados["tiene_gemini"]:
+            opciones_fuente.extend(["Gemini", "Mixto (Claude + Gemini)"])
+        else:
+            st.caption("ℹ️ Para activar Gemini, sube `banco_gemini.txt` a GitHub.")
+        origen_teo = st.selectbox("Origen de preguntas teóricas:", opciones_fuente)
+        
+        banco_ref = banco_claude["teo"] if origen_teo == "Claude" else (banco_gemini["teo"] if origen_teo == "Gemini" else banco_claude["teo"] + banco_gemini["teo"])
+        temas_disponibles = sorted(list(set(p['tema'] for p in banco_ref if p['tema'] is not None)))
+        
+        opciones_temas_map = {formatear_tema(t): t for t in temas_disponibles}
+        nombres_sel = st.multiselect("Elige los temas:", list(opciones_temas_map.keys()), default=[list(opciones_temas_map.keys())[0]] if opciones_temas_map else [])
+        temas_sel = [opciones_temas_map[n] for n in nombres_sel]
+        num_preg = st.number_input("Número de preguntas:", min_value=5, max_value=100, value=20, step=5)
+
+    elif modo == "Test Práctico por Bloques":
+        st.caption("Práctica generada a partir de los supuestos oficiales (Claude).")
+        categorias_disp = ["Todos", "Incendios", "rasante", "EGA", "Tráfico", "Altura+Suicidio", "RBQ", "Arbolado"]
+        bloque_pra_sel = st.selectbox("Selecciona Bloque Práctico:", categorias_disp)
+        num_preg = st.number_input("Cantidad de Supuestos:", min_value=1, max_value=10, value=2)
+
     elif modo == "Repaso de Fallos":
         num_fallos = len(st.session_state.user_data.get('fallos', []))
-        st.info(f"Tienes **{num_fallos}** preguntas falladas en la recámara.")
+        st.info(f"Tienes **{num_fallos}** preguntas en tu lista de fallos personal.")
         if num_fallos > 0:
-            num_preg = st.number_input("Cantidad a repasar:", min_value=1, max_value=num_fallos, value=min(20, num_fallos))
+            num_preg = st.number_input("Preguntas a repasar:", min_value=1, max_value=num_fallos, value=min(20, num_fallos))
         else:
             num_preg = 0
-        temas_sel = []
-    else:
-        temas_sel = []
-        num_preg = 0
-        
-    if st.button("Generar Examen", type="primary"):
+
+    if st.button("Comenzar Examen", type="primary", use_container_width=True):
         if modo == "Repaso de Fallos" and num_preg == 0:
-            st.error("¡No tienes preguntas falladas! Enhorabuena.")
+            st.error("¡No tienes preguntas falladas guardadas! Enhorabuena.")
         else:
-            teo, pra = generar_nuevo_examen(preguntas_teo, supuestos_pra, modo, temas_sel, num_preg, todas_planas, st.session_state.uso_acumulado)
+            teo, pra = generar_examen(modo, origen_teo, temas_sel, bloque_pra_sel, num_preg, st.session_state.uso_acumulado)
             if not teo and not pra:
-                st.error("No hay preguntas para los parámetros seleccionados.")
+                st.error("No se han encontrado preguntas con los filtros seleccionados.")
             else:
                 st.session_state.examen = {'teo': teo, 'pra': pra}
                 st.session_state.corregido = False
                 st.session_state.modo_actual = modo
+                st.session_state.origen_actual = origen_teo
+                st.session_state.temas_activos = temas_sel
                 st.session_state.start_time = time.time()
-                for key in list(st.session_state.keys()):
-                    if key.startswith("resp_"): del st.session_state[key]
+                for k in list(st.session_state.keys()):
+                    if k.startswith("resp_"): del st.session_state[k]
                 st.rerun()
 
-    # --- HISTÓRICO DE NOTAS ---
+    # --- HISTORIAL PERSONAL CON DETALLES ---
     st.write("---")
     if st.session_state.user_data.get('historial'):
-        with st.expander("📈 Tu Histórico de Notas"):
-            for h in reversed(st.session_state.user_data['historial'][-10:]):
-                st.markdown(f"**{h['fecha']}**\n\n{h['modo']} - **Nota: {h['nota']}**")
+        with st.expander(f"📈 Notas de {usuario_actual}"):
+            for h in reversed(st.session_state.user_data['historial'][-8:]):
+                detalle = f" — *{h.get('detalles', '')}*" if h.get('detalles') else ""
+                st.markdown(f"**{h['fecha']}** — {h['modo']}{detalle}\n\nNota: **{h['nota']} / 10**")
 
+    # --- RADAR DE TEMAS (DÓNDE VAS MEJOR / PEOR) ---
+    if st.session_state.user_data.get('estadisticas_temas'):
+        with st.expander("📊 Rendimiento por Temas"):
+            stats = st.session_state.user_data['estadisticas_temas']
+            for t_num in sorted([int(k) for k in stats.keys() if k.isdigit()]):
+                s_t = stats[str(t_num)]
+                tot = s_t.get('aciertos', 0) + s_t.get('errores', 0)
+                if tot > 0:
+                    pct = int((s_t.get('aciertos', 0) / tot) * 100)
+                    color = "🟢" if pct >= 75 else ("🟡" if pct >= 50 else "🔴")
+                    st.write(f"{color} **T{t_num:02d}**: {pct}% aciertos ({s_t['aciertos']}/{tot})")
+
+# ==========================================
+# 📝 6. ÁREA DE REALIZACIÓN DEL EXAMEN
+# ==========================================
 if st.session_state.examen is None:
-    st.info("👈 Selecciona tus preferencias en el menú y haz clic en 'Generar Examen' para empezar.")
+    st.markdown(f"## 🚒 Bienvenido al panel de estudio, **{usuario_actual}**")
+    st.markdown("""
+    Configura tu sesión en el panel lateral:
+    - **Simulacro Oficial**: 50 preguntas teóricas con cupo exacto por temas + 16 preguntas prácticas.
+    - **Test Teórico por Temas**: Selecciona los temas por su nombre y elige entre banco Claude o Gemini.
+    - **Test Práctico por Bloques**: Entrena supuestos de Incendios, Bajo Rasante, EGA, Tráfico o RBQ.
+    - **Repaso de Fallos**: Repasa tus preguntas falladas de forma independiente a tus compañeros.
+    - **Rendimiento por Temas**: Consulta en el panel lateral tu % de acierto por tema para atacar donde vas más flojo.
+    """)
     st.stop()
 
-# --- RELOJ CUENTA ATRÁS FLOTANTE ---
+# Temporizador
 if not st.session_state.corregido:
-    minutos_totales = 105 if st.session_state.modo_actual == "Simulacro Oficial" else int(len(st.session_state.examen['teo']) * 1.5)
-    
+    minutos_totales = 105 if st.session_state.modo_actual == "Simulacro Oficial" else (int(len(st.session_state.examen['teo']) * 1.5) if st.session_state.examen['teo'] else 30)
     timer_html = f"""
-    <div style="font-family: sans-serif; background-color: #262730; color: white; padding: 15px; border-radius: 8px; border-left: 5px solid #ff4b4b; text-align: center; margin-bottom: 20px;">
-        <h2 style="margin:0; color: #ff4b4b;" id="clock">⏳ Calculando tiempo...</h2>
+    <div style="font-family: sans-serif; background-color: #262730; color: white; padding: 12px; border-radius: 8px; border-left: 5px solid #ff4b4b; text-align: center; margin-bottom: 20px;">
+        <h3 style="margin:0; color: #ff4b4b;" id="clock">⏳ Calculando tiempo restante...</h3>
     </div>
     <script>
         var minutos = {minutos_totales};
@@ -328,150 +476,179 @@ if not st.session_state.corregido:
         }}, 1000);
     </script>
     """
-    components.html(timer_html, height=80)
+    components.html(timer_html, height=70)
 
+# Formulario
 if not st.session_state.corregido:
-    with st.form("examen_form"):
-        if st.session_state.modo_actual == "Simulacro Oficial":
-            st.header("PARTE 1: TEÓRICA (50 PREGUNTAS)")
-        elif st.session_state.modo_actual == "Repaso de Fallos":
-            st.header("REPASO DE FALLOS")
-        else:
-            st.header("TEST PERSONALIZADO")
-            
-        for i, p in enumerate(st.session_state.examen['teo'], 1):
-            st.markdown(f"**{i}. {p['enunciado']}**")
-            st.radio("Opciones", options=["- (En blanco)", f"A) {p['opciones'].get('A','')}", f"B) {p['opciones'].get('B','')}", f"C) {p['opciones'].get('C','')}"], key=f"resp_{p['id']}", label_visibility="collapsed")
-            st.divider()
-
-        if st.session_state.examen['pra']:
-            total_preguntas_pra = sum(len(s['preguntas']) for s in st.session_state.examen['pra'])
-            st.header(f"PARTE 2: PRÁCTICA ({total_preguntas_pra} PREGUNTAS)")
-            q_idx = 1
-            for sup in st.session_state.examen['pra']:
-                st.markdown(f"### {sup['titulo']}")
-                if sup['contexto']: st.info(sup['contexto'])
-                for p in sup['preguntas']:
-                    st.markdown(f"**P{q_idx}. {p['enunciado']}**")
-                    st.radio("Opciones", options=["- (En blanco)", f"A) {p['opciones'].get('A','')}", f"B) {p['opciones'].get('B','')}", f"C) {p['opciones'].get('C','')}"], key=f"resp_{p['id']}", label_visibility="collapsed")
-                    q_idx += 1
-                    st.write("")
+    with st.form("form_examen"):
+        if st.session_state.examen['teo']:
+            st.header(f"PARTE TEÓRICA ({len(st.session_state.examen['teo'])} Preguntas)")
+            for i, p in enumerate(st.session_state.examen['teo'], 1):
+                tema_lbl = f"[{formatear_tema(p['tema'])}]" if p.get('tema') else ""
+                st.markdown(f"**{i}. {tema_lbl} {p['enunciado']}**")
+                st.radio("Opciones", [
+                    "- (En blanco)", 
+                    f"A) {p['opciones'].get('A','')}", 
+                    f"B) {p['opciones'].get('B','')}", 
+                    f"C) {p['opciones'].get('C','')}"
+                ], key=f"resp_{p['id']}", label_visibility="collapsed")
                 st.divider()
 
-        if st.form_submit_button("Corregir Examen", type="primary"):
+        if st.session_state.examen['pra']:
+            total_p = sum(len(s['preguntas']) for s in st.session_state.examen['pra'])
+            st.header(f"PARTE PRÁCTICA ({total_p} Preguntas)")
+            p_idx = 1
+            for sup in st.session_state.examen['pra']:
+                st.markdown(f"### 📋 {sup['titulo']}")
+                if sup['contexto']: st.info(sup['contexto'])
+                for p in sup['preguntas']:
+                    st.markdown(f"**P{p_idx}. {p['enunciado']}**")
+                    st.radio("Opciones", [
+                        "- (En blanco)", 
+                        f"A) {p['opciones'].get('A','')}", 
+                        f"B) {p['opciones'].get('B','')}", 
+                        f"C) {p['opciones'].get('C','')}"
+                    ], key=f"resp_{p['id']}", label_visibility="collapsed")
+                    p_idx += 1
+                st.divider()
+
+        if st.form_submit_button("Finalizar y Corregir Examen", type="primary"):
             st.session_state.tiempo_empleado = time.time() - st.session_state.start_time
             
-            # --- LOGICA DE CORRECCIÓN Y GUARDADO DE FALLOS ---
-            aciertos_t = 0; errores_t = 0
+            if 'estadisticas_temas' not in st.session_state.user_data:
+                st.session_state.user_data['estadisticas_temas'] = {}
+
+            # Corrección teórica y acumulación de estadísticas
+            aciertos_t, errores_t = 0, 0
             for p in st.session_state.examen['teo']:
                 resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
+                t_str = str(p['tema']) if p.get('tema') else "otros"
+                if t_str not in st.session_state.user_data['estadisticas_temas']:
+                    st.session_state.user_data['estadisticas_temas'][t_str] = {'aciertos': 0, 'errores': 0}
+
                 if resp == p['solucion']:
                     aciertos_t += 1
+                    st.session_state.user_data['estadisticas_temas'][t_str]['aciertos'] += 1
                     if p['id'] in st.session_state.user_data['fallos']:
                         st.session_state.user_data['fallos'].remove(p['id'])
                 elif resp != "-":
                     errores_t += 1
+                    st.session_state.user_data['estadisticas_temas'][t_str]['errores'] += 1
                     if p['id'] not in st.session_state.user_data['fallos']:
                         st.session_state.user_data['fallos'].append(p['id'])
 
-            aciertos_p = 0; errores_p = 0
-            if st.session_state.examen['pra']:
-                for sup in st.session_state.examen['pra']:
-                    for p in sup['preguntas']:
-                        resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
-                        if resp == p['solucion']:
-                            aciertos_p += 1
-                            if p['id'] in st.session_state.user_data['fallos']:
-                                st.session_state.user_data['fallos'].remove(p['id'])
-                        elif resp != "-":
-                            errores_p += 1
-                            if p['id'] not in st.session_state.user_data['fallos']:
-                                st.session_state.user_data['fallos'].append(p['id'])
+            # Corrección práctica
+            aciertos_p, errores_p = 0, 0
+            for sup in st.session_state.examen['pra']:
+                for p in sup['preguntas']:
+                    resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
+                    if resp == p['solucion']:
+                        aciertos_p += 1
+                        if p['id'] in st.session_state.user_data['fallos']:
+                            st.session_state.user_data['fallos'].remove(p['id'])
+                    elif resp != "-":
+                        errores_p += 1
+                        if p['id'] not in st.session_state.user_data['fallos']:
+                            st.session_state.user_data['fallos'].append(p['id'])
 
             total_t = len(st.session_state.examen['teo'])
-            total_p = sum(len(s['preguntas']) for s in st.session_state.examen['pra']) if st.session_state.examen['pra'] else 0
-            
-            nota_t = ((aciertos_t * 1) - (errores_t * 0.20)) / total_t * 10 if total_t > 0 else 0
-            nota_p = ((aciertos_p * 1) - (errores_p * 0.20)) / total_p * 10 if total_p > 0 else 0
-            
-            nota_final = (nota_t + nota_p) / 2 if st.session_state.modo_actual == "Simulacro Oficial" else nota_t
-            
+            total_p = sum(len(s['preguntas']) for s in st.session_state.examen['pra'])
+
+            nota_t = max(0.0, ((aciertos_t * 1) - (errores_t * 0.20)) / total_t * 10) if total_t > 0 else 0.0
+            nota_p = max(0.0, ((aciertos_p * 1) - (errores_p * 0.20)) / total_p * 10) if total_p > 0 else 0.0
+
+            if st.session_state.modo_actual == "Simulacro Oficial":
+                nota_final = round((nota_t + nota_p) / 2, 2)
+                detalles_txt = f"Simulacro {st.session_state.origen_actual}"
+            elif total_t > 0:
+                nota_final = round(nota_t, 2)
+                if st.session_state.temas_activos:
+                    t_nombres = ", ".join([f"T{t:02d}" for t in st.session_state.temas_activos])
+                    detalles_txt = f"{st.session_state.origen_actual} [{t_nombres}]"
+                else:
+                    detalles_txt = f"{st.session_state.origen_actual}"
+            else:
+                nota_final = round(nota_p, 2)
+                detalles_txt = "Parte Práctica"
+
             st.session_state.user_data['historial'].append({
                 "fecha": datetime.now().strftime("%d/%m %H:%M"),
                 "modo": st.session_state.modo_actual,
-                "nota": round(nota_final, 2)
+                "detalles": detalles_txt,
+                "nota": nota_final,
+                "nota_t": round(nota_t, 2),
+                "nota_p": round(nota_p, 2)
             })
-            
-            guardar_memoria(st.session_state.user_data)
-            
+            guardar_memoria_usuario(st.session_state.user_data)
             st.session_state.corregido = True
             st.rerun()
 
+# ==========================================
+# 📊 7. RESULTADOS Y RETROALIMENTACIÓN
+# ==========================================
 else:
-    st.header("RESULTADOS")
+    st.header("📊 Solucionario y Corrección Detallada")
+    hist_rec = st.session_state.user_data['historial'][-1]
     
-    for i, p in enumerate(st.session_state.examen['teo'], 1):
-        st.markdown(f"**{i}. {p['enunciado']}**")
-        if p['opciones'].get('A'): st.markdown(f"A) {p['opciones']['A']}")
-        if p['opciones'].get('B'): st.markdown(f"B) {p['opciones']['B']}")
-        if p['opciones'].get('C'): st.markdown(f"C) {p['opciones']['C']}")
-        
-        respuesta_dada = st.session_state.get(f"resp_{p['id']}", "-")[0]
-        correcta = p['solucion']
-        
-        if respuesta_dada == "-":
-            st.warning(f"No contestada. La correcta era la **{correcta}**.")
-        elif respuesta_dada == correcta:
-            st.success(f"¡Correcto! Tu respuesta: **{respuesta_dada}**")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Nota Teórica", f"{hist_rec['nota_t']} / 10", delta="Mínimo 5.0" if hist_rec['nota_t'] >= 5 else "Suspenso", delta_color="normal" if hist_rec['nota_t'] >= 5 else "inverse")
+    with col2:
+        st.metric("Nota Práctica", f"{hist_rec['nota_p']} / 10", delta="Mínimo 5.0" if hist_rec['nota_p'] >= 5 else "Suspenso", delta_color="normal" if hist_rec['nota_p'] >= 5 else "inverse")
+    with col3:
+        st.metric("Nota Final Ponderada", f"{hist_rec['nota']} / 10")
+
+    if st.session_state.modo_actual == "Simulacro Oficial":
+        if hist_rec['nota_t'] >= 5.0 and hist_rec['nota_p'] >= 5.0:
+            st.success("🎉 ¡APTO! Has superado el corte del 5,0 tanto en la parte teórica como en la práctica.")
         else:
-            st.error(f"Incorrecto. Marcaste **{respuesta_dada}** y la correcta es **{correcta}**.")
-        
-        st.info(f"**Justificación:**\n{p['justificacion']}")
-        st.divider()
+            st.error("⚠️ NO APTO. Recuerda que las bases exigen un mínimo de 5,0 en la teórica Y un mínimo de 5,0 en la práctica de forma independiente.")
+
+    st.write("---")
+
+    if st.session_state.examen['teo']:
+        st.subheader("Revisión Teórica")
+        for i, p in enumerate(st.session_state.examen['teo'], 1):
+            tema_lbl = f"[{formatear_tema(p['tema'])}]" if p.get('tema') else ""
+            st.markdown(f"**{i}. {tema_lbl} {p['enunciado']}**")
+            for letra in ['A', 'B', 'C']:
+                if p['opciones'].get(letra): st.markdown(f"*{letra})* {p['opciones'][letra]}")
+            
+            resp_dada = st.session_state.get(f"resp_{p['id']}", "-")[0]
+            corr = p['solucion']
+            if resp_dada == "-":
+                st.warning(f"⚪ No contestada. La correcta era la **{corr}**.")
+            elif resp_dada == corr:
+                st.success(f"✅ ¡Correcto! Marcaste **{resp_dada}**.")
+            else:
+                st.error(f"❌ Incorrecto. Marcaste **{resp_dada}** y la correcta es **{corr}**.")
+            st.info(f"**Justificación:** {p['justificacion']}")
+            st.divider()
 
     if st.session_state.examen['pra']:
-        st.header("RESULTADOS - PRÁCTICA")
-        q_idx = 1
+        st.subheader("Revisión Práctica")
+        p_idx = 1
         for sup in st.session_state.examen['pra']:
             st.markdown(f"### {sup['titulo']}")
             if sup['contexto']: st.info(sup['contexto'])
             for p in sup['preguntas']:
-                st.markdown(f"**P{q_idx}. {p['enunciado']}**")
+                st.markdown(f"**P{p_idx}. {p['enunciado']}**")
+                for letra in ['A', 'B', 'C']:
+                    if p['opciones'].get(letra): st.markdown(f"*{letra})* {p['opciones'][letra]}")
                 
-                if p['opciones'].get('A'): st.markdown(f"A) {p['opciones']['A']}")
-                if p['opciones'].get('B'): st.markdown(f"B) {p['opciones']['B']}")
-                if p['opciones'].get('C'): st.markdown(f"C) {p['opciones']['C']}")
-                
-                respuesta_dada = st.session_state.get(f"resp_{p['id']}", "-")[0]
-                correcta = p['solucion']
-                
-                if respuesta_dada == "-":
-                    st.warning(f"No contestada. La correcta era la **{correcta}**.")
-                elif respuesta_dada == correcta:
-                    st.success(f"¡Correcto! Tu respuesta: **{respuesta_dada}**")
+                resp_dada = st.session_state.get(f"resp_{p['id']}", "-")[0]
+                corr = p['solucion']
+                if resp_dada == "-":
+                    st.warning(f"⚪ No contestada. La correcta era la **{corr}**.")
+                elif resp_dada == corr:
+                    st.success(f"✅ ¡Correcto! Marcaste **{resp_dada}**.")
                 else:
-                    st.error(f"Incorrecto. Marcaste **{respuesta_dada}** y la correcta es **{correcta}**.")
-                
-                st.info(f"**Justificación:**\n{p['justificacion']}")
-                q_idx += 1
+                    st.error(f"❌ Incorrecto. Marcaste **{resp_dada}** y la correcta es **{corr}**.")
+                st.info(f"**Justificación:** {p['justificacion']}")
+                p_idx += 1
             st.divider()
 
-    st.sidebar.header("📊 Resumen del Examen")
-    m_emp = int(st.session_state.tiempo_empleado // 60)
-    s_emp = int(st.session_state.tiempo_empleado % 60)
-    st.sidebar.write(f"⏱️ **Tiempo empleado:** {m_emp}m {s_emp}s")
-    st.sidebar.write("---")
-    
-    # Mostrar la última nota guardada en el historial
-    ultima_nota = st.session_state.user_data['historial'][-1]
-    
-    if st.session_state.modo_actual == "Simulacro Oficial":
-        st.sidebar.subheader(f"🏆 NOTA FINAL: {ultima_nota['nota']} / 10")
-        st.sidebar.write("*(Revisa tu histórico para ver el registro completo)*")
-    else:
-        st.sidebar.subheader(f"🏆 NOTA FINAL: {ultima_nota['nota']} / 10")
-    
-    st.sidebar.write("---")
-    if st.sidebar.button("Hacer otro examen"):
+    if st.button("Hacer otro examen", type="primary"):
         st.session_state.corregido = False
+        st.session_state.examen = None
         st.rerun()
