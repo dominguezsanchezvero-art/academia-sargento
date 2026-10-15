@@ -674,7 +674,7 @@ if not st.session_state.corregido:
                 detalles_txt = "Parte Práctica"
 
             nuevo_registro = {
-                "fecha": datetime.now().strftime("%d/%m %H:%M"),
+                "fecha": datetime.now(ZoneInfo("Europe/Madrid")).strftime("%d/%m %H:%M"),
                 "modo": st.session_state.modo_actual,
                 "detalles": detalles_txt,
                 "nota": nota_final,
