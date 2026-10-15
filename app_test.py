@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 import streamlit as st
 import streamlit.components.v1 as components
-import pandas as pd
+import requests
 
 st.set_page_config(page_title="Academia Sargento Madrid", layout="wide", page_icon="🚒")
 
@@ -74,20 +74,21 @@ check_auth()
 usuario_actual = st.session_state["usuario_activo"]
 
 # ==========================================
-# ☁️ 2. GESTIÓN DE MEMORIA (GOOGLE SHEETS CON FALLBACK LOCAL)
+# ☁️ 2. CONEXIÓN A GOOGLE SHEETS VÍA WEBHOOK
 # ==========================================
-USAR_GSHEETS = False
-conn = None
+GSHEETS_URL = None
 try:
-    from streamlit_gsheets import GSheetsConnection
-    conn = st.connection("gsheets", type=GSheetsConnection)
-    USAR_GSHEETS = True
+    if "connections" in st.secrets and "gsheets" in st.secrets["connections"]:
+        cfg = st.secrets["connections"]["gsheets"]
+        GSHEETS_URL = cfg.get("url") or cfg.get("spreadsheet")
+    elif "gsheets_url" in st.secrets:
+        GSHEETS_URL = st.secrets["gsheets_url"]
 except Exception:
-    USAR_GSHEETS = False
+    GSHEETS_URL = None
 
 def cargar_memoria_usuario(user):
-    nombre_fichero_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
-    fallos_file = f"fallos_{nombre_fichero_seguro}.json"
+    nombre_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
+    fallos_file = f"fallos_{nombre_seguro}.json"
     
     fallos_locales = []
     if os.path.exists(fallos_file):
@@ -100,35 +101,38 @@ def cargar_memoria_usuario(user):
     historial_usuario = []
     stats_temas = {}
 
-    if USAR_GSHEETS and conn is not None:
+    # Leer de Google Sheets mediante la aplicación web
+    if GSHEETS_URL and "script.google.com" in GSHEETS_URL:
         try:
-            df = conn.read(ttl=5)
-            if df is not None and not df.empty and "Usuario" in df.columns:
-                df_user = df[df["Usuario"] == user]
-                for _, row in df_user.iterrows():
-                    historial_usuario.append({
-                        "fecha": str(row.get("Fecha", "")),
-                        "modo": str(row.get("Modo", "")),
-                        "detalles": str(row.get("Detalles", "")),
-                        "nota": float(row.get("Nota_Final", 0.0)),
-                        "nota_t": float(row.get("Nota_Teorica", 0.0)),
-                        "nota_p": float(row.get("Nota_Practica", 0.0))
-                    })
-                if "Stats_JSON" in df_user.columns:
-                    for s_raw in df_user["Stats_JSON"].dropna():
-                        try:
-                            s_dict = json.loads(s_raw)
-                            for t_k, t_v in s_dict.items():
-                                if t_k not in stats_temas:
-                                    stats_temas[t_k] = {"aciertos": 0, "errores": 0}
-                                stats_temas[t_k]["aciertos"] += t_v.get("aciertos", 0)
-                                stats_temas[t_k]["errores"] += t_v.get("errores", 0)
-                        except:
-                            pass
+            resp = requests.get(GSHEETS_URL, timeout=8)
+            if resp.status_code == 200:
+                filas = resp.json()
+                if len(filas) > 1:
+                    for row in filas[1:]:
+                        if len(row) >= 5 and str(row[1]).strip().lower() == user.strip().lower():
+                            historial_usuario.append({
+                                "fecha": str(row[0]),
+                                "modo": str(row[2]),
+                                "detalles": str(row[3]) if len(row) > 3 else "",
+                                "nota": float(row[4]) if str(row[4]).replace('.', '', 1).isdigit() else 0.0,
+                                "nota_t": float(row[5]) if len(row) > 5 and str(row[5]).replace('.', '', 1).isdigit() else 0.0,
+                                "nota_p": float(row[6]) if len(row) > 6 and str(row[6]).replace('.', '', 1).isdigit() else 0.0
+                            })
+                            if len(row) > 7 and str(row[7]).startswith("{"):
+                                try:
+                                    s_dict = json.loads(str(row[7]))
+                                    for t_k, t_v in s_dict.items():
+                                        if t_k not in stats_temas:
+                                            stats_temas[t_k] = {"aciertos": 0, "errores": 0}
+                                        stats_temas[t_k]["aciertos"] += t_v.get("aciertos", 0)
+                                        stats_temas[t_k]["errores"] += t_v.get("errores", 0)
+                                except:
+                                    pass
         except Exception:
             pass
 
-    local_hist_file = f"historial_{nombre_fichero_seguro}.json"
+    # Backup local si la conexión falla o no hay datos
+    local_hist_file = f"historial_{nombre_seguro}.json"
     if not historial_usuario and os.path.exists(local_hist_file):
         try:
             with open(local_hist_file, "r", encoding="utf-8") as f:
@@ -145,37 +149,41 @@ def cargar_memoria_usuario(user):
     }
 
 def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
-    nombre_fichero_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
+    nombre_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
     
-    fallos_file = f"fallos_{nombre_fichero_seguro}.json"
-    with open(fallos_file, "w", encoding="utf-8") as f:
+    # 1. Guardar fallos en local
+    with open(f"fallos_{nombre_seguro}.json", "w", encoding="utf-8") as f:
         json.dump(lista_fallos, f, ensure_ascii=False, indent=2)
 
-    if USAR_GSHEETS and conn is not None:
-        try:
-            df_existente = conn.read(ttl=0)
-            nueva_fila = pd.DataFrame([{
-                "Fecha": reg_hist["fecha"],
-                "Usuario": user,
-                "Modo": reg_hist["modo"],
-                "Detalles": reg_hist.get("detalles", ""),
-                "Nota_Final": reg_hist["nota"],
-                "Nota_Teorica": reg_hist.get("nota_t", 0.0),
-                "Nota_Practica": reg_hist.get("nota_p", 0.0),
-                "Stats_JSON": json.dumps(nuevos_stats_examen)
-            }])
-            if df_existente is not None and not df_existente.empty:
-                df_total = pd.concat([df_existente, nueva_fila], ignore_index=True)
-            else:
-                df_total = nueva_fila
-            conn.update(data=df_total)
-        except Exception:
-            pass
-
-    local_hist_file = f"historial_{nombre_fichero_seguro}.json"
-    data_local = {"historial": st.session_state.user_data["historial"], "estadisticas_temas": st.session_state.user_data["estadisticas_temas"]}
-    with open(local_hist_file, "w", encoding="utf-8") as f:
+    # 2. Guardar copia local de historial
+    data_local = {
+        "historial": st.session_state.user_data["historial"], 
+        "estadisticas_temas": st.session_state.user_data["estadisticas_temas"]
+    }
+    with open(f"historial_{nombre_seguro}.json", "w", encoding="utf-8") as f:
         json.dump(data_local, f, ensure_ascii=False, indent=2)
+
+    # 3. Enviar a Google Sheets
+    if GSHEETS_URL and "script.google.com" in GSHEETS_URL:
+        payload = {
+            "Fecha": reg_hist["fecha"],
+            "Usuario": user,
+            "Modo": reg_hist["modo"],
+            "Detalles": reg_hist.get("detalles", ""),
+            "Nota_Final": reg_hist["nota"],
+            "Nota_Teorica": reg_hist.get("nota_t", 0.0),
+            "Nota_Practica": reg_hist.get("nota_p", 0.0),
+            "Stats_JSON": json.dumps(nuevos_stats_examen)
+        }
+        try:
+            resp = requests.post(GSHEETS_URL, json=payload, timeout=8)
+            if resp.status_code == 200:
+                return True
+            else:
+                return False
+        except Exception:
+            return False
+    return False
 
 if "user_data" not in st.session_state or st.session_state.get("current_loaded_user") != usuario_actual:
     st.session_state.user_data = cargar_memoria_usuario(usuario_actual)
@@ -429,8 +437,8 @@ if "examen" not in st.session_state:
 
 with st.sidebar:
     st.markdown(f"### 👤 Conectado: **{usuario_actual}**")
-    if USAR_GSHEETS:
-        st.caption("🟢 Conectado a base de datos en nube (Google Sheets)")
+    if GSHEETS_URL and "script.google.com" in GSHEETS_URL:
+        st.caption("🟢 Conectado a Google Sheets en la nube")
     else:
         st.caption("🟡 Almacenamiento local temporal")
 
@@ -622,7 +630,6 @@ if not st.session_state.corregido:
                 if resp == p['solucion']:
                     aciertos_t += 1
                     st.session_state.user_data['estadisticas_temas'][t_str]['aciertos'] += 1
-                    stats_este_examen[t_str]['aciertos'] += 1
                     if p['id'] in st.session_state.user_data['fallos']:
                         st.session_state.user_data['fallos'].remove(p['id'])
                 elif resp != "-":
@@ -675,7 +682,9 @@ if not st.session_state.corregido:
             }
             st.session_state.user_data['historial'].append(nuevo_registro)
             
-            guardar_resultado_examen(usuario_actual, nuevo_registro, stats_este_examen, st.session_state.user_data['fallos'])
+            # Guardar en nube / local
+            guardado_ok = guardar_resultado_examen(usuario_actual, nuevo_registro, stats_este_examen, st.session_state.user_data['fallos'])
+            st.session_state.guardado_nube_status = guardado_ok
 
             st.session_state.corregido = True
             st.rerun()
@@ -687,6 +696,12 @@ else:
     st.header("📊 Solucionario y Corrección Detallada")
     hist_rec = st.session_state.user_data['historial'][-1]
     
+    # Mensaje de confirmación del guardado en Sheets
+    if st.session_state.get("guardado_nube_status") is True:
+        st.success("☁️ ¡Examen guardado y sincronizado con tu hoja de Google Sheets!")
+    elif GSHEETS_URL:
+        st.warning("⚠️ No se pudo enviar a Google Sheets. Se ha guardado en la memoria local.")
+
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Nota Teórica", f"{hist_rec['nota_t']} / 10", delta="Mínimo 5.0" if hist_rec['nota_t'] >= 5 else "Suspenso", delta_color="normal" if hist_rec['nota_t'] >= 5 else "inverse")
