@@ -143,6 +143,9 @@ def cargar_memoria_usuario(user):
         conjunto = list(dict.fromkeys(fallos_nube + fallos_usuario))
         fallos_usuario = conjunto
 
+    # Excluir siempre las preguntas del examen 2022 del banco de fallos
+    fallos_usuario = [fid for fid in fallos_usuario if not str(fid).startswith("OFI22")]
+
     local_hist_file = f"historial_{nombre_seguro}.json"
     if not historial_usuario and os.path.exists(local_hist_file):
         try:
@@ -162,9 +165,11 @@ def cargar_memoria_usuario(user):
 def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
     nombre_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
     
+    # 1. Guardar fallos en local
     with open(f"fallos_{nombre_seguro}.json", "w", encoding="utf-8") as f:
         json.dump(lista_fallos, f, ensure_ascii=False, indent=2)
 
+    # 2. Guardar copia local de historial
     data_local = {
         "historial": st.session_state.user_data["historial"], 
         "estadisticas_temas": st.session_state.user_data["estadisticas_temas"]
@@ -172,6 +177,7 @@ def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
     with open(f"historial_{nombre_seguro}.json", "w", encoding="utf-8") as f:
         json.dump(data_local, f, ensure_ascii=False, indent=2)
 
+    # 3. Enviar a Google Sheets
     if GSHEETS_URL and "script.google.com" in GSHEETS_URL:
         paquete_datos = {
             "temas": nuevos_stats_examen,
@@ -295,7 +301,6 @@ def parsear_archivo(ruta_archivo, origen_nombre):
             if any(b in bloque.lower() for b in bloques_excluidos) and "EGA" not in bloque.upper():
                 continue
 
-            # Si es del examen oficial 2022 no asignamos tema numérico para que no invente [Tema XX]
             if "OFI" in p_id or "2022" in p_id:
                 tema = None
             else:
@@ -430,7 +435,7 @@ def generar_examen(modo, origen_teo, temas_sel, bloque_pra_sel, num_preg, uso_ac
         banco_t = banco_claude["teo"] + banco_gemini["teo"]
 
     banco_p = banco_claude["pra"]
-    todas_p = banco_claude["todas"] + banco_gemini["todas"]
+    todas_p = banco_claude["todas"] + banco_gemini["todas"] + datos_cargados["ofi2022"]["todas"]
 
     if modo == "Simulacro Oficial":
         seleccion_teo = []
@@ -499,7 +504,8 @@ def generar_examen(modo, origen_teo, temas_sel, bloque_pra_sel, num_preg, uso_ac
 
     elif modo == "Repaso de Fallos":
         fallos_ids = st.session_state.user_data.get('fallos', [])
-        cands = [p for p in todas_p if p['id'] in fallos_ids]
+        cands_dict = {p['id']: p for p in todas_p}
+        cands = [cands_dict[fid] for fid in fallos_ids if fid in cands_dict]
         random.shuffle(cands)
         return cands[:num_preg], []
 
@@ -719,6 +725,8 @@ if not st.session_state.corregido:
 
             aciertos_t, errores_t = 0, 0
             stats_este_examen = {}
+            es_examen_2022 = (st.session_state.modo_actual == "Examen Oficial 2022")
+
             for p in st.session_state.examen['teo']:
                 resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
                 t_str = str(p['tema']) if p.get('tema') else "otros"
@@ -729,14 +737,19 @@ if not st.session_state.corregido:
 
                 if resp == p['solucion']:
                     aciertos_t += 1
-                    st.session_state.user_data['estadisticas_temas'][t_str]['aciertos'] += 1
-                    # No eliminamos de la lista de fallos para que siempre se conserven
-                elif resp != "-":
-                    errores_t += 1
-                    st.session_state.user_data['estadisticas_temas'][t_str]['errores'] += 1
-                    stats_este_examen[t_str]['errores'] += 1
-                    if p['id'] not in st.session_state.user_data['fallos']:
-                        st.session_state.user_data['fallos'].append(p['id'])
+                    if not es_examen_2022:
+                        st.session_state.user_data['estadisticas_temas'][t_str]['aciertos'] += 1
+                else:
+                    if resp != "-":
+                        errores_t += 1
+                        if not es_examen_2022:
+                            st.session_state.user_data['estadisticas_temas'][t_str]['errores'] += 1
+                            stats_este_examen[t_str]['errores'] += 1
+                    # Guardar tanto falladas como dejadas en blanco (no contestadas) en la lista de repaso
+                    # Las del examen 2022 nunca entran a la lista de fallos
+                    if not es_examen_2022 and not p['id'].startswith("OFI22"):
+                        if p['id'] not in st.session_state.user_data['fallos']:
+                            st.session_state.user_data['fallos'].append(p['id'])
 
             aciertos_p, errores_p = 0, 0
             for sup in st.session_state.examen['pra']:
@@ -744,11 +757,13 @@ if not st.session_state.corregido:
                     resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
                     if resp == p['solucion']:
                         aciertos_p += 1
-                        # No eliminamos de la lista de fallos para que siempre se conserven
-                    elif resp != "-":
-                        errores_p += 1
-                        if p['id'] not in st.session_state.user_data['fallos']:
-                            st.session_state.user_data['fallos'].append(p['id'])
+                    else:
+                        if resp != "-":
+                            errores_p += 1
+                        # Guardar tanto falladas como dejadas en blanco en la lista de repaso
+                        if not es_examen_2022 and not p['id'].startswith("OFI22"):
+                            if p['id'] not in st.session_state.user_data['fallos']:
+                                st.session_state.user_data['fallos'].append(p['id'])
 
             total_t = len(st.session_state.examen['teo'])
             total_p = sum(len(s['preguntas']) for s in st.session_state.examen['pra'])
