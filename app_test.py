@@ -295,8 +295,12 @@ def parsear_archivo(ruta_archivo, origen_nombre):
             if any(b in bloque.lower() for b in bloques_excluidos) and "EGA" not in bloque.upper():
                 continue
 
-            tema_match = re.search(r'T(\d+)', p_id)
-            tema = int(tema_match.group(1)) if tema_match else None
+            # Si es del examen oficial 2022 no asignamos tema numérico para que no invente [Tema XX]
+            if "OFI" in p_id or "2022" in p_id:
+                tema = None
+            else:
+                tema_match = re.search(r'^T(\d+)', p_id) or re.search(r'[-_]T(\d+)', p_id)
+                tema = int(tema_match.group(1)) if tema_match else None
 
             lines = [l.strip() for l in chunk.split('\n') if l.strip()]
             enunciado = []
@@ -321,7 +325,7 @@ def parsear_archivo(ruta_archivo, origen_nombre):
                     else: enunciado.append(l)
 
             sol_data = soluciones.get(p_id, {'respuesta': 'A', 'justificacion': 'Conforme al temario oficial.'})
-            just_final = limpiar_just(sol_data.get('justificacion', 'Conforme al temario oficial.'))
+            just_final = limpiar_just_texto(sol_data.get('justificacion', 'Conforme al temario oficial.'))
 
             q_obj = {
                 'id': p_id, 'tema': tema,
@@ -614,7 +618,7 @@ with st.sidebar:
         with st.expander(f"📈 Notas de {usuario_actual}"):
             for h in reversed(st.session_state.user_data['historial'][-8:]):
                 detalle = f" — *{h.get('detalles', '')}*" if h.get('detalles') else ""
-                st.markdown(f"**{h['fecha']}** — {h['modo']}{detalle}\n\nNota: **{h['nota']} / 10**")
+                st.markdown(f"**{h['fecha']}** — {h['modo']}{detalle}\n\n\n\nNota: **{h['nota']} / 10**")
 
     # --- RADAR DE TEMAS (DÓNDE VAS MEJOR / PEOR) ---
     if st.session_state.user_data.get('estadisticas_temas'):
@@ -726,6 +730,7 @@ if not st.session_state.corregido:
                 if resp == p['solucion']:
                     aciertos_t += 1
                     st.session_state.user_data['estadisticas_temas'][t_str]['aciertos'] += 1
+                    # No eliminamos de la lista de fallos para que siempre se conserven
                 elif resp != "-":
                     errores_t += 1
                     st.session_state.user_data['estadisticas_temas'][t_str]['errores'] += 1
@@ -739,6 +744,7 @@ if not st.session_state.corregido:
                     resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
                     if resp == p['solucion']:
                         aciertos_p += 1
+                        # No eliminamos de la lista de fallos para que siempre se conserven
                     elif resp != "-":
                         errores_p += 1
                         if p['id'] not in st.session_state.user_data['fallos']:
