@@ -1,0 +1,486 @@
+# ==================================================================
+# BANCO OFICIAL EXAMEN SARGENTO BOMBEROS AYTO. MADRID 2022 (18 PLAZAS)
+# ==================================================================
+
+**ID: OFI22-T01 | Tipo: teórica | Bloque: Oficial 2022**
+La altura manométrica de una bomba:
+A) Es la altura desde el eje de la bomba hasta el punto de máxima elevación
+B) Es la presión en metros de columna de agua medida inmediatamente después del racor de acoplamiento de la salida
+C) Es la suma de la altura de aspiración geodésica y la altura de impulsión
+**OFI22-T01 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T02 | Tipo: teórica | Bloque: Oficial 2022**
+Por efectos del viento en EGA, las presiones y succiones en el exterior de la fachada modifican la situación del plano neutro de presiones. En el caso de que la temperatura en el interior de la edificación sea mayor que en el exterior, por efecto de la sobrepresión por viento en la fachada de barlovento…:
+A) El plano neutro de presiones baja y favorece la entrada de aire en huecos situados en plantas más elevadas
+B) El plano neutro de presiones sube  y favorece la entrada de aire en huecos situados en plantas más elevadas
+C) El plano neutro de presiones baja y favorece la entrada de aire en huecos situados en plantas más bajas
+**OFI22-T02 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T03 | Tipo: teórica | Bloque: Oficial 2022**
+Los trabajadores, con arreglo a su formación y siguiendo las instrucciones d el empresario, deberán en particular:
+A) Cooperar con el empresario para que éste pueda garantizar unas condiciones de trabajo confortables para la actividad laboral de los trabajadores.
+B) Poner fuera de funcionamiento y utilizar correctamente los dispositivos  de seguridad existentes o que se instalen en los medios relacionados con su actividad o en los lugares de trabajo en los que ésta tenga lugar.
+C) No poner fuera de funcionamiento y utilizar correctamente los dispositivos de seguridad existentes o que se inst alen en los medios relacionados con su actividad o en los lugares de trabajo en los que ésta tenga lugar.
+**OFI22-T03 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T04 | Tipo: teórica | Bloque: Oficial 2022**
+Son signos de un Backdraught:
+A) Incendio con ventilación limitada o sin ventilación. · Humo espeso, negro y/o amarillo. · Llamas azules. · Puertas y ventanas calientes. · Ventanas ennegrecidas de hollín. · Ausencia de llamas visibles. · Aire siendo arrastrado (succionado) hacia el interior (ruido de silbido). · Pulsaciones de humo a través de pequeños huecos en las entradas/ salidas de ventilación.
+B) Incendio ventilado. · Fuerte calor radiante. · Dotaciones forzadas a permanecer agachadas por las altas temperaturas. · Superficies calientes. · Llamas a nivel del techo, descenso del plano neutro. · Incremento en la velocidad de pirólisis. · Incremento de la turbulencia en el plano neutro*"
+C) Incendio con ventilación limitada o sin ventilación. · Humo espeso, negro y/o amarillo. · Llamas azules, dotaciones forzadas a permanecer agachadas por las altas temperaturas. · Superficies calientes. · Llamas a nivel del techo· descenso del plano neutro, pulsaciones de humo a través de pequeños huecos en las entradas/ salidas de ventilación.
+**OFI22-T04 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T05 | Tipo: teórica | Bloque: Oficial 2022**
+La patología en la que se inicia la rotura en la parte baja de un muro y termina con una grieta de igual abertura en toda la altura de la fachada se denomina:
+A) Deslizamiento.
+B) Asiento.
+C) Quebranto lateral.
+**OFI22-T05 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T06 | Tipo: teórica | Bloque: Oficial 2022**
+Según la maniobra MBE ALT 022:
+A) Se montarán las dos cuerdas en anclajes diferentes, siendo la cuerda del descenso la que quedará a la izquierda y en la anilla esternal del arnés.
+B) Se montarán las cuerdas en anclajes diferentes, siendo la cuerda del autoseguro la que nos quede a la derecha y el ASSAP anclado en la anilla esternal del arnés.
+C) Se montarán las dos cuerdas en anclajes diferentes, la cuerda de descenso quedara a la derecha y se conectara el  I´D en la anilla esternal del arnés.
+**OFI22-T06 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T07 | Tipo: teórica | Bloque: Oficial 2022**
+Según el Módulo Sanitario de Bomberos de la Comunidad de Madrid, en pacientes adultos que precisan de maniobras de RCP, en los protocolos RCP se recomienda que:
+A) La misma se debe comenzar por las ventilaciones y no con las compresiones torácicas ya que es fundamental oxigenar cuanto antes esta sangre aún oxigenada.
+B) Antes de aplicar la misma se debe comenzar por el taponamiento de hemorragias ya que es fundamental cortar cuanto antes la pérdida de la sangre que está oxigenada.
+C) La misma se debe comenzar por las compresiones torácicas y no con las ventilaciones ya que es fundamental movilizar cuanto antes esta sangre aún oxigenada.
+**OFI22-T07 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T08 | Tipo: teórica | Bloque: Oficial 2022**
+De acuerdo con el Procedimiento Operativo Control de EPR en Intervención, antes de que cualquiera de los Equipos entren en la zona de trabajo, el Jefe de Dotación deberá cumplimentar las casillas de la Tabla de Control de Tiempos:
+A) Tarea Operativa del/los ET que van a entrar. Información de los componentes del/los ET que van a entrar. Presión inicial de cada Bombero del ET. Presión de Seguridad correspondiente a cada Bombero del ET
+B) Equipamiento del/los ET que van a entrar. Información de los componentes del/los ET que van a entrar. Presión inicial más baja de cada ET. Presión de Seguridad correspondiente a cada ET
+C) Tarea Operativa del/los ET que van a entrar. Información de los componentes del/los ET que van a entrar. Presión inicial más baja de cada ET. Presión de Seguridad correspondiente a cada ET
+**OFI22-T08 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T09 | Tipo: teórica | Bloque: Oficial 2022**
+Según el procedimiento de actuación conjunta Bomberos y Samur - Proteccion Civil, una activación de recursos con prioridad 3 es:
+A) Muchas víctimas.
+B) Actuación de bomberos con bajo riesgo.
+C) Víctima confirmada o actuación de bomberos con elevado riesgo.
+**OFI22-T09 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T10 | Tipo: teórica | Bloque: Oficial 2022**
+Según el Módulo Sanitario de Bomberos de la Comunidad de Madrid, en la insuficiencia respiratoria, el aumento de la concentración de CO2 en la sangre arterial, acompañado de piel caliente  y enrojecida , taquicardia, hipertensión y somnolencia se le denomina:
+A) Hipoxemia
+B) Hipercapnia
+C) Disnea
+**OFI22-T10 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T11 | Tipo: teórica | Bloque: Oficial 2022**
+En el caso de trabajos con máquinas excavadoras próximos a la base de un árbol, su estabilidad se encuentra comprometida si:
+A) Cuando se encuentran dañadas más de un 40% de sus raíces.
+B) Cuando se encuentran dañadas más de un 60% de sus raíces
+C) Cuando se encuentran dañadas más d un 70% de sus raíces.
+**OFI22-T11 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T12 | Tipo: teórica | Bloque: Oficial 2022**
+¿Qué caudales nominales puede dar la bomba combinada de la BUP de renting a 10 bar y 40 bar respectivamente?
+A) 2000 l/min y 400 l/min
+B) 3500 l/min y 500 l/min
+C) 3000 l/min y 400 l/min
+**OFI22-T12 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T13 | Tipo: teórica | Bloque: Oficial 2022**
+De acuerdo a la CTE DB -SI cuál de estos locales bajo rasante no dispondrá de una escalera protegida y por tanto los riesgos de acceso para la dotación serán mayores:
+A) Local bajo rasante con altura de evacuación de 5 m y aforo de 75 personas
+B) Aparcamiento bajo rasante de 7 vehículos con altura de evacuación de 2,5 m
+C) Local bajo rasante con altura de evacuación de 4 m y aforo de 125 personas
+**OFI22-T13 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T14 | Tipo: teórica | Bloque: Oficial 2022**
+Según el manual de APRAT, entre las acciones a seguir para el desarrollo de la maniobra de levantamiento de salpicadero con separador...
+A) Realizaremos dos cortes profundos en el montante A, separados unos 15 cm
+B) Realizaremos dos cortes profundos en el pilar A, separados unos 15 cm
+C) Realizaremos dos cortes profundos en el chasis, a la altura del amortiguador, separados unos 15 cm.
+**OFI22-T14 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T15 | Tipo: teórica | Bloque: Oficial 2022**
+Según el Módulo Sanitario de Bomberos de la Comunidad de Madrid, tras la parada cardiorespiratora, las probabilidades de supervivencia del paciente se reducen drásticamente, aumentando además las posibilidades de daños neurológicos graves a partir de:
+A) Los 4 minutos
+B) Los 8 minutos.
+C) Los 12 minutos
+**OFI22-T15 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T16 | Tipo: teórica | Bloque: Oficial 2022**
+Una instalación radioactiva denominada zona controlada se corresponde a:
+A) Es aquella en que es muy improbable recibir dosis superiores a 1/10 de los límites anuales de dosis. En ella no es necesario tomar medidas de protección radiológica. Se señaliza con un trébol de col or verde sobre fondo blanco
+B) Es aquella que no es improbable recibir dosis superiores a 3/10 de los límites anuales de dosis. Se señaliza con un trébol de color verde sobre fondo blanco
+C) Es aquella en que no es improbable recibir dosis superiores a 1/10 de los límites anuales de dosis, siendo muy improbable recibir dosis superiores a 3/10 de dichos límites. Se señaliza con un trébol de color gris -azulado sobre fondo blanco.
+**OFI22-T16 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T17 | Tipo: teórica | Bloque: Oficial 2022**
+En la maniobra de uso de columna seca en extinción de incendios, se especifica que evitaremos sobrecargar una columna seca con:
+A) Más de 2 instalaciones de 25 ó una de 45.
+B) Más de cuatro instalaciones de 25 ó dos de 45.
+C) Más de seis instalaciones de 25 ó cuatro de 45.
+**OFI22-T17 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T18 | Tipo: teórica | Bloque: Oficial 2022**
+Como Mandos de Bomberos es de máxima importancia tener un conocimiento básico pero certero de las situaciones en que pueden producirse distintos tipos de explosión de los gases de incendio. Respecto a la formación de gases de incendio inflamables que pueden ocurrir en el interior de un edificio , cual de estas afirmaciones es cierta:
+A) El aporte de aire, una fuente de calor y turbulencias que ayuden a la mezcla es un requisito imprescindible para la ignición de estos gases.
+B) El aporte de aire y/o una fuente de calor es un requisito imprescindible para la ignición de estos gases.
+C) El aporte de aire y/o una fuente de calor no es un requisito imprescindible para la ignición de estos gases.
+**OFI22-T18 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T19 | Tipo: teórica | Bloque: Oficial 2022**
+De acuerdo al Plan de Intervención para Intervenciones con Sustancias Peligrosas (PISE SPE 009), el orden de prioridades del Plan de Acción de la primera respuesta será:
+A) 1.- Rescate de víctimas. 2.- Identificar. 3.- Zonificar. 4.- Mitigar
+B) 1.- Rescate de víctimas. 2.- Mitigar. 3.- Identificar. 4.- Zonificar
+C) 1.- Identificar. 2.- Zonificar. ·3.- Rescate de víctimas. 4.- Mitigar
+**OFI22-T19 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T20 | Tipo: teórica | Bloque: Oficial 2022**
+En un recinto cerrado con poca o nula ventilación, si el plano neutro de gases de incendio desciende…
+A) Las llamas decrecen y comienza un aumento de la temperatura favorecida por la inercia térmica de los materiales en el proceso de pirólisis, señal de que se va a producir inmediatamente un flashover.
+B) Cada vez será más difícil la combustión en el interior d el recinto al aproximarse al límite (L.S.I.) superior de inflamabilidad la mezcla.
+C) Los gases del incendio se están enfriando por expansión adiabática. Este enfriamiento hará que los gases de incendio queden fuera de sus rangos de inflamabilidad y que, de este modo se imposibilite su ignición.
+**OFI22-T20 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T21 | Tipo: teórica | Bloque: Oficial 2022**
+La igualdad de trato y de oportunidades entre mujeres y hombres es un principio.
+A) Informador.
+B) Sustancial.
+C) Especial.
+**OFI22-T21 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T22 | Tipo: teórica | Bloque: Oficial 2022**
+Las fisuras en hormigón armado con aristas muy perfiladas, que son más abiertas en la coronación del muro y se van estrechando a medida que descienden quedando con frecuencia discontinua su línea de rotura, y que se caracterizan por tener las aristas muy perfiladas, se denominan:
+A) Fisuras de tracción
+B) Fisuras de retracción térmica
+C) Fisuras por sobredimensionamiento de las armaduras
+**OFI22-T22 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T23 | Tipo: teórica | Bloque: Oficial 2022**
+Según el procedimiento operativo de zonificación en incidentes con presencia de sustancias peligrosas, en caso de estar involucrado un peróxido orgánico incendiado y con peligro de explosión, la zona templada se establece en:
+A) Entre 300 y 1000 metros.
+B) Entre 100 y 300 metros.
+C) Mas de 500 metros.
+**OFI22-T23 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T24 | Tipo: teórica | Bloque: Oficial 2022**
+Son vehículos de Grupo 2:
+A) Bomba urbana ligera, salvamento acuático y furgoneta de colchones.
+B) Vehículo forestal, vehículo de desagüe y vehículo de salvamento y desescombro.
+C) Vehículo de desagüe, furgoneta de colchones y segunda bomba con dotación de coche.
+**OFI22-T24 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T25 | Tipo: teórica | Bloque: Oficial 2022**
+Los fenómenos de desestratificación de humos y de retroceso de los humos que se conoce como “backlayering”
+A) Están asociados a incendios bajo rasante de galerías de Servicio y similares, y cómo los humos generados pueden moverse por su interior.
+B) Están asociados a los incendios bajo rasante en túneles, y cómo los humos generados pueden moverse por su interior.
+C) Están asociados a cualquier tipo de incendio limitado por la ventilación
+**OFI22-T25 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T26 | Tipo: teórica | Bloque: Oficial 2022**
+Según maniobra básica de retirada de traje nivel II (Tipo 3B), el equipamiento del personal que realiza el desvestido será
+A) Traje Categoría III Tipo 3B +   protección ocular gafas + mascarilla bucal de protección FFP3 + dos guantes de látex / nitrilo por mano
+B) Traje Categoría II Tipo 3B +   protección ocular gafas + mascarilla bucal de protección FFP3 + dos guantes de látex / nitrilo por mano
+C) Traje Categoría II Tipo 3B +   equipo de respiración autónomo + dos guantes de látex / nitrilo por mano
+**OFI22-T26 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T27 | Tipo: teórica | Bloque: Oficial 2022**
+Cuando apliquemos las técnicas de vendaje:
+A) Comenzaremos desenrollando siempre por la zona más proximal y por la cara posterior del miembro.
+B) Comenzaremos desenrollando siempre por la zona más distal y por la cara posterior del miembro.
+C) Comenzaremos desenrollando siempre por la zona más distal y por la cara anterior del miembro.
+**OFI22-T27 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T28 | Tipo: teórica | Bloque: Oficial 2022**
+De acuerdo al manual de Atención al Paciente Politraumatizado de Bomberos de la Comunidad de Madrid, según un estudio reciente, la autoextracción controlada sin collarín genera menos movimiento en la columna cervical en comparación con las técnicas de extracción asistidas por el equipo de rescate.
+A) La autoextricación no es recomendable nunca debido a la posible lesión medular
+B) Siempre son los equipos de rescate los que tienen que extraer a las víctimas aplicando métodos de inmovilización en cualquier circunstancia
+C) Podría ser aceptable la autoextracción de aquellas víctimas de accidentes en ciertas circunstancias tales como que tengan un normal nivel de conciencia, no estén bajo los efectos de algún tóxico, etc.
+**OFI22-T28 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T29 | Tipo: teórica | Bloque: Oficial 2022**
+Con la conexión de bombas en paralelo se consigue…
+A) Aumentar la presión
+B) Aumentar el caudal
+C) Incrementar la altura geométrica
+**OFI22-T29 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T30 | Tipo: teórica | Bloque: Oficial 2022**
+Las fracturas de las dos primeras costillas se pueden asociar a:
+A) Provocar lesiones abdominales.
+B) Lesiones de la aorta y del árbol traqueobronquial, por tanto, se consideran graves.
+C) Se asocian habitualmente con hemotórax y neumotórax simples.
+**OFI22-T30 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T31 | Tipo: teórica | Bloque: Oficial 2022**
+Las causas que originan una rotura a cortante son:
+A) Colocar cercos sin cerrar o con escasa longitud de anclaje, armadura transversal insuficiente y sección insuficiente de la viga.
+B) Menor carga de la prevista, mayor resistencia del hormigón y calcular a cortante vigas muy anchas.
+C) Colocación de cercos con mayor diámetro y muy juntos, calculo correcto de la solicitación de la estructura y escasa resistencia del hormigón.
+**OFI22-T31 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T32 | Tipo: teórica | Bloque: Oficial 2022**
+Según la Ley Orgánica 3/2007, de 22 de marzo, para la igualdad efectiva de mujeres y hombres:  el trato desfavorable a una mujer relacionado con el embarazo o la maternidad constituye:
+A) Discriminación indirecta.
+B) Discriminación directa.
+C) Discriminación indirecta circunstancial.
+**OFI22-T32 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T33 | Tipo: teórica | Bloque: Oficial 2022**
+Si el suministro de aire en el recinto se restringe, el oxígeno del interior del recinto se consumirá antes de que pueda ser remplazado:
+A) Esto generará un progresivo aumento de la concentración de dióxido de carbono en los gases de incendio del interior del recinto, y un incremento en su temperatura
+B) Esto generará un progresivo descenso de la concentración de oxígeno en los gases de incendio del interior del recinto, y un incremento en su temperatura
+C) Esto generará un progresivo descenso de la concentración de oxígeno en los gases de ince ndio del interior del recinto, y un descenso en su temperatura
+**OFI22-T33 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T34 | Tipo: teórica | Bloque: Oficial 2022**
+Según el Módulo Sanitario de Bomberos de la Comunidad de Madrid,  se consideran lesiones primarias:
+A) Las que resultan del paso directo de la onda expansiva por el organismo.
+B) Las que resultan por el impacto de fragmentos y proyectiles.
+C) Las que resultan por el desplazamiento incontrolado de las víctimas.
+**OFI22-T34 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T35 | Tipo: teórica | Bloque: Oficial 2022**
+Según la ecuación de Bernuilli, el factor que más se incrementa al circular el agua desde un mangaje de 45mm a uno de 25mm a través de una reducción es:
+A) La altura piezométrica
+B) La altura cinética
+C) La altura de presión
+**OFI22-T35 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T36 | Tipo: teórica | Bloque: Oficial 2022**
+En un incendio que afecte al término municipal de Madrid y a otro municipio cubierto por Bomberos de la CAM, si llegamos con la Bomba y Escala y ya están actuando los medios de la CAM, y estimamos necesarios la presencia de dos tanques y una bomba más...
+A) Lo solicitaremos al CISEM a través del Canal de Zona
+B) Informaremos al Mando de la CAM, que ejerce de MUR, y solicitaremos medios al CISEM de común acuerdo.
+C) Solo puede solicitarlo el Mando de la CAM que ejerce de MUR
+**OFI22-T36 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T37 | Tipo: teórica | Bloque: Oficial 2022**
+Según exigencia básica SI 5: Intervención de bomberos, y en lo referido  a la accesibilidad, si la altura de evacuación de un edificio es mayor de 20 metros, a separación máxima admisible del vehículo de bomberos a la fachada será de:
+A) 10 metros
+B) 15 metros
+C) 18 metros
+**OFI22-T37 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T38 | Tipo: teórica | Bloque: Oficial 2022**
+Según el manual de APRAT, el orden de extracción de una víctima situada en el asiento de acompañante del conductor será:
+A) Portón trasero, puerta trasera contralateral y puerta lateral del mismo lado.
+B) Portón trasero, puerta trasera del mismo lado y puerta trasera contralateral.
+C) Puerta lateral del mismo lado, portón trasero y puerta trasera contralateral.
+**OFI22-T38 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T39 | Tipo: teórica | Bloque: Oficial 2022**
+De acuerdo al  Plan de Intervención en accidentes de tráfico de vehículos ligeros con posibles atrapados (PISE VLA 006), cuál de estas premisas es falsa.
+A) Solo en caso de que los riesgos derivados del accidente amenacen a las víctimas atrapadas se abordará el control de los mismos previo al rescate.
+B) El Equipo 3 se encarga del control interior del vehículo (llave de contacto, cinturos, airbag...)
+C) Es prioritario interrogar a los testigos
+**OFI22-T39 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T40 | Tipo: teórica | Bloque: Oficial 2022**
+Al llegar a un siniestro con Bomba y Escala, se observa que por sus dimensiones es previsible que sea un incidente complejo. ¿quién activa el Protocolo PIC?
+A) El Mando de la Dotación actuante propone la activación del PIC, y es el Gestor de Información del Mando Único quien lo activa
+B) El PIC lo activa el Mando de la Dotación actuante previ o acuerdo con el resto de Servicios.
+C) El Mando de la Dotación actuante propone la activación del PIC, y es el Supervisor de Guardia quien lo activa
+**OFI22-T40 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T41 | Tipo: teórica | Bloque: Oficial 2022**
+Según la Ley 31/1995, de 8 de noviembre de prevención de Riesgos Laborales, la formación de los trabajadores debe estar centrada específicamente en:
+A) En la función de cada trabajador.
+B) En la totalidad del área de trabajo que corresponda al trabajador.
+C) Ambas son correctas.
+**OFI22-T41 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-T42 | Tipo: teórica | Bloque: Oficial 2022**
+De acuerdo a  la vigente normativa de colores de botellas de gas, si en una intervención encontramos una botella con la ojiva de color marrón (marrón sin más matices), sospecharemos que contiene:
+A) Se trata de acetileno.
+B) Se trata de helio.
+C) La actual normativa no contempla el color marrón
+**OFI22-T42 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T43 | Tipo: teórica | Bloque: Oficial 2022**
+De acuerdo con el Procedimiento Operativo Equipación y Misiones Básicas en Incendios en el Interior de Edificaciones, la Equipación Básica para Incendios en el Interior de Edificaciones (EBIIE) es:
+A) Uniformidad E2 completa. ERA. Lint erna de casco. Cabo de anclaje personal regulable "Edelrid". Emisora portátil. Número identificativo personal
+B) Uniformidad E2 completa. Linterna de casco. Cabo de anclaje personal regulable "Edelrid". Emisora portátil. Número identificativo personal.
+C) Uniformidad E2 completa. ERA. Linterna de casco. Cabo de anclaje personal regulable "Edelrid". EXO. Emisora portátil. Número identificativo personal.
+**OFI22-T43 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T44 | Tipo: teórica | Bloque: Oficial 2022**
+Según el Módulo Sanitario de Bomberos de la Comunidad de Madrid, una de las principales causas de insuficiencia cardíaca, entre otras, es:
+A) Oliguria.
+B) Cardiopatía isquémica
+C) Cianosis
+**OFI22-T44 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T45 | Tipo: teórica | Bloque: Oficial 2022**
+De acuerdo al Real Decreto 1428/2003 de 21 de noviembre por el que se aprueba el Reglamento General de Circulación, si al llegar a un grave accidente de tráfico con atrapados, la Guardia Civil de Tráfico nos indica con señales que sigamos y no paremos:
+A) Estacionaremos y procederemos al inmediato rescate
+B) Estacionaremos y preguntaremos a los agentes como proceder.
+C) Seguiremos circulando por la vía e informaremos a la Central.
+**OFI22-T45 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T46 | Tipo: teórica | Bloque: Oficial 2022**
+Cuál de estas afirmaciones es cierta:
+A) Los brotes epicórmicos peligrosos tienen  una corteza de un aspecto un color totalmente comparable con la del portador, por lo contrario, una rama consolidada tiene un aspecto claramente más joven que la de su portador
+B) Los brotes epicórmicos peligrosos conservan durante mucho tiempo una corteza de un aspecto claramente más joven que la de su portador, por lo contrario, una rama consolidada pose un color totalmente comparable con la del portador
+C) Los brotes epicórmicos peligrosos tienen una corteza de un aspecto un color totalmente comparable con la del portador, diferenciándose de las ramas consolidadas en estar ancladas sobre áreas cancrosas muertas o en pudrición en su base.
+**OFI22-T46 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T47 | Tipo: teórica | Bloque: Oficial 2022**
+Los cuartos de instalaciones técnicas que contienen  salas de maquinaria frigorífica de  refrigerante halogenado con potencia >400kw son considerados como recintos de riesgo tipo.
+A) Riesgo bajo.
+B) Riesgo medio.
+C) Riesgo alto.
+**OFI22-T47 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T48 | Tipo: teórica | Bloque: Oficial 2022**
+Cuál de estas afirmaciones es cierta:
+A) Los peróxidos orgánicos están sujetos a la descomposición exotérmica solo a temperatura elevada
+B) Los peróxidos orgánicos están sujetos a la descomposición exotérmica a temperaturas normal o elevada
+C) Los peróxidos orgánicos están sujetos a la descomposición exotérmica pero necesitan energía de activación externa
+**OFI22-T48 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-T49 | Tipo: teórica | Bloque: Oficial 2022**
+En situaciones en las que para cortar u na rama con motosierra desde escala corredera empleemos el grillón como elemento de amarre rodeando el fuste, de acuerdo a la Maniobra combinada de corte de rama desde escala corredera, la distancia entre el trabajador y el fuste del árbol para evitar el riesgo de caída hacia abajo no debe superar los:
+A) 30 cm
+B) 40 cm
+C) 50 cm
+**OFI22-T49 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-T50 | Tipo: teórica | Bloque: Oficial 2022**
+En incendios en EGA, se conoce como "efecto hongo" a:
+A) Cuando los gases de incendio calientes se trasladan hacia el hueco de escalera y se acumulan en la parte superior de esta.
+B) Cuando los gases de incendio que suben por el hueco de escalera se topan con un forjado y se desplazan bajo este.
+C) Cuando los gases de incendio se enfrían antes de alcanzar un hueco vertical, y al llegar descienden por este.
+**OFI22-T50 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+## Supuesto 1 - Incendio Estructural en Planta Baja (Local Comercial)
+Se produce activación de BO y ET de su parque a las 03:00 horas con clave de intervención FIPL. Al llegar al lugar, comprueba que se trata de un edificio de viviendas de planta baja más siete sobre rasante, con edificios colindantes de alturas y características similares. El edificio tiene aproximadamente 15 metros de fachada, su vial de acceso una anchura de 12 metros y dos sentidos de circulación. En la planta baja del edificio se localizan dos locales comerciales, situados a ambos lados de la entrada al portal de la finca . En el reconocimiento se observa que los dos locales disponen de  cerramiento de lamas de persiana metálicas. No disponen de huecos de ventana, pero si de dos rejillas de ventilación de 0,40 x 0,90 mts en cada local comercial, ubicadas a la altura de la cara inferior del forjado de la planta primera del edifici o. Se observan pulsaciones de humo espeso y negro manifestándose a través de estas rejillas de ventilación, sin inflamación de gases al contacto con el aire exterior. Una patrulla de Policía Municipal se encuentra en el punto. No se observan personas alarmadas en el lugar.
+
+**ID: OFI22-P01 | Tipo: práctica | Bloque: Incendio Estructural en Planta Baja (Local Comercial)**
+Con este escenario, y ante las posibilidades siguientes, señale cual sería la interpretación correcta del incendio:
+A) Incendio desarrollado en las proximidades del límite inferior de inflamabilidad sin dar lugar a mezclas inflamables ricas en gases combustibles. Acumulación de gases en el techo d el local por la alta temperatura de la pluma de incendio sobre el combustible quemado.
+B) El incendio se encuentra en una etapa donde el aporte de aire  es insuficiente como para alcanzar el estado de incendio totalmente desarrollado, pero existe la suficiente temperatura como para que  los gases se inflamen con la entrada de aire.
+C) El incendio se encuentra en una etapa donde el aporte de aire  es suficiente como para alcanzar el estado de incendio totalmente desarrollado, con suficiente temperatura como para que en el exterior, los gases se inflamen por el efecto que provocan las llamas procedentes del foco de incendio al contacto con el aire exterior.
+**OFI22-P01 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-P02 | Tipo: práctica | Bloque: Incendio Estructural en Planta Baja (Local Comercial)**
+En base  al escenario descrito y en función de su respuesta anterior, señale cuál de las opciones anteriores correspondería con su comunicación a la central más correcta.
+A) Incendio positivo completamente desarrollado sin propagación inicial al resto del edificio, estrategia ofensiva en la extinción procediendo al acceso inmediato al local afectado. Solicito en el lugar BUP y SR2.
+B) Incendio positivo controlado por el combustible con posibilidad de propagación al edificio por huecos de escalera o patios interiores. Estrategia ofensiva en la extinción con control  inicial de gases de incendio y apertura controlada del acceso al local. P osibilidad de Flashover. Solicito en el lugar BUP, ET y SR02.
+C) Incendio positivo controlado por la  ventilación con posibilidad de propagación al edificio por huecos de escalera o patios interiores. Estrategia ofensiva en la extinción con control inicial exterior de gases de incendio y apertura controlada del acceso al local. Posibilidad de backdraught. Solicito en el lugar BUP, ET y SR02.
+**OFI22-P02 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-P03 | Tipo: práctica | Bloque: Incendio Estructural en Planta Baja (Local Comercial)**
+Según su criterio de interpretación del incendio y en función de la comunicación realizada a la central, señale cuales serían las primeras órdenes a sus equipos de trabajo:
+A) Emplazamiento de autoescala frente a la fachada, equipo de escala control de posibilidad de humo en viviendas desde la cesta. Ubicación de la BUP posterior  a la fachada del edificio. Instalación bá sica y apertura de acceso al local para proceder a las labores de extinción.
+B) Emplazamiento autoescala anterior a la fachada del edificio, equipo de escala control de caja de escalera. Ubicación de la BUP posterior a la fachada del edificio. • Equipo 3 enfriamiento exterior de gases de incendio con ayuda del pronto socorro. • Equipo 2 instalación básica. • Conductor puesta en carga de instalación. • Equipo 1 apertura controlada de acceso y enfriamiento de gases de incendio asociado a la apertura.
+C) Emplazamiento autoescala frente a la fachada del edificio, equipo de escala control de caja de escalera. Ubicación de la BUP posterior a la fachada del edificio. • Equipo 3 enfriamiento exterior de gases de incendio con ayuda del pronto socorro. •  Equipo 2 instalación básica. •  Conductor puesta en carga de instalación. •  Equipo 1 apertura controlada de acceso y enfriamiento de gases de incendio asociado a la apertura.
+**OFI22-P03 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+## Supuesto 2 - Incendio Bajo Rasante en Garaje Aparcamiento
+Se produce activación de BO y ET de su parque a  las 19:00 horas con clave de intervención FGSO. Al llegar al lugar comprueba que se trata de un edificio exento en manzana cerrada de cinco alturas y cuatro viviendas por planta. Alrededor de la finca hay un vallado. La distancia a la fachada del edificio desde su cerramiento es de 10 metros,  ubicándose la bomba a 3 metros del mismo. La distancia aproximada desde el portal de entrada a la finca  hasta al vestíbulo de independencia del garaje aparcamiento es de 20 metros. La escalera interior del edificio tiene trazado discontinuo. En el citado garaje aparcamiento se ha producido un incendio en la planta menos 1, con gran cantidad de humo manifestándose por la rampa de acceso de vehículos sin afectación a las viviendas superiores.
+
+**ID: OFI22-P04 | Tipo: práctica | Bloque: Incendio Bajo Rasante en Garaje Aparcamiento**
+Como mando inicial de la intervención hasta la posible llegada de medios de apoyo, sus funciones, entre otras, serán:
+A) Establecimiento del puesto de mando en zona caliente o templada, pudiendo ser móvil o fijo. Determinación de la estrategia de intervención. Evaluar el riesgo y preparar el posible crecimiento organizativo de la intervención. Control de ERAS con tabla Regis , solicitando recursos adicionales si fueran necesarios.
+B) Realizar la primera comunicación parabrisas y ubicar los vehículos con la ayuda de los bomberos conductores. Solicitar los relevos del personal. Emitir comunicación ODAP y activar el procedimiento MAYDAY si fuera necesario.
+C) Realizar la primera comunicación parabrisas y ubicar los vehículos con la ayuda de los bomberos conductores. Solicitar los relevos del personal. Emitir comunicación ODAP, validando la estrategia y el Plan de Acción.
+**OFI22-P04 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-P05 | Tipo: práctica | Bloque: Incendio Bajo Rasante en Garaje Aparcamiento**
+Ante el escenario anterior, escoja entre las siguientes opciones el Plan de Acción más adecuado a la intervención, obviando la ganancia de presión  por altura manométrica referidas al garaje en planta -1, teniendo como premisa fundamental la necesidad en punta de lanza un caudal de 230 l/min y  una presión mínima de 7 bar:
+A) Estrategia ofensiva en la extinción: • Instalación básica compuesta por un mangaje diam. 70mm, dos mangajes diam. 45 mm y dos mangajes diam. 25 mm con un caudal de 230 l/min. • Presión mínima en cuerpo de bomba 14 bar. • Acceso al recinto incendiado a través del vestíbulo de independencia. • Control de la evolución del humo exterior. • Equipo SOS en prevención. •  Comunicación a la central de comunicaciones declarando Nivel 1 de Control de aire exterior,  solicitud de  BUP y  SR.
+B) Estrategia ofensiva en la extinción: • Instalación básica compuesta por un mangaje diam, 70mm, dos mangajes diam. 45 mm y dos mangajes diam. 25 mm con una presión en punta de lanza de 230 l/min. • Presión mínima en cuerpo de bomba 15,6 bar. • Acceso al recinto incendiado a través del vestíbulo de independencia. • Control escalera interior del edificio. • Equipo SOS en prevención. • Comunicación a la central de comunicaciones declarando Nivel 1 de Control de aire exterior, solicitud de  BUP y  SR.
+C) Estrategia ofensiva en la extinción: • Instalación básica compuesta por un mangaje diam, 70mm, dos mangajes diam. 45 mm y dos mangajes diam. 25 mm con un caudal de 230 l/min. • Presión mínima en cuerpo de bomba 19 bar. • Acceso al recinto incendiado a través del vestíbulo de independencia. • Control escalera interior del edificio. • Comunicación a la central de comunicaciones declarando Nivel 0 de Control de aire exterior, solicitud de  BUP y  SR.
+**OFI22-P05 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+## Supuesto 3 - Incendio en Edificio de Gran Altura (EGA)
+Se activa BUP de su parque a fuego en edificio de oficinas de tipo      EGA-II. Se encuentran actuando en el lugar dos bombas, una escala de 50 metros y un brazo articulado, además de un jefe de Sector y el Jefe de guardia.  A la llegada al siniestro recibe la siguiente información: • Incendio completamente desarrollado en planta 20. • Se están realizando labores de extinción y  existe la posibilidad de personas atrapadas en la planta de fuego. El incendio está localizado y controlado. • El edificio tiene una su perficie por planta de 350 m2 y se dispone de planos de distribución. • Su misión es el reconocimiento de la planta de fuego y el rescate de las posibles personas atrapadas en el interior. • El edificio dispone de dos ascensores de emergencia, de los cuales uno se encuentra a su disposición. Su capacidad de carga es de 630Kg. • Se encuentra nombrado un Enlace del ascensor de emergencia.
+
+**ID: OFI22-P06 | Tipo: práctica | Bloque: Incendio en Edificio de Gran Altura (EGA)**
+Atendiendo a los procedimientos P.O. EME 01 (uso de ascensores de emergencia) y P.O. OSV 06.3 (orientación en situación de  baja visibilidad) escoja la opción más adecuada que deberá ordenar a sus equipos de trabajo para realizar la  misión que se le ha n encomendado:
+A) Equipados con Nivel I de intervención: • Equ1 + Equ2 con cámara térmica y cuerda guía + operador del ascensor suben hasta planta 3, comprueban distribución y realizan paradas sucesivas en plantas 8, 13 y 18 dirigiéndose desde esta planta hasta la planta de fuego siguiendo las líneas de extinción. • Equ1 procede al rastreo mediante la técnic a del abanico, portando la cuerda el bombero que avance en primer lugar y atándola el que avance tras él.  E qu2 permanece como equipo SOS. Se asigna canal 2 de comunicación con el Jefe de Dotación.
+B) Equipados con Nivel I de intervención: • Equ1 + Equ2 con cámara térmica y cuerda guía + operador del ascensor suben hasta planta 10, comprueban distribución y realizan la siguiente parada en la planta 18, dirigiéndose desde esta planta hasta la planta de fuego. • Equ1 procede al rastreo mediante la técnica del abanico, portando la cuerda el bombero que avance  segundo lugar y atándola el que va delante.  Equ2 permanece como equipo SOS. Se asigna canal 2 de comunicación con el Jefe de Dotación.
+C) Ninguna de estas órdenes  seria correcta, ya que el P.O. OSV 06.3 establece que nunca se iniciara la primera entrada a un fuego confinado y sin visión solo con cuerda guía.
+**OFI22-P06 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+**ID: OFI22-P07 | Tipo: práctica | Bloque: Incendio en Edificio de Gran Altura (EGA)**
+En el transcurso de la intervención recibe la siguiente información: -----MAYDAY, MAYDAY, MAYDAY, E1 desorientado. Señale, como Jefe de Dotación,  cual sería  su  respuesta  ante esta SDEM.
+A) Desde una localización próxima al área de riesgo: • Contestar inmediatamente a la llamada de auxilio. • Informar de la SDEM al resto de equipos. • Mantenimiento de las posiciones operativas y cesar comunicaciones no esenciales. • Informar de la situación a la central de comunicaciones y establecer canal prioritario. • Controlar el proceso de rescate y alertar a servicios sanitarios.
+B) Desde una localización próxima al área de riesgo: • Contestar inmediatamente a la llamada de auxilio. • Informar de la SDEM al resto de equipos. • Mantenimiento de las posiciones operativas y cesar comunicaciones no esenciales. • Informar de la situación a la central de comunicaciones. • Alertar a servicios sanitarios.
+C) Desde una localización exterior al área de riesgo: • Contestar inmediatamente a la llamada de auxilio. • Informar de la SDEM al resto de equipos. • Mantenimiento de las posiciones operativas y cesar comunicaciones no esenciales. • Establecer E2 como equipo SOS. • Informar de la situación al Jefe de Sector. • Controlar el proceso de rescate y alertar a servicios sanitarios.
+**OFI22-P07 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+## Supuesto 4 - Intervención RBQ / MMPP Cisterna Volcada
+Se recibe aviso en la Central de Comunicaciones indicando que se ha producido un accidente grave por vuelco de un camión en la M-40 exterior, a la altura de la conexión de la A -4. El Camión implicado es una cisterna, y el propio conductor ha informado que hay derrame y que los números de panel naranja son 63 y 1603. S e activa como primer tren de ataque la bomba y tanque del Parque 8º, bomba del Parque 10º, RBQ del Parque 9º, SR09 y J02 De camino, la Central informa que el producto es Bromoacetato de Etilo, producto tóxico e inflamable, de poca volatilidad  y que desde la Jefatura de Guardia indica que la primera dotación puede cubrir el derrame con espuma. A la llegada de los primeros medios (la Bomba y Tanque del Parque 8º), se encuentran con la siguiente situación: Existe derrame de producto por una de las bocas de hombre de la cisterna.
+
+**ID: OFI22-P08 | Tipo: práctica | Bloque: Intervención RBQ / MMPP Cisterna Volcada**
+Siguiendo las instrucciones de la Jefatura de Guardia, de cubrir el derrame de producto con espuma, como Jefe de Dotación das la orden de utilizar el Tanque. Como Mando hay que prever que la fuga pudiera incendiarse ¿Cuánto  tiempo aproximado se podría mant ener el tanque arrojando espuma con la lanza monitora, si la dosificación la ponemos al 3%, tenemos el vehículo conectado a un hidrante y el caudal que ordenamos es de 1200 l/min. ? (solo se dispone del espumógeno del depósito del vehículo) (Tanque de 6500 l de renting)
+A) 5 minutos
+B) 8 minutos
+C) 14 minutos
+**OFI22-P08 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-P09 | Tipo: práctica | Bloque: Intervención RBQ / MMPP Cisterna Volcada**
+El conductor de la cabina está ileso, pero no puede salir. Tras el reconocimiento y valoración de las condiciones del rescate, que acción determinarías realizar:
+A) Envío un equipo de dos bomberos equipados con Nivel I para realizar el rescate mediante extracción rápida de la cabina.
+B) Como está ileso, es preferible esperar al vehículo RBQ y realizar el rescate con personal equipado con Nivel II y realizar posteriormente la descontaminación.
+C) Como está ileso, es preferible esperar al vehículo RBQ para hacer el rescate equipados con Nivel III y realizar posteriormente la descontaminación.
+**OFI22-P09 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+## Supuesto 5 - Accidente de Tráfico con Atrapados y Asistencia Sanitaria
+PREGUNTAS), SOPORTE VITAL BÁSICO Y MANIOBRAS SANITARIAS (1 PREGUNTA). Se produce activación del vehículo de Emergencias de su parque, al parecer por accidente de tráfico con atrapados. A la llegada al lugar de la intervención y desde el vehículo, observa el siguiente escenario: • Vehículo volcado sobre su techo con ligero aplastamiento y dos personas atrapadas en el interior. • Vía de sentido único con dos carriles de circulación. • Accidente en carril derecho. Sin presencia de la ATGC ni servicios sanitarios.
+
+**ID: OFI22-P10 | Tipo: práctica | Bloque: Accidente de Tráfico con Atrapados y Asistencia Sanitaria**
+Ante este escenario, sus misiones iniciales como mando de la intervención serán:
+A) Priorizar la seguridad del personal interviniente y del accidentado, asegurando, identificando y señalizando la zona del accide nte en evitación de otros, destinando personal para la regulación del tráfico. Adoptar las medidas preventivas de seguridad con respecto al emplazamiento del vehículo, señalizar la zona y proceder al reconocimiento del escenario, realizar control de riesgo s, estabilización y abordaje. Comunicar al resto de recursos movilizados la información inicial del escenario.
+B) Destinar personal para la regulación del tráfico y una vez asegurado el lugar proceder a la valoración inicial de riesgos y recogida de datos para información a los demás intervinientes. Facilitar datos de las victimas a la central de comunicaciones confirmando su nivel de atrapamiento.
+C) Ambas respuestas son correctas.
+**OFI22-P10 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-P11 | Tipo: práctica | Bloque: Accidente de Tráfico con Atrapados y Asistencia Sanitaria**
+Siguiendo el Plan de Intervención para accidentes con vehículos ligeros con atrapados (PISE VLA 006), la asignación de tareas  que corresponde inicialmente al equipo 1…:
+A) Equipo 1. Tareas inicialmente: • Zonificación del accidente. • Neutralizar derrames. • Abordaje. • Acopio herramientas de SyC. • Búsqueda y/o acceso Inicial.
+B) Equipo 1. Tareas inicialmente: • Zonificación del accidente. • Neutralizar derrames. • Prevención incendios. • Estabilización Inicial. • Búsqueda y/o acceso Inicial.
+C) Equipo 1. Tareas inicialmente: • Zonificación del accidente. • Neutralizar derrames. • Prevención incendios. • Despliegue de material extinción • apropiado • Atención a la víctima.
+**OFI22-P11 - B.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción B).
+
+**ID: OFI22-P12 | Tipo: práctica | Bloque: Accidente de Tráfico con Atrapados y Asistencia Sanitaria**
+12-Una vez ubicado el vehículo, realiza la fase de reconocimiento, comprobando que la deformación que ha sufrido el vehículo impide la apertura de las puertas de acceso, y que en su interior, sus ocupantes se encuentran conscientes pero desorientados. Además, una serie de restos del vehículo permanecen dispersos en las inmediaciones, así como un pequeño derrame de combustible mezclado con aceite. Con la información recogida en esta fase de reconocimiento, elija de entre las siguientes opciones el Plan de excarcelación correcto , habiendo ordenado a su dotación la maniobra de abatimiento de techo con herramientas hidráulicas:
+A) Plan A seguro, creando los máximos huecos interiores y exteriores posibles, manteniendo alineado en todo momento el eje cabeza - cuello-tronco. Estabilización del vehículo, retirada del portón trasero y abatimiento de los asientos con retirada de reposacabezas. Colocación de puntales en la parte posterior. Corte del pilar B en su parte inferior y el marco de la puerta. Corte de alivio en techo delante del pilar C. Retirada controlada de calzos y abatimiento de techo. Colocación de protectores de cantos previo a la extracción.
+B) B. Plan A seguro, creando los máximos huecos interiores y exteriores posibles, manteniendo alineado en todo momento el eje cabeza-cuello-tronco. Estabilización del vehículo, corte de alivio en la base del pilar B y del marco de la ventana trasera. Apertura del lateral con herramientas hidráulicas, corte del pilar B en la parte superior y del marco de la ventana delantera. Corte del tope de apertura de puerta y colocación de protectores de canto.
+C) Plan A seguro, creando los máximos huecos interiores y exteriores posibles, manteniendo alineado en todo momento el eje cabeza - cuello-tronco. Estabilización del vehículo, retirada del portón trasero y abatimiento de los asientos con retirada de reposacabezas. Colocación de puntales en la parte posterior. Corte del pilar C en su parte superior y el marco de la puerta. Corte de alivio en techo delante del pilar B. Retirada controlada de calzos y abatimiento de techo. Colocación de protectores de cantos.
+**OFI22-P12 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-P13 | Tipo: práctica | Bloque: Accidente de Tráfico con Atrapados y Asistencia Sanitaria**
+Una de las personas que se ha rescatado del vehículo es una mujer embarazada, aparentemente sin daños . Como no han llegado los servicios sanitarios, que indicación debes dar a tu dotación en relación con la colocación de la víctima hasta que sea atendida…
+A) La víctima será colocada en decúbito lateral izquierdo para maximizar el retorno venoso.
+B) La víctima será colocada en decúbito supino para maximizar el retorno venoso.
+C) La víctima será colocada en decúbito lateral derecho para maximizar el retorno venoso.
+**OFI22-P13 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
+
+## Supuesto 6 - Tentativa de Suicidio y Rescate en Altura
+EN TENTATIVA DE SUICIDIO (1 PREGUNTA). Se reciben varios avisos en la Central de Comunicaciones informando que hay una persona que amenaza tirarse en un voladizo bajo la azotea de un edificio de 10 plantas.  Se activa el tren de ataque habitual para este tipo de intervenciones, procedente del parque 2º, además del Jefe Sector. A la llegada de los vehículos del parque 2º, en el lugar se encuentra Policía Municipal y Nacional, y hay numerosos espectadores en la  calle. Hay una persona asomada a un voladizo bajo la azotea , que se mueve de manera errática a lo largo de este. En el lugar se presenta una mujer quien dice ser su novia. La dotación sube a la azotea, desde la que se observa que la persona está sobre un voladizo de unos 20m de largo por 1,5 m de ancho. La diferencia de altura desde la azotea al voladizo es de unos 2,5 m y el acceso se puede realizar través de unas escaleras de pates situadas en un extremo del voladizo. Esta escalera es el único punto en el que se podría montar una cabecera de instalación.
+
+**ID: OFI22-P14 | Tipo: práctica | Bloque: Tentativa de Suicidio y Rescate en Altura**
+Como Mando, es importante seguir las pautas de trabajo definidas en el Procedimiento de Intervención de Tratamiento de víctimas en tentativas de suicidio, que en el supuesto descrito serian entre otras:
+A) Definir las acciones para: • Interrogar a la mujer sobre datos de la persona en riesgo: Nombre, lugar y estado de ánimo, datos biográficos: Edad, estado civil, hijos, trabajo…, estado violento, está solo o acompañado, episodios depresivos, hipótesis sobre la motivación, antecedentes: Problemas de pareja, económicos, despidos, discusiones previas…. • Estos datos se transmitirán a los Bomberos que ejerzan de interlocutores con la víctima • Los bomberos se acercarán con los brazos en alto y de forma consentida • Le harán ver que su intención de no reducirle. • Evitaran criticar su actitud. • Buscarán que la víctima posponga su decisión. “El suicidio puede ser una solución, pero hoy no”. • Estarán atentos a que se aparta del peligro, que pueden ser síntoma de resolución eficaz.
+B) Definir las acciones para: • Interrogar a la mujer sobre datos de la persona en riesgo: Nombre, lugar y estado de ánimo, datos biográficos: Edad, estado civil, hijos, trabajo…, estado violento, está solo o acompañado, episodios depresivos, hipótesis sobre la motivación, antecedentes: Problemas de pareja, económicos, despidos, discusiones previas…. • Estos datos se transmitirán al Bombero que ejerza de interlocutor con la víctima • Este bombero se acercará con los brazos en alto y de forma consentida • Le haremos ver que nuestra intención no es reducirle. • Evitaremos discutir sobre sus razones o motivaciones. • Evitar engañar o prometer cosas que no se pueden cumplir ya que inhabilitaría la comunicación en posibles recaídas. • Da muestras de fatiga, que pueden ser síntoma de desenlace fatal.
+C) Definir las acciones para: • Interrogar a la mujer sobre datos de la persona en riesgo: Nombre, lugar y estado de ánimo, datos biográficos: Edad, estado civil, hijos, trabajo…, estado violento, está solo o acompañado, episodios depresivos, hipótesis sobre la motivación, antecedentes: Problemas de pareja, económicos, despidos, discusiones previas…. • Estos datos se transmitirán al Bombero que ejerza de interlocutor con la víctima • Este bombero se acercará con los brazos en alto y de forma consentida • Le haremos ver que nuestra intención no es reducirle. • Evitaremos discutir sobre sus razones o motivaciones. • Evitar engañar o prometer cosas que no se pueden cumplir ya que inhabilitaría la comunicación en posibles recaídas. • Estarán atentos a declaraciones afectuosas, que pueden ser síntoma de desenlace fatal.
+**OFI22-P14 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+**ID: OFI22-P15 | Tipo: práctica | Bloque: Tentativa de Suicidio y Rescate en Altura**
+Si decidimos acceder al voladizo …:
+A) Para este tipo de situaciones siempre se deberá ir equipado con los EPIs de  trabajos en altura y rescate vertical . En este c aso es necesario asegurar al bombero interlocutor con un sistema de sujeción cuyos puntos de anclaje se montarán en los herrajes de la escalera de pates.
+B) Para este tipo de situaciones siempre se deberá ir equipado con los EPIs de trabajos en altura y rescate vertical. En este caso es necesario asegurar al bombero interlocutor con un sistema de retención cuyos puntos de anclaje se montarán en los herrajes de la escalera de pates.
+C) Para este tipo de situaciones siempre se deberá ir equipado con los EPIs de trabajos en altura y rescate vertical. En este caso es necesario asegurar al bombero interlocutor con un sistema anticaídas cuyos puntos de anclaje se montarán en los herrajes de la escalera de pates.
+**OFI22-P15 - C.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción C).
+
+## Supuesto 7 - Intervención en Arbolado Urbano
+Se recibe activación de la BUL de su parque por rama de árbol que amenaza caer a la vía pública. Una vez en el lugar, realiza el reconocimiento de la zona de actuación, en el que observa que se están realizando una serie de trabajos en la acera y próximos a la base del árbol consistente en una zanja de aprox. 80 cm de profundidad para la instalación de redes de suministro eléctrico enterrado y que ha afectado a la mitad de sus raíces. Además, se observa la aparición de una rama codominante generando un ángulo de inserción entre las ramas muy agudo y vertical, que se presenta desgajado en la zona de la unión con una grieta claramente visible. El tamaño de la copa, dividido a partes iguales entre la rama principal y codominante, representa aproximadamente 2/3 del tamaño del fuste. La noche anterior ha estado lloviendo de forma débil pero continuada, y no se observa que el árbol haya perdido su verticalidad. Próximo a la copa d el árbol, se observa un tendido eléctrico de cable trenzado que podría verse afectado por la copa en su movimiento natural de caída.
+
+**ID: OFI22-P16 | Tipo: práctica | Bloque: Intervención en Arbolado Urbano**
+Ante este escenario, y como mando de la intervención, decida de entre las siguientes opciones la actuación correcta:
+A) Tras informar del siniestro a la central de comunicaciones: • Zonificar   la zona de actuación. • Controlar la seguridad, informando a la dotación de los riesgos y de los métodos de protección a utilizar. • Solicitar el corte efectivo del suministro eléctrico a la compañía correspondiente, con enclavamiento y puesta a tierra de la línea afectada. • Solicitar medios aéreos para la tala controlada del árbol, comprobando que no hay obstáculos en la trayectoria de caída. • Solicitar medios de limpieza urgente  para el rápido restablecimiento de la normalidad.
+B) Tras informar del siniestro a la central de comunicaciones: • Zonificar   la zona de actuación. • Controlar la seguridad, informando a la dotación de los riesgos y de los métodos de protección a utilizar. • Solicitar el corte efectivo del suministro eléctrico a la compañía correspondiente, con enclavamiento y puesta a tierra de la línea afectada. • Solicitar medios aéreos para la retirada controlada de la rama de árbol afectada, descartando el talado del árbol. • Solicitar medios de limpieza urgente para el rápido restablecimiento de la normalidad.
+C) Tras informar del siniestro a la central de comunicaciones: • Zonificar   la zona de actuación. • Controlar la seguridad, informando a la dotación de los riesgos y de los métodos de protección a utilizar. • Solicitar el corte efectivo del suministro eléctrico a la compañía correspondiente. • Solicitar medios aéreos para la retirada controlada de la rama del árbol afectada y la poda de la parte restante del árbol, descartando la tala al no verse comprometida la estabilidad del árbol como consecuencia de los trabajos de zanjeo. • Comprobar que no existen obstáculos en la trayectoria de caída. • Solicitar medios de limpieza urgente para el rápido restablecimiento de la normalidad.
+**OFI22-P16 - A.** Justificación: Plantilla oficial Ayuntamiento de Madrid 2022 (Opción A).
