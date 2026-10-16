@@ -91,17 +91,19 @@ def cargar_memoria_usuario(user):
     nombre_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
     fallos_file = f"fallos_{nombre_seguro}.json"
     
-    fallos_locales = []
+    fallos_usuario = []
     if os.path.exists(fallos_file):
         try:
             with open(fallos_file, "r", encoding="utf-8") as f:
-                fallos_locales = json.load(f)
+                fallos_usuario = json.load(f)
         except:
-            fallos_locales = []
+            fallos_usuario = []
 
     historial_usuario = []
     stats_temas = {}
+    fallos_nube = None
 
+    # Leer de Google Sheets a través del Web App
     if GSHEETS_URL and "script.google.com" in GSHEETS_URL:
         try:
             resp = requests.get(GSHEETS_URL, timeout=8)
@@ -120,8 +122,15 @@ def cargar_memoria_usuario(user):
                             })
                             if len(row) > 7 and str(row[7]).startswith("{"):
                                 try:
-                                    s_dict = json.loads(str(row[7]))
-                                    for t_k, t_v in s_dict.items():
+                                    s_data = json.loads(str(row[7]))
+                                    if "temas" in s_data or "fallos" in s_data:
+                                        t_dict = s_data.get("temas", {})
+                                        if "fallos" in s_data and isinstance(s_data["fallos"], list):
+                                            fallos_nube = s_data["fallos"]
+                                    else:
+                                        t_dict = s_data
+                                        
+                                    for t_k, t_v in t_dict.items():
                                         if t_k not in stats_temas:
                                             stats_temas[t_k] = {"aciertos": 0, "errores": 0}
                                         stats_temas[t_k]["aciertos"] += t_v.get("aciertos", 0)
@@ -131,6 +140,12 @@ def cargar_memoria_usuario(user):
         except Exception:
             pass
 
+    if fallos_nube is not None:
+        # Combinar los de la nube con los locales garantizando que nada se pierde
+        conjunto = list(dict.fromkeys(fallos_nube + fallos_usuario))
+        fallos_usuario = conjunto
+
+    # Backup local si la nube no respondió
     local_hist_file = f"historial_{nombre_seguro}.json"
     if not historial_usuario and os.path.exists(local_hist_file):
         try:
@@ -143,16 +158,18 @@ def cargar_memoria_usuario(user):
 
     return {
         "historial": historial_usuario,
-        "fallos": fallos_locales,
+        "fallos": fallos_usuario,
         "estadisticas_temas": stats_temas
     }
 
 def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
     nombre_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
     
+    # 1. Guardar copia local de fallos
     with open(f"fallos_{nombre_seguro}.json", "w", encoding="utf-8") as f:
         json.dump(lista_fallos, f, ensure_ascii=False, indent=2)
 
+    # 2. Guardar copia local de historial
     data_local = {
         "historial": st.session_state.user_data["historial"], 
         "estadisticas_temas": st.session_state.user_data["estadisticas_temas"]
@@ -160,7 +177,12 @@ def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
     with open(f"historial_{nombre_seguro}.json", "w", encoding="utf-8") as f:
         json.dump(data_local, f, ensure_ascii=False, indent=2)
 
+    # 3. Enviar a Google Sheets (guardando estadísticas Y la lista de fallos acumulada)
     if GSHEETS_URL and "script.google.com" in GSHEETS_URL:
+        paquete_datos = {
+            "temas": nuevos_stats_examen,
+            "fallos": list(dict.fromkeys(lista_fallos))
+        }
         payload = {
             "Fecha": reg_hist["fecha"],
             "Usuario": user,
@@ -169,7 +191,7 @@ def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
             "Nota_Final": reg_hist["nota"],
             "Nota_Teorica": reg_hist.get("nota_t", 0.0),
             "Nota_Practica": reg_hist.get("nota_p", 0.0),
-            "Stats_JSON": json.dumps(nuevos_stats_examen)
+            "Stats_JSON": json.dumps(paquete_datos)
         }
         try:
             resp = requests.post(GSHEETS_URL, json=payload, timeout=8)
@@ -329,18 +351,22 @@ def parsear_archivo(ruta_archivo, origen_nombre):
     return preguntas_teo, supuestos_pra, todas_planas
 
 @st.cache_data
-def cargar_todos_los_datos_v3():
+def cargar_todos_los_datos_v4():
     f_claude = "banco_unificado.txt" if os.path.exists("banco_unificado.txt") else ("banco_claude.txt" if os.path.exists("banco_claude.txt") else None)
     f_gemini = "banco_gemini.txt" if os.path.exists("banco_gemini.txt") else None
+    f_ofi22 = "examen_2022.txt" if os.path.exists("examen_2022.txt") else None
 
     teo_c, pra_c, tod_c = parsear_archivo(f_claude, "Claude") if f_claude else ([], [], [])
     teo_g, pra_g, tod_g = parsear_archivo(f_gemini, "Gemini") if f_gemini else ([], [], [])
+    teo_o, pra_o, tod_o = parsear_archivo(f_ofi22, "Oficial 2022") if f_ofi22 else ([], [], [])
 
     return {
         "claude": {"teo": teo_c, "pra": pra_c, "todas": tod_c},
         "gemini": {"teo": teo_g, "pra": pra_g, "todas": tod_g},
+        "ofi2022": {"teo": teo_o, "pra": pra_o, "todas": tod_o},
         "tiene_claude": len(teo_c) > 0,
-        "tiene_gemini": len(teo_g) > 0
+        "tiene_gemini": len(teo_g) > 0,
+        "tiene_ofi2022": len(teo_o) > 0
     }
 
 def get_supuesto_category(sup):
@@ -355,9 +381,10 @@ def get_supuesto_category(sup):
     if 'incendio' in bloques_texto: return 'Incendios' 
     return 'Otros'
 
-datos_cargados = cargar_todos_los_datos_v3()
+datos_cargados = cargar_todos_los_datos_v4()
 banco_claude = datos_cargados["claude"]
 banco_gemini = datos_cargados["gemini"]
+banco_ofi22 = datos_cargados["ofi2022"]
 
 # ==========================================
 # 🎯 4. LÓGICA DE EXAMEN Y SIMULACRO REGLADO
@@ -365,7 +392,17 @@ banco_gemini = datos_cargados["gemini"]
 CUPO_TEORICO = {1:1, 2:1, 3:2, 4:4, 5:4, 6:3, 7:3, 8:3, 9:2, 10:1, 11:2, 12:2, 13:3, 14:2, 15:3, 16:2, 17:2, 18:2, 19:6, 20:2}
 CATEGORIAS_PRA = ['Incendios', 'rasante', 'EGA', 'Tráfico', 'Altura+Suicidio', 'RBQ', 'Arbolado']
 
-def generar_examen(modo, origen_teo, temas_sel, bloque_pra_sel, num_preg, uso_acumulado):
+def generar_examen(modo, origen_teo, temas_sel, bloque_pra_sel, num_preg, uso_acumulado, tipo_ofi_sel=""):
+    if modo == "Examen Oficial 2022":
+        banco_o = datos_cargados["ofi2022"]
+        if "Completo" in tipo_ofi_sel:
+            return banco_o["teo"], banco_o["pra"]
+        elif "Teórica" in tipo_ofi_sel:
+            return banco_o["teo"], []
+        elif "Práctica" in tipo_ofi_sel:
+            return [], banco_o["pra"]
+        return banco_o["teo"], banco_o["pra"]
+
     if origen_teo == "Claude":
         banco_t = banco_claude["teo"]
     elif origen_teo == "Gemini":
@@ -477,6 +514,7 @@ with st.sidebar:
     st.header("⚙️ Configuración del Test")
     modo = st.radio("Modo de estudio:", [
         "Simulacro Oficial", 
+        "Examen Oficial 2022",
         "Test Teórico por Temas", 
         "Test Práctico por Bloques", 
         "Repaso de Fallos"
@@ -494,6 +532,14 @@ with st.sidebar:
         tipo_sim_sel = st.selectbox("Selecciona origen teórico del simulacro:", opciones_banco)
         origen_teo = "Gemini" if "Gemini" in tipo_sim_sel else "Claude"
         st.info("📋 **Estructura oficial:** 50 teóricas con distribución reglada + 16 prácticas en 105 minutos.")
+
+    elif modo == "Examen Oficial 2022":
+        tipo_ofi_sel = st.selectbox("Modalidad del Examen 2022:", [
+            "Examen Completo (50 Teóricas + 16 Prácticas)",
+            "Solo Parte Teórica (50 Preguntas)",
+            "Solo Parte Práctica (7 Supuestos / 16 Preguntas)"
+        ])
+        st.info("🏛️ Examen real de la convocatoria de 18 plazas de Sargento del Ayuntamiento de Madrid.")
 
     elif modo == "Test Teórico por Temas":
         opciones_fuente = ["Claude"]
@@ -529,7 +575,7 @@ with st.sidebar:
         if modo == "Repaso de Fallos" and num_preg == 0:
             st.error("¡No tienes preguntas falladas guardadas! Enhorabuena.")
         else:
-            teo, pra = generar_examen(modo, origen_teo, temas_sel, bloque_pra_sel, num_preg, st.session_state.uso_acumulado)
+            teo, pra = generar_examen(modo, origen_teo, temas_sel, bloque_pra_sel, num_preg, st.session_state.uso_acumulado, locals().get("tipo_ofi_sel", ""))
             if not teo and not pra:
                 st.error("No se han encontrado preguntas con los filtros seleccionados.")
             else:
@@ -549,7 +595,7 @@ with st.sidebar:
         with st.expander(f"📈 Notas de {usuario_actual}"):
             for h in reversed(st.session_state.user_data['historial'][-8:]):
                 detalle = f" — *{h.get('detalles', '')}*" if h.get('detalles') else ""
-                st.markdown(f"**{h['fecha']}** — {h['modo']}{detalle}\n\nNota: **{h['nota']} / 10**")
+                st.markdown(f"**{h['fecha']}** — {h['modo']}{detalle}\n\n\n\nNota: **{h['nota']} / 10**")
 
     # --- RADAR DE TEMAS (DÓNDE VAS MEJOR / PEOR) ---
     if st.session_state.user_data.get('estadisticas_temas'):
@@ -571,6 +617,7 @@ if st.session_state.examen is None:
     st.markdown("""
     Configura tu sesión en el panel lateral:
     - **Simulacro Oficial**: 50 preguntas teóricas con cupo exacto por temas + 16 preguntas prácticas.
+    - **Examen Oficial 2022**: Examen oficial real con modalidades completa, solo teoría o solo práctica.
     - **Test Teórico por Temas**: Selecciona los temas por su nombre y elige entre banco Claude o Gemini.
     - **Test Práctico por Bloques**: Entrena supuestos de Incendios, Bajo Rasante, EGA, Tráfico o RBQ.
     - **Repaso de Fallos**: Repasa tus preguntas falladas de forma independiente a tus compañeros.
@@ -580,7 +627,7 @@ if st.session_state.examen is None:
 
 # Temporizador
 if not st.session_state.corregido:
-    minutos_totales = 105 if st.session_state.modo_actual == "Simulacro Oficial" else (int(len(st.session_state.examen['teo']) * 1.5) if st.session_state.examen['teo'] else 30)
+    minutos_totales = 105 if st.session_state.modo_actual in ["Simulacro Oficial", "Examen Oficial 2022"] else (int(len(st.session_state.examen['teo']) * 1.5) if st.session_state.examen['teo'] else 30)
     timer_html = f"""
     <div style="font-family: sans-serif; background-color: #262730; color: white; padding: 12px; border-radius: 8px; border-left: 5px solid #ff4b4b; text-align: center; margin-bottom: 20px;">
         <h3 style="margin:0; color: #ff4b4b;" id="clock">⏳ Calculando tiempo restante...</h3>
@@ -660,8 +707,7 @@ if not st.session_state.corregido:
                 if resp == p['solucion']:
                     aciertos_t += 1
                     st.session_state.user_data['estadisticas_temas'][t_str]['aciertos'] += 1
-                    if p['id'] in st.session_state.user_data['fallos']:
-                        st.session_state.user_data['fallos'].remove(p['id'])
+                    # No eliminamos de la lista de fallos para que siempre se conserven
                 elif resp != "-":
                     errores_t += 1
                     st.session_state.user_data['estadisticas_temas'][t_str]['errores'] += 1
@@ -675,8 +721,7 @@ if not st.session_state.corregido:
                     resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
                     if resp == p['solucion']:
                         aciertos_p += 1
-                        if p['id'] in st.session_state.user_data['fallos']:
-                            st.session_state.user_data['fallos'].remove(p['id'])
+                        # No eliminamos de la lista de fallos para que siempre se conserven
                     elif resp != "-":
                         errores_p += 1
                         if p['id'] not in st.session_state.user_data['fallos']:
@@ -688,9 +733,16 @@ if not st.session_state.corregido:
             nota_t = max(0.0, ((aciertos_t * 1) - (errores_t * 0.20)) / total_t * 10) if total_t > 0 else 0.0
             nota_p = max(0.0, ((aciertos_p * 1) - (errores_p * 0.20)) / total_p * 10) if total_p > 0 else 0.0
 
-            if st.session_state.modo_actual == "Simulacro Oficial":
-                nota_final = round((nota_t + nota_p) / 2, 2)
-                detalles_txt = f"Simulacro {st.session_state.origen_actual}"
+            if st.session_state.modo_actual in ["Simulacro Oficial", "Examen Oficial 2022"]:
+                if total_t > 0 and total_p > 0:
+                    nota_final = round((nota_t + nota_p) / 2, 2)
+                    detalles_txt = f"{st.session_state.modo_actual} Completo"
+                elif total_t > 0:
+                    nota_final = round(nota_t, 2)
+                    detalles_txt = f"{st.session_state.modo_actual} (Teórica)"
+                else:
+                    nota_final = round(nota_p, 2)
+                    detalles_txt = f"{st.session_state.modo_actual} (Práctica)"
             elif total_t > 0:
                 nota_final = round(nota_t, 2)
                 if st.session_state.temas_activos:
@@ -740,7 +792,7 @@ else:
     with col3:
         st.metric("Nota Final Ponderada", f"{hist_rec['nota']} / 10")
 
-    if st.session_state.modo_actual == "Simulacro Oficial":
+    if st.session_state.modo_actual in ["Simulacro Oficial", "Examen Oficial 2022"] and hist_rec.get("nota_t", 0) > 0 and hist_rec.get("nota_p", 0) > 0:
         if hist_rec['nota_t'] >= 5.0 and hist_rec['nota_p'] >= 5.0:
             st.success("🎉 ¡APTO! Has superado el corte del 5,0 tanto en la parte teórica como en la práctica.")
         else:
