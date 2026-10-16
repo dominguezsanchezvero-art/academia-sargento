@@ -103,7 +103,6 @@ def cargar_memoria_usuario(user):
     stats_temas = {}
     fallos_nube = None
 
-    # Leer de Google Sheets a través del Web App
     if GSHEETS_URL and "script.google.com" in GSHEETS_URL:
         try:
             resp = requests.get(GSHEETS_URL, timeout=8)
@@ -141,11 +140,9 @@ def cargar_memoria_usuario(user):
             pass
 
     if fallos_nube is not None:
-        # Combinar los de la nube con los locales garantizando que nada se pierde
         conjunto = list(dict.fromkeys(fallos_nube + fallos_usuario))
         fallos_usuario = conjunto
 
-    # Backup local si la nube no respondió
     local_hist_file = f"historial_{nombre_seguro}.json"
     if not historial_usuario and os.path.exists(local_hist_file):
         try:
@@ -165,11 +162,9 @@ def cargar_memoria_usuario(user):
 def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
     nombre_seguro = user.lower().replace("ñ", "n").replace("á", "a").replace("í", "i")
     
-    # 1. Guardar copia local de fallos
     with open(f"fallos_{nombre_seguro}.json", "w", encoding="utf-8") as f:
         json.dump(lista_fallos, f, ensure_ascii=False, indent=2)
 
-    # 2. Guardar copia local de historial
     data_local = {
         "historial": st.session_state.user_data["historial"], 
         "estadisticas_temas": st.session_state.user_data["estadisticas_temas"]
@@ -177,7 +172,6 @@ def guardar_resultado_examen(user, reg_hist, nuevos_stats_examen, lista_fallos):
     with open(f"historial_{nombre_seguro}.json", "w", encoding="utf-8") as f:
         json.dump(data_local, f, ensure_ascii=False, indent=2)
 
-    # 3. Enviar a Google Sheets (guardando estadísticas Y la lista de fallos acumulada)
     if GSHEETS_URL and "script.google.com" in GSHEETS_URL:
         paquete_datos = {
             "temas": nuevos_stats_examen,
@@ -208,7 +202,7 @@ if "user_data" not in st.session_state or st.session_state.get("current_loaded_u
     st.session_state.current_loaded_user = usuario_actual
 
 # ==========================================
-# 📂 3. CARGA Y PARSEO DE ARCHIVOS (CLAUDE / GEMINI)
+# 📂 3. CARGA Y PARSEO DE ARCHIVOS
 # ==========================================
 def safe_md(text):
     if not text: return ""
@@ -225,18 +219,22 @@ def limpiar_just_texto(txt):
     return res if res else "Conforme al temario oficial."
 
 def parsear_archivo(ruta_archivo, origen_nombre):
-    if not os.path.exists(ruta_archivo):
+    if not ruta_archivo or not os.path.exists(ruta_archivo):
         return [], [], []
 
     with open(ruta_archivo, 'r', encoding='utf-8', errors='ignore') as f:
         text = f.read()
+
+    def limpiar_just(txt):
+        if not txt: return ""
+        return re.sub(r'^(?:\*\*)?\s*[Jj]ustificaci[oó]n\s*:?\s*(?:\*\*)?\s*', '', txt.strip()).strip()
 
     soluciones = {}
     pat_tab = re.compile(r'\|\s*([A-Z0-9.-]+)\s*\|\s*\*\*?([A-C])\*\*?\s*\|([^|\n]+)')
     for m in pat_tab.finditer(text):
         soluciones[m.group(1).strip()] = {
             'respuesta': m.group(2).strip().upper(),
-            'justificacion': limpiar_just_texto(m.group(3))
+            'justificacion': limpiar_just(m.group(3))
         }
 
     current_sol_id = None
@@ -247,7 +245,7 @@ def parsear_archivo(ruta_archivo, origen_nombre):
             current_sol_id = match_sol.group(1).strip()
             soluciones[current_sol_id] = {
                 'respuesta': match_sol.group(2).strip().upper(),
-                'justificacion': limpiar_just_texto(match_sol.group(3))
+                'justificacion': limpiar_just(match_sol.group(3))
             }
         elif current_sol_id:
             stop_markers = [
@@ -258,9 +256,9 @@ def parsear_archivo(ruta_archivo, origen_nombre):
             if any(re.match(marker, l) for marker in stop_markers):
                 current_sol_id = None
             elif l and not l.startswith('|'):
-                linea_limpia = limpiar_just_texto(l)
-                if linea_limpia and linea_limpia != "Conforme al temario oficial.":
-                    if soluciones[current_sol_id]['justificacion'] and soluciones[current_sol_id]['justificacion'] != "Conforme al temario oficial.":
+                linea_limpia = limpiar_just(l)
+                if linea_limpia:
+                    if soluciones[current_sol_id]['justificacion']:
                         soluciones[current_sol_id]['justificacion'] += " " + linea_limpia
                     else:
                         soluciones[current_sol_id]['justificacion'] = linea_limpia
@@ -323,7 +321,7 @@ def parsear_archivo(ruta_archivo, origen_nombre):
                     else: enunciado.append(l)
 
             sol_data = soluciones.get(p_id, {'respuesta': 'A', 'justificacion': 'Conforme al temario oficial.'})
-            just_final = limpiar_just_texto(sol_data.get('justificacion', 'Conforme al temario oficial.'))
+            just_final = limpiar_just(sol_data.get('justificacion', 'Conforme al temario oficial.'))
 
             q_obj = {
                 'id': p_id, 'tema': tema,
@@ -350,11 +348,27 @@ def parsear_archivo(ruta_archivo, origen_nombre):
 
     return preguntas_teo, supuestos_pra, todas_planas
 
+def buscar_archivo_2022():
+    candidatos = [
+        "examen_2022.txt", "Examen_2022.txt", "examen2022.txt",
+        "examen_2022.txt.txt", "Examen_2022.txt.txt", "examen_2022"
+    ]
+    for c in candidatos:
+        if os.path.exists(c):
+            return c
+    try:
+        for f in os.listdir("."):
+            if "2022" in f.lower() and (f.endswith(".txt") or "." not in f):
+                return f
+    except:
+        pass
+    return None
+
 @st.cache_data
-def cargar_todos_los_datos_v4():
+def cargar_todos_los_datos_v5():
     f_claude = "banco_unificado.txt" if os.path.exists("banco_unificado.txt") else ("banco_claude.txt" if os.path.exists("banco_claude.txt") else None)
     f_gemini = "banco_gemini.txt" if os.path.exists("banco_gemini.txt") else None
-    f_ofi22 = "examen_2022.txt" if os.path.exists("examen_2022.txt") else None
+    f_ofi22 = buscar_archivo_2022()
 
     teo_c, pra_c, tod_c = parsear_archivo(f_claude, "Claude") if f_claude else ([], [], [])
     teo_g, pra_g, tod_g = parsear_archivo(f_gemini, "Gemini") if f_gemini else ([], [], [])
@@ -366,7 +380,8 @@ def cargar_todos_los_datos_v4():
         "ofi2022": {"teo": teo_o, "pra": pra_o, "todas": tod_o},
         "tiene_claude": len(teo_c) > 0,
         "tiene_gemini": len(teo_g) > 0,
-        "tiene_ofi2022": len(teo_o) > 0
+        "tiene_ofi2022": len(teo_o) > 0,
+        "archivo_ofi22_encontrado": f_ofi22
     }
 
 def get_supuesto_category(sup):
@@ -381,13 +396,13 @@ def get_supuesto_category(sup):
     if 'incendio' in bloques_texto: return 'Incendios' 
     return 'Otros'
 
-datos_cargados = cargar_todos_los_datos_v4()
+datos_cargados = cargar_todos_los_datos_v5()
 banco_claude = datos_cargados["claude"]
 banco_gemini = datos_cargados["gemini"]
 banco_ofi22 = datos_cargados["ofi2022"]
 
 # ==========================================
-# 🎯 4. LÓGICA DE EXAMEN Y SIMULACRO REGLADO
+# 🎯 4. LÓGICA DE EXAMEN
 # ==========================================
 CUPO_TEORICO = {1:1, 2:1, 3:2, 4:4, 5:4, 6:3, 7:3, 8:3, 9:2, 10:1, 11:2, 12:2, 13:3, 14:2, 15:3, 16:2, 17:2, 18:2, 19:6, 20:2}
 CATEGORIAS_PRA = ['Incendios', 'rasante', 'EGA', 'Tráfico', 'Altura+Suicidio', 'RBQ', 'Arbolado']
@@ -539,7 +554,11 @@ with st.sidebar:
             "Solo Parte Teórica (50 Preguntas)",
             "Solo Parte Práctica (7 Supuestos / 16 Preguntas)"
         ])
-        st.info("🏛️ Examen real de la convocatoria de 18 plazas de Sargento del Ayuntamiento de Madrid.")
+        if not datos_cargados["tiene_ofi2022"]:
+            archivos_carpeta = [f for f in os.listdir(".") if not f.startswith(".")]
+            st.error(f"❌ No se encuentra el archivo 'examen_2022.txt' en GitHub.\n\nArchivos detectados en el servidor: {archivos_carpeta}")
+        else:
+            st.info(f"🏛️ Examen real 2022 cargado ({len(datos_cargados['ofi2022']['todas'])} preguntas listas).")
 
     elif modo == "Test Teórico por Temas":
         opciones_fuente = ["Claude"]
@@ -595,7 +614,7 @@ with st.sidebar:
         with st.expander(f"📈 Notas de {usuario_actual}"):
             for h in reversed(st.session_state.user_data['historial'][-8:]):
                 detalle = f" — *{h.get('detalles', '')}*" if h.get('detalles') else ""
-                st.markdown(f"**{h['fecha']}** — {h['modo']}{detalle}\n\n\n\nNota: **{h['nota']} / 10**")
+                st.markdown(f"**{h['fecha']}** — {h['modo']}{detalle}\n\nNota: **{h['nota']} / 10**")
 
     # --- RADAR DE TEMAS (DÓNDE VAS MEJOR / PEOR) ---
     if st.session_state.user_data.get('estadisticas_temas'):
@@ -707,7 +726,6 @@ if not st.session_state.corregido:
                 if resp == p['solucion']:
                     aciertos_t += 1
                     st.session_state.user_data['estadisticas_temas'][t_str]['aciertos'] += 1
-                    # No eliminamos de la lista de fallos para que siempre se conserven
                 elif resp != "-":
                     errores_t += 1
                     st.session_state.user_data['estadisticas_temas'][t_str]['errores'] += 1
@@ -721,7 +739,6 @@ if not st.session_state.corregido:
                     resp = st.session_state.get(f"resp_{p['id']}", "-")[0]
                     if resp == p['solucion']:
                         aciertos_p += 1
-                        # No eliminamos de la lista de fallos para que siempre se conserven
                     elif resp != "-":
                         errores_p += 1
                         if p['id'] not in st.session_state.user_data['fallos']:
@@ -778,7 +795,6 @@ else:
     st.header("📊 Solucionario y Corrección Detallada")
     hist_rec = st.session_state.user_data['historial'][-1]
     
-    # Aviso explícito del estado del guardado en Google Sheets
     if st.session_state.get("guardado_nube_status") is True:
         st.success("☁️ ¡Examen guardado correctamente en tu hoja de Google Sheets!")
     elif GSHEETS_URL:
