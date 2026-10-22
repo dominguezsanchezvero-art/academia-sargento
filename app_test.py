@@ -43,7 +43,7 @@ def formatear_tema(num_tema):
 # ==========================================
 # 👥 1. ACCESO Y CONTROL DE USUARIOS
 # ==========================================
-USUARIOS_VALIDOS = ["Dani", "Emilio", "Iñaki", "Prueba"]
+USUARIOS_VALIDOS = ["Dani", "Emilio", "Iñaki", "Alvaro", "Prueba"]
 PASSWORD_MAESTRA = "sargento2026"
 
 def check_auth():
