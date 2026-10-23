@@ -5002,144 +5002,144 @@ C) La eliminación de riesgos mecánicos causados por el descarrilamiento, el se
 ** T17-040 - B ** Justificación: El apartado de Finalización Intervención indica: "Previo rescate y aseguramiento de la zona se procederá a: Eliminación de riesgos, Posible corte energía eléctrica, Exceso de personal, Anulación de medidas de seguridad, Señalización o precintado".
 
 **ID: T18-001 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-Según el documento de Intervenciones en Arbolado Urbano, ¿cómo debe tramitarse en la aplicación GEMMA la reposición de los EPIs de protección anticorte sucios o rotos?
-A) Pulsando en NUEVO PEDIDO, marcando la pestaña 'PARA VEHÍCULO', e identificando el número municipal o matrícula de la B.U.L. y el parque de destino para su envío a las taquillas de SERVER.
-B) Pulsando en NUEVO PEDIDO, marcando la pestaña 'PARA EL PARQUE', y mandándolos al almacén central exclusivamente a través de las taquillas de lavado de ropa de ITURRI presentes en todos los parques.
-C) Pulsando en REVISIONES REFERENCIADAS, marcando la pestaña 'PARA EL PARQUE', y gestionando su envío mediante el Sargento J.T. a través de las taquillas de limpieza de ropa técnica de ITURRI.
-** T18-001 - B ** Apartado 'Como solicitar el material en el GEMMA'. Los EPI anticorte se piden marcando 'PARA EL PARQUE' a través de taquillas ITURRI.
+Según el Procedimiento de Intervención Conjunta ante Emergencias, ¿cómo se define técnicamente el catálogo de intervenciones críticas?
+A) Será elevado por los Jefes de ambos CCBB para su aprobación por la Comisión mixta de seguimiento, a propuesta de sus respectivos servicios técnicos.
+B) Será elevado por los Jefes de ambos CCBB para su aprobación por el Centro de Coordinación Operativa (CECOP), a propuesta de sus respectivos servicios técnicos.
+C) Será elevado por los Jefes de ambos CCBB para su aprobación por el Centro Integrado de Seguridad y Emergencias (CISEM), a propuesta de sus respectivos servicios técnicos.
+** T18-001 - A ** Apartado 1.b.i del Procedimiento de Intervención Conjunta CAM-Ayto (Intervención crítica).
 
 **ID: T18-002 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-En las intervenciones de arbolado urbano, respecto a la dotación de motosierras que equipan los vehículos del Cuerpo de Bomberos del Ayuntamiento de Madrid:
-A) Tanto la Bomba Urbana Ligera (B.U.L.) como la Auto-escala y el Brazo articulado equipan la motosierra Stihl MS 261 C para unificar la reposición de cadenas a través de la aplicación GEMMA.
-B) La Bomba Urbana Ligera (B.U.L.) equipa la motosierra Stihl MS 261 C, mientras que la Auto-escala y el Brazo articulado equipan la motosierra Stihl MS 193 T CARVING.
-C) La Bomba Urbana Ligera (B.U.L.) equipa la motosierra Stihl MS 193 T CARVING, mientras que la Auto-escala y el Brazo articulado equipan la motosierra Stihl MS 261 C por criterios de accesibilidad.
-** T18-002 - B ** Apartado 'Material relacionado con Arbolado Urbano que equipan la B.U.L. y Escala'.
+Respecto al Procedimiento de Intervención Conjunta, ¿cómo se inicia la primera solicitud de colaboración para el refuerzo de la dotación de uno o varios parques?
+A) Esta primera solicitud de ayuda se iniciará telefónicamente exclusivamente entre los Coordinadores de guardia (J2 y M1) de cada uno de los centros de comunicaciones.
+B) Esta primera solicitud de ayuda se iniciará telefónicamente entre los Jefes de guardia (M0 y J1) de cada uno de los CCBB, articulando luego la comunicación entre los centros.
+C) Esta primera solicitud de ayuda se iniciará telemáticamente a través de un correo electrónico corporativo entre los Jefes de guardia (M0 y J1) de cada uno de los CCBB.
+** T18-002 - B ** Apartado 2.b.i del Procedimiento de Intervención Conjunta CAM-Ayto.
 
 **ID: T18-003 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-Referente al contenido de la saca de material para intervenciones en arbolado urbano que equipan B.U.L. y Auto-escala, se incluye específicamente el siguiente conjunto de elementos:
-A) Cuerda para manipulación de cargas de 12,4 mm / 30 m, mosquetón de aluminio de gran apertura y aro de cinta verde cosida de 60 cm, homologados únicamente para maniobras combinadas de corte.
-B) Cuerda para manipulación de cargas de 12,4 mm / 25 m, mosquetón simétrico de hierro y aro de cinta verde cosida de 65 cm, todos ellos aptos y certificados para operaciones de rescate en altura.
-C) Cuerda para manipulación de cargas de 12,4 mm / 25 m, mosquetón simétrico de hierro y aro de cinta verde cosida de 65 cm, destacando que ninguno de ellos es apto para rescate en altura.
-** T18-003 - C ** Apartado 'Contenido de la saca...'. Puntos 8, 9 y 10, donde se especifica claramente NO APTO PARA RESCATE EN ALTURA.
+Según las estipulaciones sobre el Mando Único Responsable (MUR) en siniestros que afecten a los ámbitos territoriales de ambos Cuerpos de Bomberos:
+A) En tanto no sea acordada su designación, la dirección, control y mando recaerá en el responsable del CCBB con mayor rango de oficialidad presente en la intervención.
+B) En tanto no sea acordada su designación, la dirección, control y mando recaerá en el responsable del Centro Integrado de Seguridad y Emergencias (CISEM) de forma remota.
+C) En tanto no sea acordada su designación, la dirección, control y mando recaerá en el responsable cuyos recursos antes hayan llegado al incendio.
+** T18-003 - C ** Apartado 3.b.iii del Procedimiento de Intervención Conjunta CAM-Ayto.
 
 **ID: T18-004 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-Según las Recomendaciones al Transporte de Mercancías Peligrosas de la ONU (ADR-2005), ¿cómo se define y clasifica a las materias que al contacto con el agua desprenden gases inflamables?
-A) Pertenecen a la Clase 4.1 junto con las materias sólidas inflamables, materias autorreactivas y explosivas desensibilizadas sólidas, pudiendo formar mezclas explosivas de vapor y aire.
-B) Pertenecen a la Clase 4.3 y se definen como sustancias que, por reacción con el agua, desprenden gases inflamables que pueden formar mezclas explosivas con el aire fácilmente inflamables.
-C) Pertenecen a la Clase 4.2 junto con las materias que pueden experimentar inflamación espontánea debido a una oxidación interna o en contacto prolongado con el oxígeno del aire.
-** T18-004 - B ** Apartado 'Clase 4'. Clase 4.3 Materias que al contacto con el agua desprenden gases inflamables.
+En el Procedimiento de Activación en zonas limítrofes, si el primer servicio en llegar no es el competente para actuar en ese término municipal, ¿qué deberá prever respecto al tren de ataque?
+A) Deberá ocupar toda la vía pública para iniciar las operaciones rápidamente, obligando al servicio competente a emplazar su tren de ataque en las calles adyacentes o paralelas.
+B) Deberá dejar espacio en la vía pública para el emplazamiento del tren de ataque del servicio competente, siempre que sea posible, previendo un relevo del mando en los primeros minutos.
+C) Deberá dejar espacio en la vía pública para el emplazamiento del tren de ataque de SAMUR, derivando los vehículos del servicio competente a las zonas de espera o área fría.
+** T18-004 - B ** Apartado 2.3 del Procedimiento en Zonas Limítrofes (Llegada a la intervención y acuerdo de actuación).
 
 **ID: T18-005 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-En el código europeo o panel naranja utilizado para la señalización de transportes de MMPP por carretera o ferrocarril, la presencia de la letra 'X' precediendo al número de identificación de peligro indica:
-A) La prohibición relativa de usar agentes extintores en polvo, permitiéndose exclusivamente el uso de espumas antialcohol debido a que la materia reacciona de manera exotérmica.
-B) La intensificación del peligro principal indicado en la primera cifra, advirtiendo de un riesgo inminente de explosión por polimerización o descomposición espontánea.
-C) La prohibición absoluta de echar agua sobre el producto, advirtiendo que la materia reacciona peligrosamente con el agua y que esta solo puede utilizarse con la aprobación de expertos.
-** T18-005 - C ** Apartado 'Panel Naranja' sobre el Código Europeo. La letra X indica prohibición absoluta de echar agua.
+En relación a la activación de recursos según el Procedimiento de actuación Bomberos-SAMUR, ¿qué nivel de prioridad establece la cobertura de una ambulancia SAMUR para víctimas confirmadas o actuaciones de elevado riesgo?
+A) Prioridad 1.
+B) Prioridad 2.
+C) Prioridad 3.
+** T18-005 - B ** Apartado A.2 del Procedimiento Bomberos-SAMUR (Prioridad 2: Víctima confirmada ó actuación de bomberos con elevado riesgo).
 
 **ID: T18-006 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-Respecto al Código Hazchem utilizado en el Reino Unido para la acción de emergencia frente a MMPP, ¿qué instrucción transmite el primer dígito si corresponde al número 2?
-A) Indica el uso de agentes secos, especificando la prohibición estricta de poner agua en contacto con el producto siniestrado, exigiendo simultáneamente traje de protección total con ERA.
-B) Indica el uso de chorro sólido, especificándose que se pueden utilizar medios con un número mayor al marcado en el panel, pero que está absolutamente prohibido usar un número inferior.
-C) Indica el uso de niebla, precisando que, en ausencia de equipo de niebla, se puede utilizar agua pulverizada, y autorizando el uso de medios de extinción con un número mayor (como espuma).
-** T18-006 - C ** Apartado 'Código Hazchem'. El 2 significa NIEBLA (o agua pulverizada) y se pueden usar medios con un número mayor pero no inferior.
+De acuerdo al Procedimiento Operativo Bomberos-SAMUR, si un equipo sanitario fuese requerido dentro de la zona de intervención delimitada por el primer cordón de seguridad:
+A) Lo hará siempre acompañado de un bombero y con el mismo nivel de protección que los bomberos intervinientes, asegurándose éstos de su cumplimiento y seguridad.
+B) Lo hará siempre de forma autónoma bajo la supervisión remota del mando de Bomberos, utilizando exclusivamente su EPI sanitario de alta visibilidad para ser localizables.
+C) Lo hará siempre acompañado de agentes de la Policía Municipal y con el mismo nivel de protección respiratoria que los bomberos intervinientes, asegurando la zona policialmente.
+** T18-006 - A ** Apartado B.4 del Procedimiento Operativo Bomberos-SAMUR.
 
 **ID: T18-007 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-Según el sistema de identificación del diamante de peligro del Código NFPA, el número 4 ubicado en el cuadro derecho de color amarillo advierte a los equipos de emergencia que:
-A) El producto químico es extremadamente inflamable, entra en ignición a temperaturas normales y requiere el uso intensivo de monitores detrás de barreras para su correcta mitigación.
-B) El producto resulta demasiado peligroso por riesgo de penetración de vapor o líquido a través de la piel, haciendo imprescindible el uso de vestimentas protectoras totalmente herméticas.
-C) El material puede detonar y, en consecuencia, se debe proceder a la evacuación inmediata de la zona si los materiales se encuentran expuestos directamente a la acción del fuego.
-** T18-007 - C ** Apartado 'Código NFPA'. El amarillo (reactividad) nivel 4 indica 'Puede detonar. Evacue la zona si los materiales están expuestos al fuego'.
+Según el protocolo específico para Accidentes de tráfico con personas atrapadas, la fase denominada 'B.4.- LIBERACIÓN' corresponde exclusivamente a:
+A) Realizar las maniobras correspondientes de apertura de huecos por parte de Bomberos para permitir los trabajos diagnósticos de los equipos sanitarios de SAMUR.
+B) Ejecutar las maniobras de extracción coordinada y conjunta de la víctima, desempeñando cada uno sus respectivas funciones bajo las instrucciones del sanitario.
+C) Ejecutar las maniobras de corte y separación necesarias por parte de Bomberos, para proceder a la extracción de la víctima.
+** T18-007 - C ** Apartado Casos Particulares, Procedimiento de liberación, Fase B.4 (Liberación).
 
 **ID: T18-008 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-Atendiendo a los principios de física de la radiactividad descritos en el manual de Riesgo RBQ, las características de las radiaciones beta (β) son:
-A) Son partículas constituidas por masa similar a los electrones, poseen un mayor poder de penetración y menor poder de ionización que las alfa, siendo detenidas por una lámina de aluminio.
-B) Son fotones electromagnéticos muy enérgicos que presentan un poder de ionización relativamente bajo y una gran capacidad de penetración, requiriendo barreras de materiales densos como el plomo.
-C) Son partículas pesadas constituidas por dos protones y dos neutrones, que presentan un alto poder de ionización y una baja capacidad de penetración, no pudiendo atravesar la propia piel.
-** T18-008 - A ** Apartado 'Tipos de Radiaciones'. Radiación beta está constituida por partículas similares a electrones que se detienen con lámina de aluminio o cristal.
+En incidentes con Sustancias Peligrosas (Procedimiento Bomberos-SAMUR), ¿cómo se define estructuralmente la Línea de Descontaminación Sanitaria dentro de la Zona Templada?
+A) Está atendida exclusivamente por Bomberos e incluye la descontaminación de todos los equipos de intervención, la toma de muestras y la recepción en área médica.
+B) Está atendida por un equipo mixto e incluye una zona de triaje, zona de descontaminación de víctimas, zona de entrega a sanitarios y un área médica.
+C) Está atendida exclusivamente por SAMUR e incluye el camilleo desde la zona caliente, el desvestido, la recogida de ropa y el control sanitario de actuantes.
+** T18-008 - B ** Apartado C.2 (Incidentes con Sustancias Peligrosas), descripción de la Línea Descontaminación Sanitaria.
 
 **ID: T18-009 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-En la evaluación y medida de las radiaciones, ¿cómo se define técnicamente la magnitud conocida como 'Dosis efectiva'?
-A) Es la dosis equivalente ponderada, corregida proporcionalmente por la diferente sensibilidad de los distintos órganos y tejidos del cuerpo humano, midiéndose a través de los factores de ponderación.
-B) Es el número exacto de desintegraciones corpusculares producidas en un radionucleido en la unidad de tiempo, indicando la peligrosidad de la fuente activa mediante el Bequerelio (Bq).
-C) Es la cantidad total de energía cedida por la radiación electromagnética a la materia inerte por unidad de masa del cuerpo irradiado, siendo su unidad de medida en el Sistema Internacional el Gray (Gy).
-** T18-009 - A ** Apartado 'Medida de la Radiación'. Dosis efectiva es la dosis equivalente ponderada por la sensibilidad de órganos/tejidos.
+Conforme a la Instrucción de 2019 sobre incidentes de personas con riesgo de suicidio, la competencia de evaluación y tratamiento recae sobre:
+A) Bomberos, que ejercerá el mando de las operaciones tanto en el momento del rescate como en la zona de asistencia sanitaria, considerando a la persona como paciente desde el inicio.
+B) SAMUR, que ejercerá el mando de las operaciones desde el momento en que se establece contacto verbal con la víctima en la zona de intervención hasta su evacuación.
+C) SAMUR, una vez la víctima haya sido rescatada por Bomberos y entregada en la zona de asistencia o facilitada su presencia en la zona de intervención, pasando a tener la condición de paciente.
+** T18-009 - C ** Instrucción Procedimiento Actuación Bomberos-SAMUR ante incidentes con riesgo de suicidio (Pág. 19).
 
 **ID: T18-010 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-En la clasificación de zonas de instalaciones radiactivas, la 'Zona de permanencia limitada' se define y señaliza del siguiente modo:
-A) Es aquella en la que no es improbable recibir dosis superiores a 3/10 de los límites anuales de dosis y se señaliza con un trébol de color verde sobre fondo blanco y bordes radiales.
-B) Es aquella en la que existe el riesgo de recibir una dosis superior a los límites anuales de dosis de manera acumulativa y se señaliza con un trébol de color amarillo sobre fondo blanco.
-C) Es aquella en la que existe el riesgo de recibir en una exposición única dosis superiores a los límites anuales de dosis y se señaliza con un trébol de color rojo sobre fondo completamente blanco.
-** T18-010 - B ** Apartado 'Instalaciones radiactivas'. Zona permanencia limitada: riesgo de recibir dosis superior a los límites anuales, trébol amarillo.
+Según las definiciones del Código PIC, ¿qué exclusión fundamental se aplica a la consideración de 'Incidente Complejo'?
+A) No se incluyen los incidentes que exijan la movilización de recursos distintos de los efectivamente disponibles en el operativo de guardia diario de cada servicio.
+B) No se incluyen los incidentes que precisen una actuación coordinada de los servicios de seguridad y emergencia y la designación de un mando responsable único.
+C) No se incluyen los incidentes que, atendiendo a su tipología o amplitud, afecten severamente a infraestructuras vitales o críticas dentro del término municipal.
+** T18-010 - A ** Apartado 2 del Código PIC (Definición de Incidente Complejo excluye activaciones superiores como PEMAM/PLATERCAM o recursos distintos a los disponibles).
 
 **ID: T18-011 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-En intervenciones en arbolado urbano, respecto al reconocimiento de daños en la zona radicular derivados de excavaciones:
-A) La amputación de raíces debido a obra civil afecta exclusivamente a la vitalidad, ya que el árbol urbano sustituye el equilibrio radicular desarrollando brotaciones epicórmicas de compensación.
-B) Como norma general y aunque hay especies más sensibles, la estabilidad estructural del árbol se ve comprometida permanentemente cuando se daña más del 40% de sus raíces.
-C) Como norma general y aunque hay especies más sensibles, la estabilidad del árbol se ve seriamente comprometida cuando se daña de forma traumática más del 20% de su estructura radicular.
-** T18-011 - B ** Apartado 'Raíces dañadas - Excavaciones'. La estabilidad se ve comprometida cuando se daña más del 40% de sus raíces.
+Respecto al Código PIC, si existen discrepancias entre los servicios actuantes sobre la necesidad de activar este procedimiento, ¿quién dirime finalmente la decisión?
+A) Se dirimirán entre los Jefes de Operaciones en el Puesto de Mando Avanzado, adoptando la decisión por mayoría simple y acatándola el resto de actuantes.
+B) Se dirimirán entre los responsables de la guardia de los servicios, junto con el Gestor de Información del Mando Único (GIMU) de guardia, acatándose por todas las partes.
+C) Se dirimirán entre el Jefe de Siniestro de Bomberos y el Jefe del Dispositivo de Policía Municipal, prevaleciendo en caso de empate el criterio del Gestor Operativo del CISEM.
+** T18-011 - B ** Apartado 4.3 del Código PIC (Activación del procedimiento).
 
 **ID: T18-012 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-De acuerdo al manual de Intervenciones en Arbolado Urbano, el desarrollo de troncos codominantes con 'corteza incluida' presenta un grave peligro porque:
-A) Genera un ángulo de inserción transversal muy obtuso que favorece la acumulación masiva de humedad, propiciando indefectiblemente el avance de la pudrición por ataque de hongos xilófagos.
-B) En estas uniones no se desarrolla madera como elemento de unión sino corteza sin capacidad estructural, la cual actúa de cuña expansiva presionando y facilitando la separación de los troncos.
-C) La presencia perimetral de esta corteza en las uniones epicórmicas consolida en exceso la estructura secundaria del árbol, eliminando su flexibilidad natural ante rachas de viento racheado.
-** T18-012 - B ** Apartado 'Troncos y ramas grandes múltiples (corteza incluida)'. La corteza no tiene resistencia y hace de cuña expansiva.
+En relación con el Órgano de Coordinación Operativo constituido en el Puesto de Mando Avanzado (Código PIC), su composición mínima exige la presencia de:
+A) Jefe de Siniestro de Bomberos, Jefe de Dispositivo sanitario de SAMUR-PC y Jefe de Dispositivo de Policía Municipal, excluyendo estatutariamente a SAMUR Social.
+B) Jefe de Siniestro de Bomberos, Jefe de Dispositivo sanitario de SAMUR-PC, Jefe de Dispositivo de Policía Municipal y Jefe Dispositivo SAMUR SOCIAL.
+C) Jefe de Operaciones del CISEM, Jefe de Dispositivo sanitario de SAMUR-PC, Jefe de Dispositivo de Policía Municipal y Gestor de Información del Mando Único.
+** T18-012 - B ** Apartado 6 del Código PIC (Estructura de Coordinación).
 
 **ID: T18-013 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-En la evaluación visual del árbol, la biomecánica arbórea determina que ante la detección de fisuras o grietas estructurales:
-A) Las grietas verticales en la horquilla carecen de peligro ya que estas zonas, a diferencia de las ramas laterales, desarrollan amplias áreas de defensa natural a la pudrición en su base.
-B) Las grietas verticales profundas sin presencia de madera en descomposición originan habitualmente el fallo estructural pero permiten la aplicación preventiva de resinas cicatrizantes.
-C) Las grietas horizontales con signos de madera descompuesta indican un fallo estructural importante, ya que se desarrollan de manera perpendicular a las fibras de la madera debilitando la estructura.
-** T18-013 - C ** Apartado 'Grietas y fisuras'. Grietas horizontales con madera descompuesta indican fallo estructural porque van perpendicular a las fibras.
+Atendiendo a las normas de zonificación del Código PIC, ¿en qué área específica se deben ubicar los puestos logísticos y tecnológicos de Policía Municipal de apoyo a la intervención?
+A) En el interior de la Zona Caliente, siempre que el responsable del primer servicio presente lo autorice para garantizar el flujo de datos.
+B) En el interior de la Zona Fría, junto al Punto de atención a los medios de comunicación y el Puesto de Atención Social (PAS).
+C) En el interior de la Zona Templada, junto al Puesto de Mando Avanzado y el Puesto Sanitario Avanzado de SAMUR-PROTECCIÓN CIVIL.
+** T18-013 - C ** Apartado 5.2 del Código PIC (Zonificación - Zona Templada).
 
 **ID: T18-014 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-Referente a la relación simbiótica y patológica entre hongos xilófagos y la pudrición en el arbolado urbano:
-A) La pudrición no afecta en ningún caso a la parte estructural de la madera inerte, sino que los hongos xilófagos diezman el sistema radicular disminuyendo la vigorosidad biológica del cambium.
-B) La pudrición estructural genera espontáneamente la presencia de hongos xilófagos, los cuales atacan preferentemente a la parte biológica (albura) por su alta concentración local de oxígeno.
-C) Los hongos xilófagos generan la pudrición atacando a la parte estructural o zona con células muertas del árbol, debido a la gran cantidad de dióxido de carbono y presencia de oxígeno en el duramen.
-** T18-014 - C ** Apartado 'Pudrición'. Hongos generan pudrición atacando parte estructural (células muertas) por gran cantidad de CO2 y presencia de O2 en duramen.
+Bajo las directrices del Código PIC respecto a la evacuación del lugar de intervención, la ejecución material de los desalojos de viviendas y la habilitación de rutas de escape seguras corresponde a:
+A) El Cuerpo de Bomberos, siendo el Jefe de Siniestro el encargado de ejecutar el desalojo en su totalidad hasta la Zona de Agrupamiento.
+B) SAMUR-Protección Civil, al ostentar la competencia sanitaria exclusiva sobre los afectados a lo largo de las rutas de escape desde la Zona Caliente.
+C) Los Cuerpos de Seguridad, y especialmente la Policía Municipal, que son los encargados de ejecutar el desalojo habilitando la ruta de escape.
+** T18-014 - C ** Apartado 5.3 del Código PIC (Evacuación del lugar de intervención).
 
 **ID: T18-015 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-En el marco de los métodos químicos para mitigar intervenciones con materias peligrosas (MMPP), el método de 'Combustión controlada' se utiliza cuando:
-A) El riesgo que pueda producirse por la extinción del incendio es francamente superior al daño producido por el propio fuego, como sucede ante una fuga de gas natural o un incendio de cloruro de vinilo.
-B) Se precisa neutralizar un producto corrosivo, combinando el fuego controlado con una base fuerte para obtener un subproducto ecológicamente inocuo sobre la zona caliente del derrame.
-C) Se intervienen contenedores con peróxidos orgánicos en riesgo inminente de Bleve y se requiere aliviar la presión del sistema venteando y quemando de forma asistida los vapores inflamables.
-** T18-015 - A ** Apartado 'Métodos químicos'. Combustión controlada se considera cuando el riesgo por extinción es superior al del incendio (ej: gas natural, cloruro vinilo).
+Al objeto de cerrar el protocolo del Código PIC, es requisito obligatorio recopilar cierta información en el Informe PIC. ¿Quién es el responsable de centralizar dicha información y remitirla?
+A) El Gestor de Información del Mando Único (GIMU) deberá centralizar los informes parciales y remitirlos al Coordinador General de Seguridad.
+B) El Jefe de Operaciones deberá centralizarla en el Informe PIC (según modelos Anexos II y III) y remitirla al Gestor de Información del Mando Único (GIMU) de guardia.
+C) El responsable de SAMUR Social deberá centralizar todos los partes de afectados y remitirlos al Jefe del Puesto de Mando Avanzado de Bomberos.
+** T18-015 - B ** Apartado 6 del Código PIC (Requisito obligatorio para cerrar el protocolo).
 
 **ID: T18-016 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-Durante la fase de toma de decisiones e identificación de necesidades en intervenciones de arbolado urbano, la activación del servicio SERVER tiene como función principal:
-A) Aportar información técnica especializada sobre el estado del árbol para afrontar la intervención con éxito, contando con un técnico de guardia disponible todos los días las 24 horas.
-B) Gestionar mecánicamente la recogida y traslado urgente de grandes restos vegetales desde la vía pública hacia los vertederos municipales utilizando maquinaria pesada del área de Medio Ambiente.
-C) Asumir el control exclusivo de la seguridad ciudadana y la zonificación perimetral, desplegando un técnico de guardia de SAMUR Protección Civil para la evaluación del efecto diana.
-** T18-016 - A ** Apartado 'Funciones del mando en intervención'. SERVER es un servicio de asesoramiento técnico con guardia 24h para aportar información técnica.
+Según la tabla de criterios orientativos para la activación del PIC (Anexo I), ante un incendio en instalaciones subterráneas con gran repercusión en la actividad cotidiana, los medios mínimos a activar son:
+A) P.M. 3 patrullas; BOMBEROS +5 dotaciones; SAMUR +2 SVA, +3 SVB; SAMUR SOCIAL.
+B) P.M. 2 patrullas; BOMBEROS +3 dotaciones; SAMUR +1 SVA, +2 SVB; SAMUR SOCIAL.
+C) P.M. 3 patrullas; BOMBEROS +6 dotaciones; SAMUR +3 SVA, +3 SVB; SAMUR SOCIAL.
+** T18-016 - A ** Anexo I del Código PIC (Criterios orientativos a tener en cuenta para la activación).
 
 **ID: T18-017 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-De acuerdo a las directrices operativas sobre la tala del árbol en intervenciones de Bomberos, inmediatamente antes de aplicar la maniobra básica de talado (MBE ARB 001) se debe:
-A) Escuadrar el tronco directamente con la cadena acelerada al máximo, evitando retirar las nerviaciones radiculares superficiales de la base del árbol para no provocar una inestabilidad prematura.
-B) Despejar irregularidades hasta la altura de los hombros, eliminar las nerviaciones radiculares dando un primer corte en vertical y escuadrar el tronco para eliminar tensiones y mejorar la visión.
-C) Instalar sistemáticamente un cabestrante en el tercio superior del fuste, con independencia de la configuración de la copa o de la inclinación del terreno, para mitigar totalmente el efecto diana.
-** T18-017 - B ** Apartado 'Tala del árbol'. Se debe despejar irregularidades hasta los hombros, eliminar nerviaciones radiculares con corte vertical y escuadrar.
+Según el flujograma de activación del procedimiento PIC (Anexo IV), si tras ser informadas las salas de los servicios 2 y 3, hay 'duda PIC' y la decisión del acuerdo de los 3 Jefes de Guardia más el GIMU es que 'PROCEDE PIC', ¿cuál es el paso inmediato posterior?
+A) Se establecen el PMA, el Jefe Operativo y los Mandos de los Servicios, asumiendo el mando directo el GIMU.
+B) Se activa el PIC, informando a la Central de Comunicaciones de CISEM que procede a actuar, y se establece el PMA.
+C) Se desactiva temporalmente a la espera de la ratificación del Centro Integrado de Coordinación e Información.
+** T18-017 - B ** Anexo IV del Código PIC (Flujograma). De 'ACUERDO 3 JG + GIMU' -> 'PROCEDE PIC' -> 'SE ACTIVA PIC' e informa a CISEM.
 
 **ID: T18-018 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-En relación con los instrumentos de detección utilizados frente a los riesgos radiológicos, los dosímetros de termoluminiscencia se caracterizan porque:
-A) Son detectores semiconductores calibrados exclusivamente para cuantificar la contaminación interna por ingestión de isótopos emisores alfa durante intervenciones en laboratorios de investigación médica.
-B) Son instrumentos portátiles de lectura directa e instantánea utilizados para medir la tasa de radiación o contaminación radiactiva ambiental basándose en la excitación por ionización de gases nobles.
-C) Son los más utilizados para medir la dosis recibida y acumulada en un período largo de tiempo, normalmente de un mes, por el personal que permanece en zonas de riesgo de irradiación.
-** T18-018 - C ** Apartado 'Equipos de medida de la radiación'. Dosímetros de termoluminiscencia son los más utilizados y leen dosis acumulada (1 mes).
+En el ámbito de las actuaciones conjuntas con SAMUR, si por la trascendencia de la intervención fuese necesario informar a los medios de comunicación:
+A) Esta tarea se centralizará exclusivamente en el Jefe de Guardia de Bomberos, como director de la emergencia.
+B) Esta tarea se realizará por el responsable de cada Servicio, abordando de forma exclusiva los trabajos objeto de su materia de actuación.
+C) Esta tarea se realizará a través del punto de atención a los medios gestionado por la unidad especializada de Policía Municipal.
+** T18-018 - B ** Apartado B.8 del Procedimiento Operativo Bomberos-SAMUR.
 
 **ID: T18-019 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-Según el glosario terminológico del documento Riesgo RBQ, ¿cuál es la definición precisa del término 'Gas inflamable'?
-A) Es cualquier gas o mezcla de gases cuya temperatura crítica de licuación es mayor o igual a -10°C y su límite superior de inflamabilidad supera el 12% por volumen en el aire.
-B) Es cualquier gas o mezcla de gases cuyo límite de inflamabilidad inferior en el aire sea menor al 13%, o que posea un campo de inflamabilidad (límite superior menos inferior) mayor al 12%.
-C) Es aquel fluido gaseoso cuyo TLV (Valor Límite Umbral) es inferior a 50 partes por millón (ppm) y que simultáneamente presenta un rango explosivo superior al 13% mezclado con cualquier comburente.
-** T18-019 - B ** Apartado 'Glosario'. Gas inflamable: LII < 13%, o campo de inflamabilidad > 12%.
+Dentro de las competencias de Policía Municipal recogidas en el Código PIC, para lograr el objetivo de garantizar la seguridad ciudadana deberán:
+A) Efectuar, en su caso, los desalojos que sean necesarios, bien a petición de Bomberos o por cuestiones de estricta seguridad, protegiendo y auxiliando a las personas.
+B) Planificar y ejecutar las operaciones de búsqueda y salvamento dentro de la Zona Templada para no saturar los recursos de Bomberos.
+C) Determinar de forma unilateral la colocación del Puesto Sanitario Avanzado (PSA) para asegurar el flujo de la circulación viaria circundante.
+** T18-019 - A ** Apartado 3.1 del Código PIC (Funciones de la Policía Municipal).
 
 **ID: T18-020 | Tipo: teórica | Bloque: Procedimientos Conjuntos
-Respecto al reconocimiento biomecánico de las brotaciones epicórmicas en el arbolado urbano, la aparición de ramas epicórmicas peligrosas de gran tamaño se caracteriza por:
-A) Nacer sobre tejidos viejos del árbol y conservar durante mucho tiempo una corteza de aspecto claramente más joven que la de su portador, presentando uniones débiles y poco profundas.
-B) Originarse exclusivamente en las yemas apicales dominantes de los troncos codominantes sin corteza incluida, mimetizando el color oscuro y la textura rugosa del duramen expuesto a la intemperie.
-C) Desarrollarse sobre tejidos jóvenes del árbol y consolidar uniones transversales acarteladas muy profundas que adquieren inmediatamente una corteza de aspecto avejentado idéntica a la de su portador.
-** T18-020 - A ** Apartado 'Brotaciones Epicórmicas'. Aparecen sobre tejidos viejos, conservan color joven frente al portador, unión débil/poco profunda.
+De acuerdo con las definiciones recogidas en el Código PIC, el 'Punto de atención a los Medios de Comunicación' debe ubicarse obligatoriamente en:
+A) Un lugar físico distanciado del PMA, siempre dentro de los límites operativos de la zona caliente para garantizar la cobertura gráfica de la emergencia.
+B) Un lugar físico establecido en el interior de la zona templada, siempre en coordinación con SAMUR-PC para no entorpecer el triaje.
+C) Un lugar físico para ubicar a los medios, siempre fuera de la zona templada, distanciado del Puesto de Atención Social (PAS) si lo hubiere y del Puesto Sanitario Avanzado (PSA).
+** T18-020 - C ** Apartado 2 del Código PIC (Definiciones: Punto de atención a los Medios de Comunicación).
 
 **ID: T19-001 | Tipo: teórica | Bloque: PO Sanitario
 Según la teórica de la "curva de Drinker" sobre los tiempos de inicio de las maniobras de reanimación...
